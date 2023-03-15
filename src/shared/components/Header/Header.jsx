@@ -14,7 +14,7 @@ const Header = () => {
       <div className={s.box}>
         <p className={s.name}>{nameFromState}</p>
         <div className={s.stik}></div>
-        <a className={s.exit} href="#">
+        <a className={s.exit} href="https://www.google.com.ua/">
           <img src={exit} width="18" alt="exit" />
           <p>Exit</p>
         </a>
