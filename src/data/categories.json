@@ -1,0 +1,49 @@
+[
+    {
+    "name": "Main expenses",
+    "id": "1"
+},
+
+{
+    "name": "Products",
+    "id": "2"
+},
+
+{
+    "name": "Car",
+    "id": "3"
+},
+
+{
+    "name": "Self care",
+    "id": "4"
+},
+
+{
+    "name": "Child care",
+    "id": "5"
+},
+
+{
+    "name": "Household products",
+    "id": "6"
+},
+{
+    "name": "Education",
+    "id": "7"
+},
+{
+    "name": "Leisure",
+    "id": "8"
+},
+{
+    "name": "Other expenses",
+    "id": "9"
+},
+{
+    "name": "Entertaiment",
+    "id": "10"
+}
+
+
+]
