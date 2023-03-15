@@ -13,7 +13,6 @@ export const App = () => {
         <PersistGate loading={null} persistor={persistor}>
           <BrowserRouter basename="goit_react_project">
             <UserRoutes />
-            <Statistic />
           </BrowserRouter>
         </PersistGate>
       </Provider>
