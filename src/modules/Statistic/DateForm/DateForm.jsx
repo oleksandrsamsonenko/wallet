@@ -1,7 +1,7 @@
-import { Formik, Form, Field } from "formik";
-import months from "./month.json";
-import years from "./years.json";
-import styles from "./date-form.module.scss";
+import { Formik, Form, Field } from 'formik';
+import months from './month.json';
+import years from './years.json';
+import styles from './date-form.module.scss';
 
 const DateForm = () => {
   const monthList = months.map(({ id, value, name }) => (
@@ -16,7 +16,7 @@ const DateForm = () => {
     </option>
   ));
 
-  const handleChange = (e) => {
+  const handleChange = e => {
     const { value } = e.target;
     console.log(value);
   };

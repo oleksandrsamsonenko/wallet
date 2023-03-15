@@ -5,4 +5,8 @@
 @import './mixins/mixins-main';
 @import './container';
 
+g {
+  outline: none;
+}
+
 // Импортировать в каждый файл .scss и использовать
