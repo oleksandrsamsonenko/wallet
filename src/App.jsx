@@ -4,7 +4,6 @@ import { PersistGate } from 'redux-persist/integration/react';
 
 import UserRoutes from 'UserRoutes';
 import { store, persistor } from './redux/store';
-import { TempPage } from 'shared/components/TempPage/TempPage';
 
 import Header from 'shared/components/Header/Header';
 
