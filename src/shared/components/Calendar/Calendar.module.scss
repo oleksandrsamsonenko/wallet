@@ -1,0 +1,14 @@
+@import '../../styles/styles.scss';
+
+.calendar {
+  border-style: none;
+  border-bottom: 2px solid rgba(224, 224, 224, 1);
+  width: calc(100vw - 40px);
+
+  cursor: pointer;
+  @include main-font(400, 18px, 27px);
+}
+
+.wrapper {
+  margin-top: 40px;
+}
