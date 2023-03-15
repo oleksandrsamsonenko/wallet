@@ -6,12 +6,15 @@ import Statistic from 'modules/Statistic/Statistic';
 import UserRoutes from 'UserRoutes';
 import { store, persistor } from './redux/store';
 
+import Header from 'shared/components/Header/Header';
+
 export const App = () => {
   return (
     <>
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
           <BrowserRouter basename="goit_react_project">
+            <Header />
             <UserRoutes />
           </BrowserRouter>
         </PersistGate>
