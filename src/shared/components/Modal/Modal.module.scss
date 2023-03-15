@@ -19,7 +19,8 @@ label {
 
 .modal {
   position: relative;
-  width: 100vw;
+  width: 100%;
+  max-width: 540px;
   padding: 0 20px;
   background-color: #fff;
   display: flex;
@@ -37,6 +38,9 @@ label {
 .header {
   margin-top: 20px;
   @include main-font(400, 24px, 36px);
+  @include media-min(mobile-resp) {
+    @include main-font(400, 30px, 45px);
+  }
 }
 .direction {
   width: 100%;
@@ -75,13 +79,17 @@ label {
   @include media-min(mobile-resp) {
     height: 32px;
   }
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
   &::placeholder {
     color: getColor(primaty-gray);
   }
 }
 
 .add {
-  width: 100%;
+  width: 300px;
   margin-top: 40px;
   @include main-font(400, 18px, 27px);
   height: 50px;
@@ -91,13 +99,13 @@ label {
   border-radius: 20px;
   cursor: pointer;
 
-  @include media-min(mobile-resp) {
-    width: 300px;
-  }
+  // @include media-min(mobile-resp) {
+  //   width: 300px;
+  // }
 }
 
 .cancel {
-  width: 100%;
+  width: 300px;
   margin-bottom: 37px;
   margin-top: 20px;
   @include main-font(400, 18px, 27px);
@@ -108,9 +116,9 @@ label {
   border-radius: 20px;
   cursor: pointer;
 
-  @include media-min(mobile-resp) {
-    width: 300px;
-  }
+  // @include media-min(mobile-resp) {
+  //   width: 300px;
+  // }
 }
 
 .selector {

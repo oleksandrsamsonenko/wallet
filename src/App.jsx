@@ -16,7 +16,6 @@ export const App = () => {
           <BrowserRouter basename="goit_react_project">
             <Header />
             <UserRoutes />
-            <TempPage />
           </BrowserRouter>
         </PersistGate>
       </Provider>
