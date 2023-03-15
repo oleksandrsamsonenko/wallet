@@ -1,0 +1,47 @@
+.currency {
+  width: 393px;
+  height: 330px;
+  padding: 17px 45px;
+
+  font-family: 'Circe';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 27px;
+  color: #ffffff;
+}
+
+.thead {
+}
+
+.td {
+  font-weight: 400;
+  border-spacing: 40px 25px;
+  padding-bottom: 25px;
+  &:not(:last-child) {
+    padding-right: 40px;
+  }
+}
+
+.th {
+  font-weight: 400;
+  padding-bottom: 35px;
+  width: 71px;
+  &:not(:last-child) {
+    padding-right: 40px;
+  }
+}
+
+.table {
+  outline: 2px solid red;
+  outline-offset: -2px;
+
+  margin-left: auto;
+  margin-right: auto;
+  width: 300px;
+  text-align: center;
+}
+
+.tr {
+  width: 71px;
+}

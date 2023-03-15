@@ -1,0 +1,35 @@
+.list {
+  outline: 2px solid red;
+  outline-offset: -2px;
+  width: 130px;
+
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 27px;
+
+  margin-bottom: 30px;
+}
+
+.link:not(:last-child) {
+  margin-bottom: 10px;
+}
+
+.linkWrapper {
+  display: flex;
+  align-items: center;
+
+  :global {
+    .active {
+      font-weight: 700;
+    }
+  }
+}
+
+.img {
+  display: block;
+  width: 24px;
+  height: 24px;
+  margin-right: 20px;
+}
