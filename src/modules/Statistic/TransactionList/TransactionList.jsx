@@ -1,5 +1,5 @@
-import TransactionItem from "./TransactionItem/TransactionItem";
-import styles from "./transaction-list.module.scss";
+import TransactionItem from './TransactionItem/TransactionItem';
+import styles from './transaction-list.module.scss';
 const TransactionList = () => {
   return (
     <div className={styles.list_wrapper}>
@@ -12,7 +12,7 @@ const TransactionList = () => {
           <TransactionItem
             color="orange"
             category="Main expenses"
-            summ="8700"
+            summ="1700"
           />
           <TransactionItem color="pinc" category="Products" summ="3700" />
           <TransactionItem color="red" category="Car" summ="1000" />

@@ -4,5 +4,10 @@
 @import './colors';
 @import './mixins/mixins-main';
 @import './container';
+@import './bacground';
 
-@import './bacground'; // Импортировать в каждый файл .scss и использовать
+g {
+  outline: none;
+}
+
+// Импортировать в каждый файл .scss и использовать
