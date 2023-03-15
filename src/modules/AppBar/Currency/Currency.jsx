@@ -1,12 +1,16 @@
 import styles from './Currency.module.scss';
-import background from '../../assets/background/currency-table.png';
+import backgroundDesc from '../../../assets/background/currency-table.png';
+import backgrounTab from '../../../assets/background/bg-tab-curr.png';
+
+import { useMediaQuery } from 'react-responsive';
 
 const Currency = () => {
+  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1279px)' });
+  const bg = isTabletOrMobile
+    ? `url("${backgrounTab}")`
+    : `url("${backgroundDesc}")`;
   return (
-    <div
-      className={styles.currency}
-      style={{ backgroundImage: `url("${background}")` }}
-    >
+    <div className={styles.currency} style={{ backgroundImage: bg }}>
       <table className={styles.table}>
         <thead className={styles.thead}>
           <tr className={styles.tr}>

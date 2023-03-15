@@ -1,14 +1,10 @@
+@import 'shared/styles/styles.scss';
+
 .list {
-  outline: 2px solid red;
-  outline-offset: -2px;
+  // outline: 2px solid red;
+  // outline-offset: -2px;
   width: 130px;
-
-  font-family: 'Poppins';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 18px;
-  line-height: 27px;
-
+  @include second-font(400, 18px, 27px);
   margin-bottom: 30px;
 }
 

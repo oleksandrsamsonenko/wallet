@@ -1,14 +1,21 @@
-.balance {
-  outline: 2px solid red;
-  outline-offset: -2px;
+@import '../../../shared/styles/styles.scss';
 
-  width: 395px;
+.balance {
+  // outline: 2px solid red;
+  // outline-offset: -2px;
+
+  width: 280px;
   background: #ffffff;
   border-radius: 30px;
   padding-top: 10px;
   padding-left: 40px;
-
-  margin-bottom: 30px;
+  @include media-min(tablet) {
+    margin-bottom: 30px;
+    width: 295px;
+  }
+  @include media-min(desktop) {
+    margin-bottom: 30px;
+  }
 }
 
 .title {

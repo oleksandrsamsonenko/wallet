@@ -1,9 +1,9 @@
 import { NavLink } from 'react-router-dom';
-import styles from './NavBar.module.scss';
-import home from '../../assets/svg/home.svg';
-import diagrama from '../../assets/svg/diagrama.svg';
+import styles from './NavBarMenu.module.scss';
+import home from '../../../assets/svg/home.svg';
+import diagrama from '../../../assets/svg/diagrama.svg';
 
-const NavBar = () => {
+const NavBarMenu = () => {
   return (
     <ul className={styles.list}>
       <li className={styles.link}>
@@ -22,4 +22,4 @@ const NavBar = () => {
   );
 };
 
-export default NavBar;
+export default NavBarMenu;
