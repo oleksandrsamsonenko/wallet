@@ -89,6 +89,7 @@
   font-size: 18px;
   @include main-font(700, 16px, 24px);
   color: getColor(primaty-gray);
+  user-select: none;
 }
 
 .expense {
@@ -98,4 +99,5 @@
   font-size: 18px;
   @include main-font(700, 16px, 24px);
   color: getColor(primaty-gray);
+  user-select: none;
 }

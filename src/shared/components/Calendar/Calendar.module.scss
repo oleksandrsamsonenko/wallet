@@ -3,12 +3,17 @@
 .calendar {
   border-style: none;
   border-bottom: 2px solid rgba(224, 224, 224, 1);
-  width: calc(100vw - 40px);
+  width: 100%;
 
   cursor: pointer;
   @include main-font(400, 18px, 27px);
 }
 
 .wrapper {
+  width: 100%;
   margin-top: 40px;
+
+  @include media-min(mobile-resp) {
+    width: 181px;
+  }
 }
