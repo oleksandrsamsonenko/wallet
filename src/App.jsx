@@ -10,7 +10,7 @@ export const App = () => {
     <>
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
-          <BrowserRouter>
+          <BrowserRouter basename="goit_react_project">
             <UserRoutes />
           </BrowserRouter>
         </PersistGate>
