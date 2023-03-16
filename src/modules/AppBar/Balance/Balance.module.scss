@@ -1,0 +1,41 @@
+@import '../../../shared/styles/styles.scss';
+
+.balance {
+  // outline: 2px solid red;
+  // outline-offset: -2px;
+
+  width: 280px;
+  background: #ffffff;
+  border-radius: 30px;
+  padding-top: 10px;
+  padding-left: 40px;
+  @include media-min(tablet) {
+    margin-bottom: 30px;
+    width: 295px;
+  }
+  @include media-min(desktop) {
+    margin-bottom: 30px;
+  }
+}
+
+.title {
+  font-family: 'Circe';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 18px;
+  text-transform: uppercase;
+  color: #a6a6a6;
+
+  margin-bottom: 10px;
+}
+
+.amount {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 45px;
+  display: flex;
+  align-items: center;
+}

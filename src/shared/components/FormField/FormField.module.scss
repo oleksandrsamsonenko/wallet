@@ -1,0 +1,17 @@
+.input{
+    border: none;
+    background-color: transparent;
+    font-family: 'Circe';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 27px;
+      &::placeholder{
+        font-family: 'Montserrat',
+            sans-serif;
+            font-style: normal;
+            font-weight: 400;
+            font-size: 18px;
+            line-height: 27px;
+      }
+}

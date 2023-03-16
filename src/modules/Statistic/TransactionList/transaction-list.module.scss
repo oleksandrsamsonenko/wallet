@@ -1,0 +1,43 @@
+.list_wrapper {
+}
+.title {
+  display: flex;
+  padding: 15px 20px;
+  justify-content: space-between;
+  background-color: #ffffff;
+  border-radius: 30px;
+}
+.list_box {
+  padding: 0 15px;
+}
+.list {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 14px;
+}
+.text {
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1.5;
+}
+.expenses {
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  color: #ff6596;
+}
+
+.income {
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  color: #24cca7;
+}
