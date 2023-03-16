@@ -1,4 +1,4 @@
-import { combineReducers, createReducer, createAction } from '@reduxjs/toolkit';
+import { combineReducers } from '@reduxjs/toolkit';
 import { persistReducer } from 'redux-persist';
 import authReducer from './Auth/auth-slice';
 import storage from 'redux-persist/lib/storage';
