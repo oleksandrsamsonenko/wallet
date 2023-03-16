@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import style from './Modal.module.scss';
 import { ToggleButton } from '../ToggleButton/ToggleButton';
 import { Calendar } from '../Calendar/Calendar';
-import Transition from '../Transition/Transition';
+import { Transition } from '../Transition/Transition';
 import data from '../../../data/categories';
 
 export const Modal = ({ hide }) => {
