@@ -1,0 +1,64 @@
+@import 'shared/styles/styles.scss';
+
+.box {
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 32px;
+  margin-bottom: 8px;
+  padding: 0 20px 0 20px;
+  min-width: 320px;
+}
+
+.table {
+  background-color: getColor(full-white);
+  border-collapse: collapse;
+  border-radius: 0 10px 10px 0;
+  width: 100%;
+}
+
+.tbody tr {
+  height: 47px;
+  &:not(:last-child) {
+    border-bottom: 1px solid getColor(primaty-gray);
+    box-shadow: 0px 1px 0px getColor(secondary-gray);
+  }
+}
+
+.head {
+  padding-left: 20px;
+  @include main-font(700, 18px, 27px);
+}
+.point {
+  width: 5px;
+  background-color: getColor(wrong-pink);
+}
+.pointFirst {
+  width: 5px;
+  background-color: getColor(wrong-pink);
+  border-top-left-radius: 10px;
+}
+
+.pointLast {
+  width: 5px;
+  background-color: getColor(wrong-pink);
+  border-bottom-left-radius: 10px;
+}
+.body {
+  text-align: right;
+  padding-right: 20px;
+  @include main-font(400, 16px, 24px);
+}
+
+.btn {
+  padding: 4px 12px;
+  border: none;
+  height: 26px;
+  background: getColor(success-green);
+  border-radius: 18px;
+  @include main-font(400, 14px, 21px);
+  color: getColor(full-white);
+}
+
+.svg {
+  margin-right: 5px;
+}
