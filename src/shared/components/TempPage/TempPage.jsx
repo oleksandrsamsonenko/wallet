@@ -11,10 +11,12 @@ export const TempPage = () => {
   const [showIt, setShowIt] = useState(false);
   const location = useLocation();
   const isOnHome = location.pathname === '/home';
+
   const showModal = () => {
     setShowIt(true);
   };
   const isButtonHidden = isOnHome ? 'block' : 'none';
+
   const hideModal = () => {
     setShowIt(false);
   };
