@@ -38,11 +38,12 @@
 }
 .img__box {
   width: 100%;
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: center;
-  @media screen and (max-width: 768px) {
-    display: none;
+
+  @include media-min(tablet) {
+    display: flex;
   }
   @include media-min(desktop) {
     flex-direction: column;
