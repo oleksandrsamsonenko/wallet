@@ -1,8 +1,5 @@
 import { NavLink } from 'react-router-dom';
 import styles from './NavBarMobile.module.scss';
-import home from '../../../assets/svg/home.svg';
-import diagrama from '../../../assets/svg/diagrama.svg';
-import currency from '../../../assets/svg/currency.svg';
 
 const NavBarMobile = () => {
   return (
