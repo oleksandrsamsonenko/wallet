@@ -3,20 +3,24 @@ import { Link } from 'react-router-dom';
 import css from './Login.module.scss';
 import emailSvg from 'assets/svg/email.svg';
 import passwordSvg from 'assets/svg/password.svg';
+import { useDispatch } from 'react-redux';
 import { useFormik } from 'formik';
-
+import { login } from 'redux/Auth/auth-operations';
 import logo from '../../../assets/svg/main-logo.svg';
 
 const Login = () => {
+  const dispatch = useDispatch();
   const formik = useFormik({
     initialValues: {
       password: '',
       email: '',
     },
-    //  onSubmit: values => {
-    //    alert(JSON.stringify(values, null, 2));
-    //  },
+
+    onSubmit: values => {
+      dispatch(login(values));
+    },
   });
+
   return (
     <>
       <div className="img__box">

@@ -5,21 +5,34 @@ import emailSvg from 'assets/svg/email.svg';
 import passwordSvg from 'assets/svg/password.svg';
 import user from 'assets/svg/user.svg';
 import { useFormik } from 'formik';
+import { useDispatch } from 'react-redux';
+import { register } from 'redux/Auth/auth-operations';
 
 import logo from '../../../assets/svg/main-logo.svg';
 
 const SignUp = () => {
+  const dispatch = useDispatch();
   const formik = useFormik({
     initialValues: {
       firstName: '',
       password: '',
-      cofirmPassword: '',
+      confirmPassword: '',
       email: '',
     },
-    //  onSubmit: values => {
-    //    alert(JSON.stringify(values, null, 2));
-    //  },
+
+    onSubmit: values => {
+      if (values.password !== values.confirmPassword) {
+        return;
+      }
+      const user = {
+        password: values.password,
+        username: values.firstName,
+        email: values.email,
+      };
+      dispatch(register(user));
+    },
   });
+
   return (
     <>
       <div className="img__box">
@@ -49,31 +62,31 @@ const SignUp = () => {
           <label className={css.wrapper}>
             <img src={passwordSvg} alt="user-password" className={css.svg} />
 
-            <input
-              id="password"
-              name="password"
-              type="password"
-              onChange={formik.handleChange}
-              value={formik.values.password}
-              placeholder="password"
-              className={css.input}
-            />
-          </label>
-          <label className={css.wrapper}>
-            <img src={user} alt="confirm-password" className={css.svg} />
+        <input
+          id="password"
+          name="password"
+          type="password"
+          onChange={formik.handleChange}
+          value={formik.values.password}
+          placeholder="password"
+          className={css.input}
+        />
+      </label>
+      <label className={css.wrapper}>
+        <img src={passwordSvg} alt="confirm-password" className={css.svg} />
 
-            <input
-              id="confirmPassword"
-              name="confirmPassword"
-              type="password"
-              onChange={formik.handleChange}
-              value={formik.values.password}
-              placeholder="Confirm password"
-              className={css.input}
-            />
-          </label>
-          <label className={css.wrapper}>
-            <img src={emailSvg} alt="user-name" className={css.svg} />
+        <input
+          id="confirmPassword"
+          name="confirmPassword"
+          type="password"
+          onChange={formik.handleChange}
+          value={formik.values.confirmPassword}
+          placeholder="Confirm password"
+          className={css.input}
+        />
+      </label>
+      <label className={css.wrapper}>
+        <img src={emailSvg} alt="user-name" className={css.svg} />
 
             <input
               id="firstName"
