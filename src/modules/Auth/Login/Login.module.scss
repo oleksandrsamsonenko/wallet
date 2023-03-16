@@ -16,7 +16,6 @@
     @include media-min(mobile-resp) {
         display: flex;
         flex-direction: column;
-        padding: 60px;
     }
 }
 .svg {
@@ -25,10 +24,22 @@
 }
 
 .wrapper {
-    width: 24px;
+border-bottom: 1px solid #E0E0E0;
+margin-top: 40px;
+padding: 5px;
     @include flexed()
-}
 
+  
+}
+.input{
+    border: none;
+    width: 100%;
+
+        font-style: normal;
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 27px;
+}
 .btnAuth {
     height: 50px;
     display: block;
@@ -36,7 +47,7 @@
     margin-right: auto;
     margin-left: auto;
     border-radius: 20px;
-    margin-top: 20px;
+    margin-top: 40px;
     border: 1px solid #4A56E2;
     @include flexed();
     color: #4A56E2;
@@ -49,8 +60,8 @@
     text-align: center;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    @include media-max(mobile) {
-    margin-top: 40px;
+    @include media-min(mobile-resp) {
+    margin-top: 20px;
         }
 
 }
