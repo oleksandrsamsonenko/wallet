@@ -7,8 +7,6 @@ import Transaction from 'pages/TransactionList/Transaction/Transactions';
 import Statistic from 'modules/Statistic/Statistic';
 import SignUp from 'modules/SignUp/SignUp';
 
-import NavBar from 'modules/NavBar/NavBar';
-
 function UserRoutes() {
   return (
     <Routes>
