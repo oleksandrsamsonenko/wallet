@@ -8,9 +8,8 @@ const Auth = () => {
         <img src={logo} alt="logo" />
         <h2 className={css.title}> Wallet</h2>
       </Link>
-      <form className={css.form}>
-        <Outlet />
-      </form>
+
+      <Outlet />
     </div>
   );
 };
