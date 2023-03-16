@@ -7,7 +7,7 @@
 
 .opacity-enter-active {
   opacity: 1;
-  opacity: opacity 500ms ease-in-out;
+  transition: opacity 500ms ease-in-out;
 }
 
 .opacity-exit {
@@ -26,7 +26,7 @@
 
 .transform-enter-active {
   transform: translateX(0%);
-  opacity: transform 500ms ease-in-out;
+  transition: transform 500ms ease-in-out;
 }
 
 .transform-exit {
@@ -45,7 +45,7 @@
 
 .scale-enter-active {
   transform: scale(1);
-  opacity: scale 500ms ease-in-out;
+  transition: transform 500ms ease-in-out;
 }
 
 .scale-exit {
@@ -54,5 +54,5 @@
 
 .scale-exit-active {
   transform: scale(0);
-  transition: scale 500ms ease-in-out;
+  transition: transform 500ms ease-in-out;
 }

@@ -20,7 +20,7 @@ export const TempPage = () => {
   return createPortal(
     <div className={style.parent}>
       <button className={style.btn} onClick={showModal} type="button"></button>
-      <TransitionOnClick showIt={showIt} setShowIt={setShowIt}>
+      <TransitionOnClick showIt={showIt} type={`opacity`}>
         <Modal hide={hideModal} />
       </TransitionOnClick>
     </div>,
