@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import css from './SignUp.module.scss';
 import emailSvg from 'assets/svg/email.svg';
 import passwordSvg from 'assets/svg/password.svg';
-import user from 'assets/svg/user.svg';
 import { useFormik } from 'formik';
 import { useDispatch } from 'react-redux';
 import { register } from 'redux/Auth/auth-operations';
