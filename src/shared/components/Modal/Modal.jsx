@@ -35,7 +35,7 @@ export const Modal = ({ hide }) => {
   useEffect(() => {
     dispatch(getTransactionCategories());
     dispatch(getAllTransaction());
-  }, []);
+  }, [dispatch]);
 
   const handleClose = event => {
     if (event.code === 'Escape' || event.target === event.currentTarget) {
