@@ -9,17 +9,17 @@ const NavBarMobile = () => {
     <ul className={styles.list}>
       <div className={styles.linkWrapper}>
         <li className={styles.link}>
-          <NavLink to="/">
+          <NavLink to="/home">
             <img src={home} alt="home" className={styles.img} />
           </NavLink>
         </li>
         <li>
-          <NavLink to="/statistics">
+          <NavLink to="/diagram">
             <img src={diagrama} alt="diagramma" className={styles.img} />
           </NavLink>
         </li>
         <li>
-          <NavLink to="/statistics">
+          <NavLink to="/diagram">
             <img src={currency} alt="currency" className={styles.img} />
           </NavLink>
         </li>

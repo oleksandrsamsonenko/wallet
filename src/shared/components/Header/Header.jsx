@@ -2,6 +2,9 @@ import s from './header.module.scss';
 import logo from 'assets/svg/main-logo.svg';
 import exit from 'assets/svg/exit.svg';
 
+// Hlam
+import Links from 'TimePagesRoutes/Links';
+
 const nameFromState = 'name';
 
 const Header = () => {
@@ -11,6 +14,7 @@ const Header = () => {
         <img className={s.logo} src={logo} alt="logo" />
         <h1>Wallet</h1>
       </div>
+      <Links />
       <div className={s.box}>
         <p className={s.name}>{nameFromState}</p>
         <div className={s.stik}></div>

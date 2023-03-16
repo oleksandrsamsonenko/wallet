@@ -43,6 +43,7 @@ export const Modal = ({ hide }) => {
 
   const handleType = () => {
     type === 'expense' ? setType('income') : setType('expense');
+    setShowIt(ps => !ps);
   };
 
   const handleSubmit = event => {
@@ -80,7 +81,7 @@ export const Modal = ({ hide }) => {
         <button className={style.close} type="button" onClick={hide}></button>
         <h2 className={style.header}>Add transaction</h2>
         <ToggleButton status={currentStatus} onChange={handleType} />
-        <Transition showIt={currentStatus} setShowIt={setShowIt}>
+        <Transition showIt={showIt} setShowIt={setShowIt}>
           <label>
             <select
               required
