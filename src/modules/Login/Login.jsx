@@ -13,25 +13,27 @@ const INITIAL_STATE = {
 const Login = () => {
   const { email, password } = INITIAL_STATE;
   return (
-    <form className={css.form}>
-      <div className={css.field}>
-        <div className={css.wrapper}>
-          <img src={emailSvg} alt="user-email" className={css.svg} />
+    <div className="container">
+      <form className={css.form}>
+        <div className={css.field}>
+          <div className={css.wrapper}>
+            <img src={emailSvg} alt="user-email" className={css.svg} />
+          </div>
+          <FormField value={email} {...fields.email} />
         </div>
-        <FormField value={email} {...fields.email} />
-      </div>
-      <div className={css.field}>
-        <div className={css.wrapper}>
-          <img src={passwordSvg} alt="user-password" className={css.svg} />
+        <div className={css.field}>
+          <div className={css.wrapper}>
+            <img src={passwordSvg} alt="user-password" className={css.svg} />
+          </div>
+          <FormField value={password} {...fields.password} />
         </div>
-        <FormField value={password} {...fields.password} />
-      </div>
 
-      <Button text="Log in" type="submit" styleName="btn-auth" />
-      <Link to="/sign-up" className={css.btnAuth}>
-        Register
-      </Link>
-    </form>
+        <Button text="Log in" type="submit" styleName="btn-auth" />
+        <Link to="/sign-up" className={css.btnAuth}>
+          Register
+        </Link>
+      </form>
+    </div>
   );
 };
 export default Login;
