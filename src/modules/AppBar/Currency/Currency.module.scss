@@ -1,0 +1,59 @@
+@import 'shared/styles/styles.scss';
+
+.currency {
+  width: 336px;
+  height: 182;
+  padding: 11px 20px;
+  font-family: 'Circe';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 27px;
+  color: #ffffff;
+
+  @include media-min(desktop) {
+    height: 330px;
+    padding: 17px 45px;
+    width: 393px;
+    margin-top: 30px;
+  }
+}
+
+.td {
+  font-weight: 400;
+  border-spacing: 40px 25px;
+  padding-bottom: 12px;
+  &:not(:last-child) {
+    padding-right: 40px;
+  }
+  @include media-min(desktop) {
+    padding-bottom: 25px;
+  }
+}
+
+.th {
+  font-weight: 400;
+  padding-bottom: 28px;
+  width: 71px;
+  &:not(:last-child) {
+    padding-right: 40px;
+  }
+
+  @include media-min(desktop) {
+    padding-bottom: 35px;
+  }
+}
+
+.table {
+  // outline: 2px solid red;
+  // outline-offset: -2px;
+
+  margin-left: auto;
+  margin-right: auto;
+  width: 300px;
+  text-align: center;
+}
+
+.tr {
+  width: 71px;
+}
