@@ -5,6 +5,7 @@ import UserRoutes from 'UserRoutes';
 import { store, persistor } from './redux/store';
 import AuthLayOut from 'modules/AuthLayOut/AuthLayOut';
 import Header from 'shared/components/Header/Header';
+import { TempPage } from 'shared/components/TempPage/TempPage';
 
 export const App = () => {
   return (
@@ -14,6 +15,7 @@ export const App = () => {
           <AuthLayOut>
             <BrowserRouter basename="goit_react_project">
               <Header />
+              <TempPage />
               <UserRoutes />
             </BrowserRouter>
           </AuthLayOut>

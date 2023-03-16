@@ -1,18 +1,31 @@
 import { useEffect, useState } from 'react';
-import style from './Modal.module.scss';
+import { useDispatch } from 'react-redux';
 import { ToggleButton } from '../ToggleButton/ToggleButton';
 import { Calendar } from '../Calendar/Calendar';
 import { Transition } from '../Transition/Transition';
-import data from '../../../data/categories';
+// import data from '../../../data/categories';
+import { Formik, Form, Field } from 'formik';
+import style from './Modal.module.scss';
+import {
+  addTransaction,
+  getTransactionCategories,
+  getAllTransaction,
+} from 'redux/AddTransaction/addTransaction-operations';
+import { useSelector } from 'react-redux';
+import { categories } from 'redux/AddTransaction/addTransaction-selectors';
+
+const initialValues = {
+  amount: '',
+  comment: '',
+  categoryId: '063f1132-ba5d-42b4-951d-44011ca46262',
+};
 
 export const Modal = ({ hide }) => {
-  const [showIt, setShowIt] = useState(false);
+  const dispatch = useDispatch();
 
-  const [type, setType] = useState('expense');
+  const [showIt, setShowIt] = useState(false);
+  const [type, setType] = useState('EXPENSE');
   const [date, setDate] = useState(new Date());
-  const [amount, setAmount] = useState(``);
-  const [comment, setComment] = useState(``);
-  const [category, setCategory] = useState(``);
 
   useEffect(() => {
     document.addEventListener(`keydown`, handleClose);
@@ -20,10 +33,9 @@ export const Modal = ({ hide }) => {
   });
 
   useEffect(() => {
-    if (type === `income`) {
-      setCategory(`income`);
-    }
-  }, [type]);
+    dispatch(getTransactionCategories());
+    dispatch(getAllTransaction());
+  }, []);
 
   const handleClose = event => {
     if (event.code === 'Escape' || event.target === event.currentTarget) {
@@ -31,96 +43,89 @@ export const Modal = ({ hide }) => {
     }
   };
 
-  const result = {
-    type,
-    date: `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`,
-    amount,
-    comment,
-    category,
-  };
-
-  const currentStatus = type === 'expense' ? true : false;
+  const currentStatus = type === 'EXPENSE' ? true : false;
 
   const handleType = () => {
-    type === 'expense' ? setType('income') : setType('expense');
+    type === 'EXPENSE' ? setType('INCOME') : setType('EXPENSE');
     setShowIt(ps => !ps);
   };
 
-  const handleSubmit = event => {
-    event.preventDefault();
-    console.log(result);
+  const handleSubmit = (
+    { amount, comment, categoryId = 'INCOME' },
+    actions
+  ) => {
+    const result = {
+      transactionDate: date.toISOString(),
+      type,
+      categoryId: categoryId,
+      comment: comment,
+      amount: +amount,
+    };
+    console.log('RESULT', result);
+    dispatch(addTransaction(result));
+
+    actions.resetForm();
   };
 
   const handleCalendar = date => {
     setDate(date);
   };
 
-  const handleAmount = ({ target }) => {
-    setAmount(target.value);
-  };
+  //   const selectionElements = data.map(element => {
+  //     return (
+  //       <option key={element.id} id={element.id}>
+  //         {element.id}
+  //       </option>
+  //     );
+  //   });
 
-  const handleComment = ({ target }) => {
-    setComment(target.value);
-  };
-
-  const handleCategory = ({ target }) => {
-    setCategory(target.value);
-  };
-
-  const selectionElements = data.map(element => {
-    return (
-      <option key={element.id} value={element.name}>
-        {element.name}
-      </option>
-    );
+  const list = useSelector(categories);
+  const categoriesList = list.map(item => {
+    return <option key={item.id}>{item.id}</option>;
   });
 
   return (
     <div className={style.backdrop} onClick={handleClose}>
-      <form onSubmit={handleSubmit} className={style.modal}>
-        <button className={style.close} type="button" onClick={hide}></button>
-        <h2 className={style.header}>Add transaction</h2>
-        <ToggleButton status={currentStatus} onChange={handleType} />
-        <Transition showIt={showIt} setShowIt={setShowIt}>
-          <label>
-            <select
-              required
-              onChange={handleCategory}
-              className={style.selector}
-              name="categories"
-              id="selection"
-            >
-              {selectionElements}
-            </select>
-          </label>
-        </Transition>
-        <div className={style.direction}>
-          <input
-            onChange={handleAmount}
-            value={amount}
-            className={style.amount}
-            type="number"
-            placeholder="0.00"
-            required
+      <Formik initialValues={initialValues} onSubmit={handleSubmit}>
+        <Form className={style.modal}>
+          <button className={style.close} type="button" onClick={hide}></button>
+          <h2 className={style.header}>Add transaction</h2>
+          <ToggleButton
+            status={currentStatus}
+            name="type"
+            onChange={handleType}
           />
-          <Calendar date={date} onSubmit={handleCalendar} />
-        </div>
-        <label>
-          <textarea
-            value={comment}
-            onChange={handleComment}
+          <Transition showIt={showIt} type="opacity" setShowIt={setShowIt}>
+            <Field as="select" className={style.selector} name="categoryId">
+              <option value="">Select category</option>
+              {/* {selectionElements} */}
+              {categoriesList}
+            </Field>
+          </Transition>
+          <div className={style.direction}>
+            <Field
+              className={style.amount}
+              type="number"
+              name="amount"
+              placeholder="0.00"
+            ></Field>
+            <Calendar date={date} onSubmit={handleCalendar} />
+          </div>
+          <Field
+            as="textarea"
             className={style.comment}
             type="text"
             placeholder="comment"
-          />
-        </label>
-        <button className={style.add} type="submit">
-          ADD
-        </button>
-        <button className={style.cancel} type="button" onClick={hide}>
-          CANCEL
-        </button>
-      </form>
+            name="comment"
+          ></Field>
+          <button className={style.add} type="submit">
+            ADD
+          </button>
+          <button className={style.cancel} type="button" onClick={hide}>
+            CANCEL
+          </button>
+        </Form>
+      </Formik>
     </div>
   );
 };

@@ -1,9 +1,9 @@
 @import '../../styles/styles.scss';
 
 .btn {
-  position: absolute;
-  right: 40px;
-  bottom: 40px;
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
   height: 44px;
   width: 44px;
   background-color: getColor(success-green);
@@ -14,4 +14,8 @@
   background-position: center;
   border-style: none;
   cursor: pointer;
+  @include media-min(mobile-resp) {
+    right: 40px;
+    bottom: 40px;
+  }
 }

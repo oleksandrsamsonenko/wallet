@@ -34,4 +34,20 @@ export const currentUser = async token => {
     throw error;
   }
 };
+
+export const addTransaction = async transaction => {
+  const { data } = await instance.post('/api/transactions', transaction);
+  return data;
+};
+
+export const getAllTransaction = async () => {
+  const { data } = await instance.get('/api/transactions');
+  return data;
+};
+
+export const getTransactionCategories = async () => {
+  const { data } = await instance.get('/api/transaction-categories');
+  return data;
+};
+
 export default instance;

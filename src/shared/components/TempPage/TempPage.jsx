@@ -1,8 +1,12 @@
 import { useState } from 'react';
 import { Modal } from '../Modal/Modal';
+import { createPortal } from 'react-dom';
 import style from './TempPage.module.scss';
-import { Transition } from '../Transition/Transition';
+import { TransitionOnClick } from '../Transition/Transition';
 import { useLocation } from 'react-router-dom';
+
+const modalRoot = document.querySelector('#modal-root');
+
 export const TempPage = () => {
   const [showIt, setShowIt] = useState(false);
   const location = useLocation();
@@ -15,7 +19,7 @@ export const TempPage = () => {
     setShowIt(false);
   };
 
-  return (
+  return createPortal(
     <div>
       <button
         className={style.btn}
@@ -23,9 +27,10 @@ export const TempPage = () => {
         type="button"
         style={{ display: `${isButtonHidden}` }}
       ></button>
-      <Transition showIt={showIt} setShowIt={setShowIt}>
+      <TransitionOnClick showIt={showIt} type={'opacity'} setShowIt={setShowIt}>
         <Modal hide={hideModal} />
-      </Transition>
-    </div>
+      </TransitionOnClick>
+    </div>,
+    modalRoot
   );
 };
