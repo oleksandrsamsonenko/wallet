@@ -21,7 +21,7 @@ label {
   position: relative;
   width: 100%;
   max-width: 540px;
-  padding: 0 20px;
+  padding: 20px 20px 37px 20px;
   background-color: #fff;
   display: flex;
   justify-content: center;
@@ -30,13 +30,12 @@ label {
   flex-direction: column;
   @include media-min(mobile-resp) {
     width: 540px;
-    padding: 0 73px;
+  padding: 20px 73px 37px 73px;
     border-radius: 20px;
   }
 }
 
 .header {
-  margin-top: 20px;
   @include main-font(400, 24px, 36px);
   @include media-min(mobile-resp) {
     @include main-font(400, 30px, 45px);
@@ -99,14 +98,10 @@ label {
   border-radius: 20px;
   cursor: pointer;
 
-  // @include media-min(mobile-resp) {
-  //   width: 300px;
-  // }
 }
 
 .cancel {
   width: 300px;
-  margin-bottom: 37px;
   margin-top: 20px;
   @include main-font(400, 18px, 27px);
   height: 50px;
@@ -116,9 +111,6 @@ label {
   border-radius: 20px;
   cursor: pointer;
 
-  // @include media-min(mobile-resp) {
-  //   width: 300px;
-  // }
 }
 
 .selector {
