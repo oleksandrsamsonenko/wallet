@@ -1,11 +1,25 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Poppins:wght@400;700&display=swap');
 
+@font-face {
+  font-family: 'Circe';
+  src: ('../../assets/fonts/Circe-Regular.woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Circe';
+  src: url('../../assets/fonts/Circe-Bold.woff2');
+  font-weight: bold;
+  font-style: normal;
+}
+
 @import './normalize';
 @import './colors';
 @import './mixins/mixins-main';
 @import './container';
 @import './bacground';
 
+@import './picture-styles-log-sign';
 g {
   outline: none;
 }
