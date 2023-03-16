@@ -3,9 +3,9 @@ import FormField from 'shared/components/FormField/FormField';
 import Button from 'shared/components/Button/Button';
 import { Link } from 'react-router-dom';
 import css from './SignUp.module.scss';
-import userSvg from '../../assets/svg/user.svg';
-import emailSvg from '../../assets/svg/email.svg';
-import passwordSvg from '../../assets/svg/password.svg';
+import userSvg from 'assets/svg/user.svg';
+import emailSvg from 'assets/svg/email.svg';
+import passwordSvg from 'assets/svg/password.svg';
 const INITIAL_STATE = {
   name: '',
   email: '',
@@ -43,7 +43,7 @@ const SignUp = () => {
         </div>
 
         <Button text="Sign Up" type="submit" styleName="btn-auth" />
-        <Link to="/auth" className={css.btnAuth}>
+        <Link to="/" className={css.btnAuth}>
           Log in
         </Link>
       </form>
