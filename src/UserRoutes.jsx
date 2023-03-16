@@ -9,6 +9,7 @@ import HomePage from 'pages/HomePage/HomePage';
 import Transaction from 'pages/TransactionList/Transaction/Transactions';
 import Statistic from 'modules/Statistic/Statistic';
 import Auth from 'modules/Auth/Auth';
+import Currency from 'modules/AppBar/Currency/Currency';
 
 function UserRoutes() {
   return (
@@ -17,7 +18,8 @@ function UserRoutes() {
       <Route element={<PrivateRoute />}>
         <Route path="/" element={<HomePage />}>
           <Route path="home" element={<Transaction />} />
-          <Route path="diagram" element={<Statistic />} />
+          <Route path="diagram" element={<Statistic />} />{' '}
+          <Route path="currency" element={<Currency />} />
         </Route>
       </Route>
       <Route element={<PublicRoute />}>

@@ -8,20 +8,17 @@ import styles from './AppBar.module.scss';
 
 const AppBar = () => {
   const location = useLocation();
-  const onCurrency = location.path === '/diagram';
-  //   const isDesktop = useMediaQuery({ minWidth: 1280 });
+  const onCurrency = location.pathname === '/currency';
+
   const isTabletMin = useMediaQuery({ minWidth: 768 });
   const isTabletMax = useMediaQuery({ maxWidth: 767 });
-  //   const isMobileMin = useMediaQuery({ maxWidth: 480 });
-  //   const isMobileMax = useMediaQuery({ maxWidth: 767 });
 
   return (
     <div className={styles.AppBar}>
       <div className={styles.wrapper}>
         {isTabletMin && <NavBarMenu />}
         {isTabletMax && <NavBarMobile />}
-        {/* {!onCurrency && <Balance />} */}
-        {onCurrency && <Currency />}
+        {!onCurrency && <Balance />}
       </div>
       {isTabletMin && <Currency />}
     </div>
