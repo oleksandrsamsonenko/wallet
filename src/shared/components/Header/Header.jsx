@@ -1,6 +1,8 @@
 import s from './header.module.scss';
 import logo from 'assets/svg/main-logo.svg';
-import exit from 'assets/svg/exit.svg';
+import Button from '../Button/Button';
+import { useDispatch } from 'react-redux';
+import { logout } from 'redux/Auth/auth-operations';
 
 // Hlam
 import Links from 'TimePagesRoutes/Links';
@@ -8,6 +10,11 @@ import Links from 'TimePagesRoutes/Links';
 const nameFromState = 'name';
 
 const Header = () => {
+  const dispatch = useDispatch();
+  const LogOut = () => {
+    dispatch(logout());
+  };
+
   return (
     <header className={s.my__header}>
       <div className={s.logo__box}>
@@ -18,10 +25,11 @@ const Header = () => {
       <div className={s.box}>
         <p className={s.name}>{nameFromState}</p>
         <div className={s.stik}></div>
-        <a className={s.exit} href="https://www.google.com.ua/">
+        <Button onClick={LogOut} text="exit"></Button>
+        {/* <a className={s.exit} href="https://www.google.com.ua/">
           <img src={exit} width="18" alt="exit" />
           <p>Exit</p>
-        </a>
+        </a> */}
       </div>
     </header>
   );

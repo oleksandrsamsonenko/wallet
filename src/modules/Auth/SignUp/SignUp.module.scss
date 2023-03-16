@@ -1,51 +1,72 @@
 @import 'shared/styles/styles.scss';
-.field{
+
+.field {
   display: inline-flex;
   border-bottom: 1px solid;
-border-color:getColor('primaty-gray'); ;
-    padding-bottom: 6px;
-    margin-top: 41px;
-    width: 100%;
+  border-color: getColor('primaty-gray');
+  padding-bottom: 6px;
+  margin-top: 41px;
+}
 
+.form {
+  text-align: center;
+
+  @include media-min(mobile-resp) {
+    display: flex;
+    flex-direction: column;
+  }
+  @include media-min(mobile-resp) {
+    height: auto;
+    padding: 60px;
+    width: 533px;
+    background-color: white;
+    border-radius: 20px;
+  }
 }
-.form{
-    text-align: center;
-        @include media-min(mobile-resp) {
-                display: flex;
-                flex-direction: column;
-          padding: 60px;
-            }
+
+.svg {
+  margin-right: 22px;
+  margin-left: 10px;
 }
-.svg{
-    margin-right: 22px;
-        margin-left: 10px;
+
+.wrapper {
+  border-bottom: 1px solid #e0e0e0;
+  margin-top: 40px;
+  padding: 5px;
+  @include flexed();
 }
-.wrapper{
-    width: 24px;
-    @include flexed()
+
+.input {
+  border: none;
+  width: 100%;
+
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 27px;
 }
-.btnAuth{
-        height: 50px;
-            display: block;
-            width: 280px;
-            margin-right: auto;
-            margin-left: auto;
-            border-radius: 20px;
-            margin-top: 40px;
-            border: 1px solid #4A56E2;
-            @include flexed();
-            color: #4A56E2;
-            font-family: 'Montserrat',
-                    sans-serif;
-                font-style: normal;
-                font-weight: 400;
-                font-size: 18px;
-                line-height: 27px;
-                text-align: center;
-                letter-spacing: 0.1em;
-                text-transform: uppercase;
-                    @include media-min(mobile-resp) {
-                            margin-top: 20px;
-                        }
-            
+
+.btnAuth {
+  height: 50px;
+  display: block;
+  width: 280px;
+  margin-right: auto;
+  margin-left: auto;
+  border-radius: 20px;
+  margin-top: 40px;
+  border: 1px solid #4a56e2;
+  @include flexed();
+  color: #4a56e2;
+  font-family: 'Montserrat', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 27px;
+  text-align: center;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+
+  @include media-min(mobile-resp) {
+    margin-top: 20px;
+  }
 }
