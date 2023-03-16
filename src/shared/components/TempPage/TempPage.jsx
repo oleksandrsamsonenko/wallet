@@ -27,7 +27,7 @@ export const TempPage = () => {
         type="button"
         style={{ display: `${isButtonHidden}` }}
       ></button>
-      <TransitionOnClick showIt={showIt} setShowIt={setShowIt}>
+      <TransitionOnClick showIt={showIt} type={'opacity'} setShowIt={setShowIt}>
         <Modal hide={hideModal} />
       </TransitionOnClick>
     </div>,
