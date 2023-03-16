@@ -1,19 +1,24 @@
-import { Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import LoginPage from 'pages/AuthPages/LoginPage/LoginPage';
-import SignUpPage from 'pages/AuthPages/SignUpPage/SignUpPage';
+
+// Временно ненужное:
+import HomePage from 'pages/HomePage/HomePage';
+import Transaction from 'pages/TransactionList/Transaction/Transactions';
+import Statistic from 'modules/Statistic/Statistic';
+import SignUp from 'modules/SignUp/SignUp';
+
 import NavBar from 'modules/NavBar/NavBar';
 
 function UserRoutes() {
   return (
-    <Suspense fallback={<p>....Load page</p>}>
-      <Routes>
-        <Route path="/" element={<NavBar />}>
-          <Route path="/" element={<LoginPage />} />
-          <Route path="/sign-up" element={<SignUpPage />} />
-        </Route>
-      </Routes>
-    </Suspense>
+    <Routes>
+      <Route path="/" element={<HomePage />}>
+        <Route path="/home" element={<Transaction />} />
+        <Route path="/diagram" element={<Statistic />} />
+      </Route>
+      <Route path="/auth" element={<LoginPage />} />
+      <Route path="/sign-up" element={<SignUp />} />
+    </Routes>
   );
 }
 

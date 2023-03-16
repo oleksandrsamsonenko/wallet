@@ -42,9 +42,9 @@ const renderActiveShape = props => {
   return (
     <g>
       <text
-        font-weight="700"
-        font-size="18"
-        line-height="27"
+        fontWeight="700"
+        fontSize="18"
+        lineheight="27"
         x={cx}
         y={cy}
         dy={8}
