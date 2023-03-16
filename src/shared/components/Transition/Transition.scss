@@ -1,18 +1,58 @@
 @import 'shared/styles/styles.scss';
 
-.transition-enter {
+// type -- opacity --
+.opacity-enter {
   opacity: 0;
 }
 
-.transition-enter-active {
+.opacity-enter-active {
   opacity: 1;
-  transition: opacity 1000ms ease-in-out;
+  opacity: opacity 500ms ease-in-out;
 }
 
-.transition-exit {
+.opacity-exit {
   opacity: 1;
 }
-.transition-exit {
+
+.opacity-exit-active {
   opacity: 0;
-  transition: opacity 1000ms ease-in-out;
+  transition: opacity 500ms ease-in-out;
+}
+
+// type -- transform --
+.transform-enter {
+  transform: translateX(-101%);
+}
+
+.transform-enter-active {
+  transform: translateX(0%);
+  opacity: transform 500ms ease-in-out;
+}
+
+.transform-exit {
+  transform: translateX(0%);
+}
+
+.transform-exit-active {
+  transform: translateX(101%);
+  transition: transform 500ms ease-in-out;
+}
+
+// type -- scale --
+.scale-enter {
+  transform: scale(0);
+}
+
+.scale-enter-active {
+  transform: scale(1);
+  opacity: scale 500ms ease-in-out;
+}
+
+.scale-exit {
+  transform: scale(1);
+}
+
+.scale-exit-active {
+  transform: scale(0);
+  transition: scale 500ms ease-in-out;
 }
