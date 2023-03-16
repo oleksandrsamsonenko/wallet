@@ -45,7 +45,7 @@
 
 .scale-enter-active {
   transform: scale(1);
-  transition: transform 500ms ease-in-out;
+  transition: scale 500ms ease-in-out;
 }
 
 .scale-exit {

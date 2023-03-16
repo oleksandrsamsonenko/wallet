@@ -9,19 +9,23 @@ import HomePage from 'pages/HomePage/HomePage';
 import Transaction from 'pages/TransactionList/Transaction/Transactions';
 import Statistic from 'modules/Statistic/Statistic';
 import Auth from 'modules/Auth/Auth';
+import Currency from 'modules/AppBar/Currency/Currency';
 
 function UserRoutes() {
   return (
     <Routes>
-      <Route path="/" element={<HomePage />} />
+      {/* <Route path="/" element={} /> */}
       <Route element={<PrivateRoute />}>
-        <Route path="/home" element={<Transaction />} />
-        <Route path="/diagram" element={<Statistic />} />
+        <Route path="/" element={<HomePage />}>
+          <Route path="home" element={<Transaction />} />
+          <Route path="diagram" element={<Statistic />} />{' '}
+          <Route path="currency" element={<Currency />} />
+        </Route>
       </Route>
       <Route element={<PublicRoute />}>
         <Route path="/" element={<Auth />}>
           <Route index element={<LoginPage />} />
-          <Route path="/sign-up" element={<SignUpPage />} />
+          <Route path="sign-up" element={<SignUpPage />} />
         </Route>
       </Route>
     </Routes>
