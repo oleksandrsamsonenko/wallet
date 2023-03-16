@@ -1,26 +1,25 @@
 @import 'shared/styles/styles.scss';
 
 .field {
-    display: inline-flex;
-    border-bottom: 1px solid;
-    border-color: getColor('primaty-gray');
-    ;
-    padding-bottom: 6px;
-    margin-top: 41px;
-
+  display: inline-flex;
+  border-bottom: 1px solid;
+  border-color: getColor('primaty-gray');
+  padding-bottom: 6px;
+  margin-top: 41px;
 }
 
 .form {
-    text-align: center;
+  text-align: center;
 
     @include media-min(mobile-resp) {
         display: flex;
         flex-direction: column;
     }
+
 }
 .svg {
-    margin-right: 22px;
-    margin-left: 10px;
+  margin-right: 22px;
+  margin-left: 10px;
 }
 
 .wrapper {
@@ -29,7 +28,6 @@ margin-top: 40px;
 padding: 5px;
     @include flexed()
 
-  
 }
 .input{
     border: none;
@@ -63,5 +61,5 @@ padding: 5px;
     @include media-min(mobile-resp) {
     margin-top: 20px;
         }
-
 }
+
