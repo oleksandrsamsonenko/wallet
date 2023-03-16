@@ -3,7 +3,6 @@ import { useDispatch } from 'react-redux';
 import { ToggleButton } from '../ToggleButton/ToggleButton';
 import { Calendar } from '../Calendar/Calendar';
 import { Transition } from '../Transition/Transition';
-// import data from '../../../data/categories';
 import { Formik, Form, Field } from 'formik';
 import style from './Modal.module.scss';
 import {
@@ -50,19 +49,18 @@ export const Modal = ({ hide }) => {
     setShowIt(ps => !ps);
   };
 
-  const handleSubmit = (
-    { amount, comment, categoryId = 'INCOME' },
-    actions
-  ) => {
+  const handleSubmit = ({ amount, comment, categoryId }, actions) => {
     const result = {
       transactionDate: date.toISOString(),
       type,
       categoryId: categoryId,
       comment: comment,
-      amount: +amount,
+      amount: type === 'EXPENSE' ? +`-${amount}` : amount,
     };
     console.log('RESULT', result);
     dispatch(addTransaction(result));
+    // hide();
+    //   .then(() => hide());
 
     actions.resetForm();
   };
@@ -71,18 +69,20 @@ export const Modal = ({ hide }) => {
     setDate(date);
   };
 
-  //   const selectionElements = data.map(element => {
-  //     return (
-  //       <option key={element.id} id={element.id}>
-  //         {element.id}
-  //       </option>
-  //     );
-  //   });
-
   const list = useSelector(categories);
-  const categoriesList = list.map(item => {
-    return <option key={item.id}>{item.id}</option>;
-  });
+
+  const categoriesList = list
+    .filter(item => item.type === 'EXPENSE')
+    .map(item => {
+      return (
+        <option value={item.id} key={item.id}>
+          {item.name}
+        </option>
+      );
+    });
+
+  //   const incomeId = list.find(item => item.type === 'INCOME');
+  //   console.log(incomeId.id);
 
   return (
     <div className={style.backdrop} onClick={handleClose}>
@@ -98,7 +98,6 @@ export const Modal = ({ hide }) => {
           <Transition showIt={showIt} type="opacity" setShowIt={setShowIt}>
             <Field as="select" className={style.selector} name="categoryId">
               <option value="">Select category</option>
-              {/* {selectionElements} */}
               {categoriesList}
             </Field>
           </Transition>

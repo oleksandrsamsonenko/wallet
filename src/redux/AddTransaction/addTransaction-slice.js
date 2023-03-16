@@ -31,6 +31,7 @@ const addTransactionSlice = createSlice({
       .addCase(addTransaction.rejected, (state, { payload }) => {
         state.loading = false;
         state.error = payload;
+        state.result = null;
       })
       .addCase(getTransactionCategories.pending, state => {
         state.loading = true;
