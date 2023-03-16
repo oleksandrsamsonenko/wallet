@@ -2,8 +2,8 @@
 
 .btn {
   position: absolute;
-  right: 20px;
-  bottom: 20px;
+  right: 40px;
+  bottom: 40px;
   height: 44px;
   width: 44px;
   background-color: getColor(success-green);
@@ -14,8 +14,4 @@
   background-position: center;
   border-style: none;
   cursor: pointer;
-}
-
-.parent {
-  position: relative;
 }

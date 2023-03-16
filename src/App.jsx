@@ -8,7 +8,7 @@ import Header from 'shared/components/Header/Header';
 
 export const App = () => {
   return (
-    <>
+    <div className="container">
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
           <AuthLayOut>
@@ -19,6 +19,6 @@ export const App = () => {
           </AuthLayOut>
         </PersistGate>
       </Provider>
-    </>
+    </div>
   );
 };

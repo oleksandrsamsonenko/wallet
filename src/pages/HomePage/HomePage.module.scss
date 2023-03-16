@@ -1,0 +1,16 @@
+@import '../../shared/styles/styles.scss';
+
+.home {
+  position: relative;
+  //   @include media-min(tablet) {
+  //     display: flex;
+  //     align-items: start;
+  //     justify-content: center;
+  //     flex-direction: column;
+  //   }
+  @include media-min(desktop) {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+  }
+}

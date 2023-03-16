@@ -1,12 +1,16 @@
+@import 'shared/styles/styles.scss';
+
 .linkWrapper {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 32px;
-  margin-bottom: 12px;
+  margin-bottom: 30px;
+
+  @include media-min(tablet) {
+  }
 }
 
 .img {
-  width: 44px;
-  height: 44px;
+  text-align: center;
 }
