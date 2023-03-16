@@ -52,7 +52,6 @@ export function TransitionOnClick({ showIt, type, children }) {
 Transition.propTypes = {
   showIt: PropTypes.bool.isRequired,
   setShowIt: PropTypes.func.isRequired,
-  type: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired,
 };
 

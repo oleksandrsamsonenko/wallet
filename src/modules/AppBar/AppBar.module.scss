@@ -3,22 +3,23 @@
 .AppBar {
   padding-top: 30px;
   width: 100%;
-  background: #e7eaf2;
   height: 212px;
 
   border-right: 1px solid #e7e5f2;
   box-shadow: -1px 0px 0px rgba(0, 0, 0, 0.05),
     1px 0px 0px rgba(255, 255, 255, 0.6);
-
-  display: flex;
+  @include media-min(tablet) {
+    display: flex;
+    justify-content: center;
+  }
   @include media-min(desktop) {
-    display: block;
     width: 480px;
     height: 640px;
     padding-right: 69px;
     padding-bottom: 63px;
     padding-top: 40px;
     height: 640px;
+    display: block;
   }
 }
 

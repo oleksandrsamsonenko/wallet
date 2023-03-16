@@ -8,7 +8,7 @@ import Header from 'shared/components/Header/Header';
 
 export const App = () => {
   return (
-    <>
+    <div className="container">
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
           <BrowserRouter basename="goit_react_project">
@@ -17,6 +17,6 @@ export const App = () => {
           </BrowserRouter>
         </PersistGate>
       </Provider>
-    </>
+    </div>
   );
 };
