@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import { PieChart, Pie, Sector } from 'recharts';
-
+import styles from './chart-module.scss';
 const data = [
   { name: '$14000', value: 0 },
   { name: 'Main expenses', value: 1700, fill: '#fed057' },
@@ -112,20 +112,22 @@ export default function App() {
   );
 
   return (
-    <PieChart width={288} height={288} object-view-box="-30 60 400 400">
-      <Pie
-        activeIndex={activeIndex}
-        activeShape={renderActiveShape}
-        data={data}
-        cx={140}
-        cy={140}
-        innerRadius={100}
-        outerRadius={144}
-        fill="#3833a1"
-        dataKey="value"
-        onMouseEnter={onPieEnter}
-        onMouseLeave={onPieLeave}
-      />
-    </PieChart>
+    <div className={styles.pie}>
+      <PieChart width={290} height={290} object-view-box="-30 60 400 400">
+        <Pie
+          activeIndex={activeIndex}
+          activeShape={renderActiveShape}
+          data={data}
+          cx={140}
+          cy={140}
+          innerRadius={100}
+          outerRadius={144}
+          fill="#3833a1"
+          dataKey="value"
+          onMouseEnter={onPieEnter}
+          onMouseLeave={onPieLeave}
+        />
+      </PieChart>
+    </div>
   );
 }

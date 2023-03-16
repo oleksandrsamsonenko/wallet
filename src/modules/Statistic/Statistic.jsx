@@ -1,19 +1,21 @@
 import DateForm from './DateForm/DateForm';
-import TransactionList from './TransactionList/TransactionList';
+import StatisticList from './StatisticList/StatisticList';
 import Chart from './Chart/Chart';
 import styles from './statistic.module.scss';
 const Statistic = () => {
   return (
-    <>
+    <div className={styles.statistic_container}>
       <h2 className={styles.title}>Statistic</h2>
       <div className={styles.wrapper}>
-        <Chart className={styles.chart} />
+        <div className={styles.chart}>
+          <Chart className={styles.chart} />
+        </div>
         <div className={styles.info}>
           <DateForm />
-          <TransactionList />
+          <StatisticList />
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

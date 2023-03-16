@@ -1,6 +1,6 @@
-import styles from "./transaction-item.module.scss";
+import styles from './statistic-item.module.scss';
 
-const TransactionItem = ({ color, category, summ }) => {
+const StatisticItem = ({ color, category, summ }) => {
   return (
     <li className={styles.item}>
       <p className={styles[color]}>{category}</p>
@@ -8,4 +8,4 @@ const TransactionItem = ({ color, category, summ }) => {
     </li>
   );
 };
-export default TransactionItem;
+export default StatisticItem;

@@ -1,24 +1,48 @@
+@import '../../shared/styles/mixins/media';
+
+.statistic_container {
+  @include media-min(desktop) {
+    margin-left: 69px;
+  }
+}
+
 .title {
   margin-top: 32px;
   font-family: 'Poppins';
   font-weight: 400;
   font-size: 30px;
   line-height: 0.6;
-
-  text-align: center;
 }
 
 .wrapper {
   margin-top: 20px;
   display: flex;
-  position: relative;
+  flex-direction: column;
+  align-items: center;
+
+  @include media-min(tablet) {
+    flex-direction: row;
+    align-items: normal;
+  }
 }
-.chart {
-  position: absolute;
-  left: 50px;
-  top: 20px;
-}
+
 .info {
-  margin-left: 32px;
-  width: 395px;
+  width: 280px;
+
+  @include media-min(tablet) {
+    width: 336px;
+    margin-left: 32px;
+  }
+
+  @include media-min(desktop) {
+    width: 395px;
+  }
+}
+
+.chart {
+  // width: 300px;
+  // height: 300px;
+  // outline: 1px solid green;
+
+  margin-bottom: 20px;
 }
