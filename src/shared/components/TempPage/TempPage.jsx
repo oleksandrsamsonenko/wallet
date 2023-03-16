@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Modal } from '../Modal/Modal';
 import style from './TempPage.module.scss';
-import Transition from '../Transition/Transition';
+import {Transition} from '../Transition/Transition';
 
 export const TempPage = () => {
   const [showIt, setShowIt] = useState(false);
