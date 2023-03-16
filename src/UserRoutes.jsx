@@ -13,15 +13,17 @@ import Auth from 'modules/Auth/Auth';
 function UserRoutes() {
   return (
     <Routes>
-      <Route path="/" element={<HomePage />} />
+      {/* <Route path="/" element={} /> */}
       <Route element={<PrivateRoute />}>
-        <Route path="/home" element={<Transaction />} />
-        <Route path="/diagram" element={<Statistic />} />
+        <Route path="/" element={<HomePage />}>
+          <Route path="home" element={<Transaction />} />
+          <Route path="diagram" element={<Statistic />} />
+        </Route>
       </Route>
       <Route element={<PublicRoute />}>
         <Route path="/" element={<Auth />}>
           <Route index element={<LoginPage />} />
-          <Route path="/sign-up" element={<SignUpPage />} />
+          <Route path="sign-up" element={<SignUpPage />} />
         </Route>
       </Route>
     </Routes>
