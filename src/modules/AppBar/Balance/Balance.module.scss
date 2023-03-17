@@ -1,42 +1,39 @@
 @import '../../../shared/styles/styles.scss';
 
 .balance {
-  // outline: 2px solid red;
-  // outline-offset: -2px;
-  margin-left: auto;
-  margin-right: auto;
+  @include flexed(center, flex-start);
+  flex-direction: column;
+
   width: 280px;
+  height: 80px;
+
   background: #ffffff;
   border-radius: 30px;
-  padding-top: 10px;
-  padding-left: 40px;
+
+  padding-left: 30px;
+  padding-top: 8px;
+  margin-left: auto;
+  margin-right: auto;
+
   @include media-min(tablet) {
-    margin-bottom: 30px;
-    width: 295px;
+    width: 336px;
   }
   @include media-min(desktop) {
-    margin-bottom: 30px;
+    width: 395px;
   }
 }
 
 .title {
-  font-family: 'Circe';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 12px;
-  line-height: 18px;
+  @include main-font(400, 12px, 18px);
+
   text-transform: uppercase;
   color: #a6a6a6;
-
-  margin-bottom: 10px;
 }
 
 .amount {
-  font-family: 'Poppins';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 30px;
-  line-height: 45px;
-  display: flex;
-  align-items: center;
+  @include second-font(700, 30px, 45px);
+}
+
+.currency {
+  @include second-font(400, 30px, 45px);
 }

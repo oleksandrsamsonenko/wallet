@@ -1,13 +1,21 @@
 @import 'shared/styles/styles.scss';
 
+.mobileWrapper {
+  @include flexed;
+  height: 90vmax;
+
+  @include media-min(tablet) {
+    width: auto;
+    height: auto;
+  }
+
+  @include media-min(desktop) {
+    width: 100%;
+  }
+}
+
 .logo {
   @include flexed();
-
-  // margin: 32px ;
-  // @include media-min(mobile-resp) {
-  //     padding-top: 40px;
-
-  // }
 }
 
 .title {

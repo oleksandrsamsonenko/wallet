@@ -1,15 +1,14 @@
 @import 'shared/styles/styles.scss';
 
 .list {
-  // outline: 2px solid red;
-  // outline-offset: -2px;
-  width: 130px;
   @include second-font(400, 18px, 27px);
-  margin-bottom: 30px;
+
+  width: 130px;
+  margin-bottom: 28px;
 }
 
 .link:not(:last-child) {
-  margin-bottom: 10px;
+  margin-bottom: 12px;
 }
 
 .linkWrapper {
@@ -19,13 +18,20 @@
   :global {
     .active {
       font-weight: 700;
+
+      & svg {
+        fill: rgba(74, 86, 226, 1);
+        filter: drop-shadow(0px 3px 10px rgba(74, 86, 226, 0.5));
+      }
     }
+  }
+
+  & a {
+    display: flex;
+    flex-direction: row-reverse;
   }
 }
 
-.img {
-  display: block;
-  width: 24px;
-  height: 24px;
-  margin-right: 20px;
+.svg {
+  margin-right: 23px;
 }

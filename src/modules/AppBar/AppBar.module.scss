@@ -2,24 +2,24 @@
 
 .AppBar {
   width: 100%;
-  padding-top: 10px;
-  border-right: 1px solid #e7e5f2;
-  box-shadow: -1px 0px 0px rgba(0, 0, 0, 0.05),
-    1px 0px 0px rgba(255, 255, 255, 0.6);
+  padding-top: 12px;
+
   @include media-min(tablet) {
-    padding-top: 30px;
-    height: 212px;
+    padding-top: 32px;
+
     display: flex;
     justify-content: center;
   }
   @include media-min(desktop) {
-    width: 480px;
     height: 640px;
+    width: auto;
+
+    flex-direction: column;
+    align-items: flex-start;
+
     padding-right: 69px;
     padding-bottom: 63px;
     padding-top: 40px;
-    height: 640px;
-    display: block;
   }
 }
 
@@ -33,7 +33,13 @@
 
 .wrapper {
   @include media-min(tablet) {
+    @include flexed(space-between, flex-start);
+    flex-direction: column;
+
     margin-right: 30px;
-    height: 182px;
+  }
+
+  @include media-min(desktop) {
+    margin: 0px;
   }
 }
