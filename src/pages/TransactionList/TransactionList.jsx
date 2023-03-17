@@ -1,5 +1,4 @@
-import { NavLink } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import css from '../TransactionList/TransactionList.module.scss';
 import svg from '../../assets/svg/edit-02.svg';
@@ -14,7 +13,7 @@ const TransactionList = () => {
   useEffect(() => {
     dispatch(getAllTransaction());
   }, [dispatch]);
-
+  const categories = useSelector(state => state.categories.categories);
   const transactions = useSelector(state => state.categories.history);
   return (
     <div className={css.box}>
@@ -31,23 +30,28 @@ const TransactionList = () => {
         </thead>
         <tbody className={css.tbody}>
           {transactions?.map(
-            ({ id, transactionDate, type, comment, amount }) => {
+            ({ id, transactionDate, type, comment, amount, categoryId }) => {
               const date = new Date(transactionDate).toLocaleDateString();
+              const transactionName = categories.find(
+                category => category.id === categoryId
+              );
               return (
                 <tr key={id}>
                   <td>{date}</td>
                   {type === 'EXPENSE' ? <td>-</td> : <td>+</td>}
-                  <td>Other</td>
+                  <td>{transactionName?.name}</td>
                   <td className={css.tdComment}>{comment}</td>
                   {type === 'EXPENSE' ? (
-                    <td className={css.expence}>{amount}</td>
+                    <td className={css.expence}>
+                      {Math.abs(amount).toFixed(2)}
+                    </td>
                   ) : (
-                    <td className={css.income}>{amount}</td>
+                    <td className={css.income}>{amount.toFixed(2)}</td>
                   )}
                   <td>
-                    <NavLink>
+                    <button className={css.btnEdit}>
                       <img src={svg} alt="Edit" className={css.svg} />
-                    </NavLink>
+                    </button>
                     <button
                       className={css.btn}
                       type="button"
