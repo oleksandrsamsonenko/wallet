@@ -1,6 +1,5 @@
-import { Formik, Form, Field } from 'formik';
 import React from 'react';
-import Select, { components, DropdownIndicatorProps } from 'react-select';
+import Select, { components } from 'react-select';
 import month from './month';
 import years from './years.js';
 import styles from './date-form.module.scss';
