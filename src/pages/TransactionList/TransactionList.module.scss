@@ -110,3 +110,11 @@
 .svg {
   margin-right: 8px;
 }
+
+.income {
+  color: getColor(success-green);
+}
+
+.expence {
+  color: getColor(wrong-pink);
+}

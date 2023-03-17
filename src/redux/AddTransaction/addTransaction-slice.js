@@ -3,6 +3,7 @@ import {
   addTransaction,
   getTransactionCategories,
   getAllTransaction,
+  deleteTransactions,
 } from './addTransaction-operations';
 
 const initialState = {
@@ -24,7 +25,7 @@ const addTransactionSlice = createSlice({
       })
       .addCase(addTransaction.fulfilled, (state, { payload }) => {
         state.loading = false;
-        state.result = payload;
+        state.history = [...state.history, payload];
         state.error = null;
         state.isLogin = true;
       })
@@ -60,6 +61,19 @@ const addTransactionSlice = createSlice({
       .addCase(getAllTransaction.rejected, (state, { payload }) => {
         state.loading = false;
         state.error = payload;
+      })
+      .addCase(deleteTransactions.pending, state => {
+        state.loading = true;
+      })
+
+      .addCase(deleteTransactions.fulfilled, (state, action) => {
+        state.loading = false;
+        state.error = null;
+        state.history = state.history.filter(el => el.id !== action.meta.arg);
+      })
+      .addCase(deleteTransactions.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
       });
   },
 });
