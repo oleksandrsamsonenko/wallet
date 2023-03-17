@@ -33,7 +33,6 @@ export const Modal = ({ hide }) => {
 
   useEffect(() => {
     dispatch(getTransactionCategories());
-    dispatch(getAllTransaction());
   }, [dispatch]);
 
   const handleClose = event => {
