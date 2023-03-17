@@ -6,6 +6,8 @@ export const addTransaction = createAsyncThunk(
   async (data, { rejectWithValue }) => {
     try {
       const result = await api.addTransaction(data);
+    //   console.log(result);
+
       return result;
     } catch ({ response }) {
       return rejectWithValue(response.data.message);
@@ -18,6 +20,8 @@ export const getTransactionCategories = createAsyncThunk(
   async (data, { rejectWithValue }) => {
     try {
       const result = await api.getTransactionCategories(data);
+    //   console.log(result);
+
       return result;
     } catch ({ response }) {
       return rejectWithValue(response.data.message);
@@ -30,9 +34,22 @@ export const getAllTransaction = createAsyncThunk(
   async (data, { rejectWithValue }) => {
     try {
       const result = await api.getAllTransaction(data);
+      console.log(result);
       return result;
     } catch ({ response }) {
       return rejectWithValue(response.data.message);
+    }
+  }
+);
+
+export const deleteTransactions = createAsyncThunk(
+  'transactions/deleteTransactoin',
+  async (id, thunkAPI) => {
+    try {
+      const response = await api.deleteTransaction(id);
+      return response.data;
+    } catch (e) {
+      return thunkAPI.rejectWithValue(e.message);
     }
   }
 );

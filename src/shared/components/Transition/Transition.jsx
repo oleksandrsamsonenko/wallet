@@ -35,7 +35,9 @@ export function TransitionOnClick({ showIt, type, children }) {
       unmountOnExit
       classNames={type}
     >
-      <div ref={nodeRef}>{children}</div>
+      <div className="transition-wrapper" ref={nodeRef}>
+        {children}
+      </div>
     </CSSTransition>
   );
 }
