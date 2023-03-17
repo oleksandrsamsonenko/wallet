@@ -2,10 +2,11 @@
 
 @font-face {
   font-family: 'Circe';
-  src: ('../../assets/fonts/Circe-Regular.woff2');
+  src: url('../../assets/fonts/Circe-Regular.woff2');
   font-weight: normal;
   font-style: normal;
 }
+
 @font-face {
   font-family: 'Circe';
   src: url('../../assets/fonts/Circe-Bold.woff2');

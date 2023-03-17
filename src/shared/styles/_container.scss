@@ -1,14 +1,14 @@
 .container {
-  min-width: 320px;
+  width: 100%;
 
-  padding-left: 10px;
-  padding-right: 10px;
-
-  margin-left: auto;
-  margin-right: auto;
+  padding-left: 20px;
+  padding-right: 20px;
 
   @include media-min(mobile-resp) {
     width: 573px;
+
+    margin-left: auto;
+    margin-right: auto;
   }
 
   @include media-min(tablet) {

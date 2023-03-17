@@ -1,6 +1,7 @@
 import { Outlet } from 'react-router';
 import AppBar from 'modules/AppBar/AppBar';
 import { TempPage } from 'shared/components/TempPage/TempPage';
+import Header from 'shared/components/Header/Header';
 import styles from './HomePage.module.scss';
 import {
   getTransactionCategories,
@@ -19,6 +20,7 @@ function HomePage() {
 
   return (
     <div className={styles.home}>
+      <Header />
       <AppBar />
       <TempPage />
       <Outlet />
