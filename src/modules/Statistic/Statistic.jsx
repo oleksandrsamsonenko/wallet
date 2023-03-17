@@ -1,8 +1,12 @@
 import DateForm from './DateForm/DateForm';
 import StatisticList from './StatisticList/StatisticList';
 import Chart from './Chart/Chart';
+import { useDispatch } from 'react-redux';
+
 import styles from './statistic.module.scss';
 const Statistic = () => {
+  const dispatch = useDispatch();
+
   return (
     <div className={styles.statistic_container}>
       <h2 className={styles.title}>Statistic</h2>

@@ -1,4 +1,5 @@
 import StatisticItem from './StatisticItem/StatisticItem';
+
 import styles from './statistic-list.module.scss';
 const StatisticList = () => {
   return (
