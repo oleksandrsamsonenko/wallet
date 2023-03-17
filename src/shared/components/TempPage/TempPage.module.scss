@@ -1,6 +1,8 @@
 @import '../../styles/styles.scss';
 
 .btn {
+  transition: all 400ms;
+
   position: fixed;
   right: 20px;
   bottom: 20px;
@@ -18,4 +20,8 @@
     right: 40px;
     bottom: 40px;
   }
+}
+
+.btn:hover {
+  transform: scale(1.15);
 }

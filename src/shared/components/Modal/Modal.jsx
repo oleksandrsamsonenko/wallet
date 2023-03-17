@@ -3,26 +3,44 @@ import { useDispatch } from 'react-redux';
 import { ToggleButton } from '../ToggleButton/ToggleButton';
 import { Calendar } from '../Calendar/Calendar';
 import { Transition } from '../Transition/Transition';
-import { Formik, Form, Field } from 'formik';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
 import style from './Modal.module.scss';
 import { addTransaction } from 'redux/AddTransaction/addTransaction-operations';
 import { useSelector } from 'react-redux';
 import { categories } from 'redux/AddTransaction/addTransaction-selectors';
+import * as Yup from 'yup';
 
 export const Modal = ({ hide }) => {
+  const [showIt, setShowIt] = useState(false);
+  const [type, setType] = useState('EXPENSE');
+  const [date, setDate] = useState(new Date());
+
   const incomeCategory = useSelector(categories);
+  const list = useSelector(categories);
+
   const incomeId = incomeCategory.find(item => item.type === 'INCOME').id;
+  const validationList =
+    type === 'EXPENSE'
+      ? list.filter(item => item.type === 'EXPENSE').map(item => item.id)
+      : [incomeId];
 
   const initialValues = {
     amount: '',
     comment: '',
     categoryId: incomeId,
   };
-  const dispatch = useDispatch();
 
-  const [showIt, setShowIt] = useState(false);
-  const [type, setType] = useState('EXPENSE');
-  const [date, setDate] = useState(new Date());
+  const validationSchema = Yup.object({
+    amount: Yup.number()
+      .positive('Must be a positive number')
+      .required('Must be a positive number')
+      .typeError('Must be a positive number'),
+    categoryId: Yup.string()
+      .oneOf(validationList, 'Choose category')
+      .required('Choose category'),
+  });
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     document.addEventListener(`keydown`, handleClose);
@@ -60,8 +78,6 @@ export const Modal = ({ hide }) => {
     setDate(date);
   };
 
-  const list = useSelector(categories);
-
   const categoriesList = list
     .filter(item => item.type === 'EXPENSE')
     .map(item => {
@@ -72,46 +88,77 @@ export const Modal = ({ hide }) => {
       );
     });
 
+  const FormError = ({ name }) => {
+    return (
+      <ErrorMessage
+        name={name}
+        render={message => <p className={style.error}>{message}</p>}
+      />
+    );
+  };
+
   return (
     <div className={style.backdrop} onClick={handleClose}>
-      <Formik initialValues={initialValues} onSubmit={handleSubmit}>
-        <Form className={style.modal}>
-          <button className={style.close} type="button" onClick={hide}></button>
-          <h2 className={style.header}>Add transaction</h2>
-          <ToggleButton
-            status={currentStatus}
-            name="type"
-            onChange={handleType}
-          />
-          <Transition showIt={showIt} type="opacity" setShowIt={setShowIt}>
-            <Field as="select" className={style.selector} name="categoryId">
-              <option value="">Select category</option>
-              {categoriesList}
-            </Field>
-          </Transition>
-          <div className={style.direction}>
+      <Formik
+        validationSchema={validationSchema}
+        initialValues={initialValues}
+        onSubmit={handleSubmit}
+        // validateOnChange={false}
+        validateOnBlur={false}
+      >
+        {({ errors, touched }) => (
+          <Form className={style.modal}>
+            <button
+              className={style.close}
+              type="button"
+              onClick={hide}
+            ></button>
+            <h2 className={style.header}>Add transaction</h2>
+            <ToggleButton
+              status={currentStatus}
+              name="type"
+              onChange={handleType}
+            />
+            <Transition showIt={showIt} type="opacity" setShowIt={setShowIt}>
+              <div className={style.wrapper}>
+                <Field as="select" className={style.selector} name="categoryId">
+                  <option name="disabled" value="disabled">
+                    Select category
+                  </option>
+                  {categoriesList}
+                </Field>
+                <FormError name="categoryId" className={style.error} />
+              </div>
+            </Transition>
+            <div className={style.direction}>
+              <div className={style.wrapper}>
+                <Field
+                  className={style.amount}
+                  type="text"
+                  name="amount"
+                  placeholder="0.00"
+                ></Field>
+                <FormError name="amount" />
+              </div>
+              <Calendar date={date} onSubmit={handleCalendar} />
+            </div>
             <Field
-              className={style.amount}
-              type="number"
-              name="amount"
-              placeholder="0.00"
+              as="textarea"
+              className={style.comment}
+              type="text"
+              placeholder="comment"
+              name="comment"
             ></Field>
-            <Calendar date={date} onSubmit={handleCalendar} />
-          </div>
-          <Field
-            as="textarea"
-            className={style.comment}
-            type="text"
-            placeholder="comment"
-            name="comment"
-          ></Field>
-          <button className={style.add} type="submit">
-            ADD
-          </button>
-          <button className={style.cancel} type="button" onClick={hide}>
-            CANCEL
-          </button>
-        </Form>
+
+            <button className={style.add} type="submit">
+              ADD
+            </button>
+
+            <button className={style.cancel} type="button" onClick={hide}>
+              CANCEL
+            </button>
+          </Form>
+        )}
       </Formik>
     </div>
   );

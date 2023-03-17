@@ -15,31 +15,23 @@
   gap: 30px;
 }
 
-// .switch:before {
-//   content: 'Income';
-//   position: absolute;
-//   left: -76px;
-//   bottom: 25%;
-//   font-size: 18px;
-//   @include main-font(700, 16px, 24px);
-//   color: getColor(primaty-gray);
-// }
-
-// .switch:after {
-//   content: 'Expense';
-//   position: absolute;
-//   right: -76px;
-//   bottom: 25%;
-//   font-size: 18px;
-//   @include main-font(700, 16px, 24px);
-//   color: getColor(primaty-gray);
-// }
-
 /* Hide default checkbox */
 .switch input {
   opacity: 0;
   width: 0;
   height: 0;
+}
+
+.input:checked.input:hover + .slider,
+.input:checked.input:focus + .slider {
+  outline: 2px solid getColor(wrong-pink);
+
+  // outline-offset: 2px;
+}
+
+.input:hover + .slider,
+.input:focus + .slider {
+  outline: 2px solid getColor(success-green);
 }
 
 .slider {
@@ -51,7 +43,7 @@
   bottom: 0;
   background-color: transparent;
   border: 1px solid rgba(224, 224, 224, 1);
-  transition: 0.4s;
+  transition: position 0.4s;
   border-radius: 30px;
 }
 

@@ -30,7 +30,7 @@ label {
   flex-direction: column;
   @include media-min(mobile-resp) {
     width: 540px;
-  padding: 20px 73px 37px 73px;
+    padding: 20px 73px 37px 73px;
     border-radius: 20px;
   }
 }
@@ -97,7 +97,7 @@ label {
   border-color: transparent;
   border-radius: 20px;
   cursor: pointer;
-
+  transition: all 400ms;
 }
 
 .cancel {
@@ -110,22 +110,26 @@ label {
   border-color: rgba(74, 86, 226, 1);
   border-radius: 20px;
   cursor: pointer;
-
+  transition: all 400ms;
 }
 
 .selector {
-  width: 100%;
+  width: 280px;
   margin-top: 40px;
-  @include main-font(700, 18px, 27px);
+  @include main-font(400, 18px, 27px);
   height: 32px;
   resize: none;
   border-style: none;
   border-bottom: 2px solid rgba(224, 224, 224, 1);
+  @include media-min(mobile-resp) {
+    width: 394px;
+  }
 }
 
 .close {
   display: none;
   @include media-min(mobile-resp) {
+    transition: all 400ms;
     background-color: transparent;
     cursor: pointer;
     width: 18px;
@@ -138,4 +142,26 @@ label {
     top: 20px;
     right: 20px;
   }
+}
+
+.wrapper {
+  position: relative;
+}
+
+.error {
+  position: absolute;
+  color: red;
+  font-family: 'Circe';
+  font-weight: bold;
+  font-style: italic;
+  font-size: 14px;
+}
+
+.add:hover,
+.cancel:hover {
+  transform: scale(1.04);
+}
+
+.close:hover {
+  transform: scale(1.2);
 }
