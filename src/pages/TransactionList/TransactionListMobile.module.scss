@@ -42,16 +42,22 @@
 }
 .body {
   text-align: right;
+  height: 100%;
   padding-right: 20px;
   @include main-font(400, 16px, 24px);
 }
 
-.bodyLink {
+.editBtn {
+  width: 52px;
+  height: 18px;
+  margin-right: 20px;
+  margin-left: auto;
+  border: none;
   display: flex;
-  justify-content: right;
   align-items: center;
-
+  background-color: transparent;
   @include main-font(400, 16px, 24px);
+  cursor: pointer;
 }
 
 .btn {
@@ -66,5 +72,22 @@
 }
 
 .svg {
-  margin-right: 5px;
+  margin-right: auto;
+  margin-left: 3px;
+}
+
+.income {
+  color: getColor(success-green);
+  text-align: right;
+  height: 100%;
+  padding-right: 20px;
+  @include main-font(700, 16px, 24px);
+}
+
+.expence {
+  color: getColor(wrong-pink);
+  text-align: right;
+  height: 100%;
+  padding-right: 20px;
+  @include main-font(700, 16px, 24px);
 }
