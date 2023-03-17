@@ -4,9 +4,6 @@ import Button from '../Button/Button';
 import { useDispatch } from 'react-redux';
 import { logout } from 'redux/Auth/auth-operations';
 
-// Hlam
-import Links from 'TimePagesRoutes/Links';
-
 const nameFromState = 'name';
 
 const Header = () => {
@@ -21,7 +18,6 @@ const Header = () => {
         <img className={s.logo} src={logo} alt="logo" />
         <h1>Wallet</h1>
       </div>
-      <Links />
       <div className={s.box}>
         <p className={s.name}>{nameFromState}</p>
         <div className={s.stik}></div>
