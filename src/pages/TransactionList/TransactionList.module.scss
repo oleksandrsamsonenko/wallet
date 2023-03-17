@@ -1,16 +1,21 @@
 @import 'shared/styles/styles.scss';
 
 .box {
-  margin-top: 46px;
+  margin-top: 20px;
+
+  @include media-min(desktop) {
+    margin-top: 46px;
+  }
 }
+
 .table {
   height: 58px;
   margin-bottom: 20px;
   border-collapse: collapse;
-  @media screen and (min-width: 768px) {
+  @include media-min(tablet) {
     min-width: 705px;
   }
-  @media screen and (min-width: 1280px) {
+  @include media-min(desktop) {
     min-width: 715px;
   }
 }

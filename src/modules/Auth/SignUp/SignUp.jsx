@@ -34,76 +34,82 @@ const SignUp = () => {
 
   return (
     <>
-      <div className="img__box">
-        <div className="girl__box"></div>
-        <p>Finance App</p>
-      </div>
-      <div className="form__box">
-        <form onSubmit={formik.handleSubmit} className={css.form}>
-          <div className="logo__box">
-            <img src={logo} alt="logo" />
-            <h2> Wallet</h2>
-          </div>
-          <label className={css.wrapper}>
-            <img src={emailSvg} alt="user-email" className={css.svg} />
+      <div className={css.desktopWrapper}>
+        <div className={css.imageBox}>
+          <div className="girl__box"></div>
+          <p className={css.backText}>Finance App</p>
+        </div>
+        <div className={css.backdrop}>
+          <form onSubmit={formik.handleSubmit} className={css.form}>
+            <div className={css.logoBox}>
+              <img src={logo} alt="logo" />
+              <span className={css.logoText}> Wallet</span>
+            </div>
+            <label className={css.label}>
+              <img src={emailSvg} alt="user-email" className={css.svg} />
 
-            <input
-              id="email"
-              name="email"
-              type="email"
-              onChange={formik.handleChange}
-              value={formik.values.email}
-              placeholder="E-mail"
-              className={css.input}
-            />
-          </label>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                onChange={formik.handleChange}
+                value={formik.values.email}
+                placeholder="E-mail"
+                className={css.input}
+              />
+            </label>
 
-          <label className={css.wrapper}>
-            <img src={passwordSvg} alt="user-password" className={css.svg} />
+            <label className={css.label}>
+              <img src={passwordSvg} alt="user-password" className={css.svg} />
 
-        <input
-          id="password"
-          name="password"
-          type="password"
-          onChange={formik.handleChange}
-          value={formik.values.password}
-          placeholder="password"
-          className={css.input}
-        />
-      </label>
-      <label className={css.wrapper}>
-        <img src={passwordSvg} alt="confirm-password" className={css.svg} />
+              <input
+                id="password"
+                name="password"
+                type="password"
+                onChange={formik.handleChange}
+                value={formik.values.password}
+                placeholder="password"
+                className={css.input}
+              />
+            </label>
+            <label className={css.label}>
+              <img
+                src={passwordSvg}
+                alt="confirm-password"
+                className={css.svg}
+              />
 
-        <input
-          id="confirmPassword"
-          name="confirmPassword"
-          type="password"
-          onChange={formik.handleChange}
-          value={formik.values.confirmPassword}
-          placeholder="Confirm password"
-          className={css.input}
-        />
-      </label>
-      <label className={css.wrapper}>
-        <img src={emailSvg} alt="user-name" className={css.svg} />
+              <input
+                id="confirmPassword"
+                name="confirmPassword"
+                type="password"
+                onChange={formik.handleChange}
+                value={formik.values.confirmPassword}
+                placeholder="Confirm password"
+                className={css.input}
+              />
+            </label>
+            <label className={css.label}>
+              <img src={emailSvg} alt="user-name" className={css.svg} />
 
-            <input
-              id="firstName"
-              name="firstName"
-              type="text"
-              onChange={formik.handleChange}
-              value={formik.values.firstName}
-              placeholder="First name"
-              className={css.input}
-            />
-          </label>
+              <input
+                id="firstName"
+                name="firstName"
+                type="text"
+                onChange={formik.handleChange}
+                value={formik.values.firstName}
+                placeholder="First name"
+                className={css.input}
+              />
+            </label>
 
-          <Button text="Sign up" type="submit" styleName="btn-auth" />
+            <Button text="Sign up" type="submit" styleName="btn-auth" />
 
-          <Link to="/" className={css.btnAuth}>
-            Log in
-          </Link>
-        </form>
+            <Link to="/" className={css.btnAuth}>
+              Log in
+            </Link>
+          </form>
+        </div>
       </div>
     </>
   );
