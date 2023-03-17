@@ -2,8 +2,21 @@ import { Outlet } from 'react-router';
 import AppBar from 'modules/AppBar/AppBar';
 import { TempPage } from 'shared/components/TempPage/TempPage';
 import styles from './HomePage.module.scss';
+import {
+  getTransactionCategories,
+  getAllTransaction,
+} from 'redux/AddTransaction/addTransaction-operations';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 
 function HomePage() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getTransactionCategories());
+    dispatch(getAllTransaction());
+  }, [dispatch]);
+
   return (
     <div className={styles.home}>
       <AppBar />
