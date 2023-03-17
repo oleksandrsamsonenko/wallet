@@ -2,7 +2,7 @@ import { Outlet } from 'react-router';
 import AppBar from 'modules/AppBar/AppBar';
 import { TempPage } from 'shared/components/TempPage/TempPage';
 import Header from 'shared/components/Header/Header';
-import styles from './HomePage.module.scss';
+import css from 'pages/HomePage/HomePage.module.scss';
 import {
   getTransactionCategories,
   getAllTransaction,
@@ -19,12 +19,16 @@ function HomePage() {
   }, [dispatch]);
 
   return (
-    <div className={styles.home}>
+    <>
       <Header />
-      <AppBar />
-      <TempPage />
-      <Outlet />
-    </div>
+      <div className={`home-wrapper ${css.wrapper}`}>
+        <div className="container">
+          <AppBar />
+          <TempPage />
+          <Outlet />
+        </div>
+      </div>
+    </>
   );
 }
 

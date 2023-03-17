@@ -1,5 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Poppins:wght@400;700&display=swap');
 
+@import './normalize';
+@import './colors';
+@import './mixins/mixins-main';
+@import './container';
+@import './bacground';
+@import './picture-styles-log-sign';
+
 @font-face {
   font-family: 'Circe';
   src: url('../../assets/fonts/Circe-Regular.woff2');
@@ -14,15 +21,15 @@
   font-style: normal;
 }
 
-@import './normalize';
-@import './colors';
-@import './mixins/mixins-main';
-@import './container';
-@import './bacground';
-
-@import './picture-styles-log-sign';
 g {
   outline: none;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+
+  height: 100vh;
 }
 
 @media screen and (min-width: 768px) {

@@ -34,6 +34,8 @@
 
   padding-right: 20px;
   padding-left: 20px;
+  margin-left: auto;
+  margin-right: auto;
 
   @include media-min(mobile-resp) {
     width: 533px;
@@ -46,8 +48,6 @@
   @include media-min(tablet) {
     border-radius: 20px;
 
-    margin-left: auto;
-    margin-right: auto;
     padding-top: 40px;
     padding-left: 62px;
     padding-bottom: 62px;
@@ -73,9 +73,7 @@
 }
 
 .logoText {
-  @include second-font(700, 24px, 28px);
-
-  @include second-font(700, 30px, 45px);
+  @include second-font(700, 24px, 24px);
 }
 
 .label {
