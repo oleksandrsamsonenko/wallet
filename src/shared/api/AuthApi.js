@@ -50,4 +50,8 @@ export const getTransactionCategories = async () => {
   return data;
 };
 
+export const deleteTransaction = id => {
+  return instance.delete(`/api/transactions/${id}`);
+};
+
 export default instance;
