@@ -29,10 +29,6 @@ export const Modal = ({ hide }) => {
     return () => document.removeEventListener(`keydown`, handleClose);
   });
 
-  useEffect(() => {
-    dispatch(getTransactionCategories());
-  }, [dispatch]);
-
   const handleClose = event => {
     if (event.code === 'Escape' || event.target === event.currentTarget) {
       hide();
