@@ -5,21 +5,19 @@ import { Calendar } from '../Calendar/Calendar';
 import { Transition } from '../Transition/Transition';
 import { Formik, Form, Field } from 'formik';
 import style from './Modal.module.scss';
-import {
-  addTransaction,
-  getTransactionCategories,
-  getAllTransaction,
-} from 'redux/AddTransaction/addTransaction-operations';
+import { addTransaction } from 'redux/AddTransaction/addTransaction-operations';
 import { useSelector } from 'react-redux';
 import { categories } from 'redux/AddTransaction/addTransaction-selectors';
 
-const initialValues = {
-  amount: '',
-  comment: '',
-  categoryId: '063f1132-ba5d-42b4-951d-44011ca46262',
-};
-
 export const Modal = ({ hide }) => {
+  const incomeCategory = useSelector(categories);
+  const incomeId = incomeCategory.find(item => item.type === 'INCOME').id;
+
+  const initialValues = {
+    amount: '',
+    comment: '',
+    categoryId: incomeId,
+  };
   const dispatch = useDispatch();
 
   const [showIt, setShowIt] = useState(false);
@@ -30,11 +28,6 @@ export const Modal = ({ hide }) => {
     document.addEventListener(`keydown`, handleClose);
     return () => document.removeEventListener(`keydown`, handleClose);
   });
-
-  useEffect(() => {
-    dispatch(getTransactionCategories());
-    dispatch(getAllTransaction());
-  }, [dispatch]);
 
   const handleClose = event => {
     if (event.code === 'Escape' || event.target === event.currentTarget) {
@@ -60,8 +53,6 @@ export const Modal = ({ hide }) => {
     console.log('RESULT', result);
     dispatch(addTransaction(result));
     // hide();
-    //   .then(() => hide());
-
     actions.resetForm();
   };
 
@@ -80,9 +71,6 @@ export const Modal = ({ hide }) => {
         </option>
       );
     });
-
-  //   const incomeId = list.find(item => item.type === 'INCOME');
-  //   console.log(incomeId.id);
 
   return (
     <div className={style.backdrop} onClick={handleClose}>
