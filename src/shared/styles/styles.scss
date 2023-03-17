@@ -24,4 +24,20 @@ g {
   outline: none;
 }
 
+@media screen and (min-width: 768px) {
+  .react-select__control {
+    width: 160px !important;
+  }
+  .react-select__menu {
+    width: 160px !important;
+  }
+}
+@media screen and (min-width: 1280px) {
+  .react-select__control {
+    width: 182px !important;
+  }
+  .react-select__menu {
+    width: 182px !important;
+  }
+}
 // Импортировать в каждый файл .scss и использовать
