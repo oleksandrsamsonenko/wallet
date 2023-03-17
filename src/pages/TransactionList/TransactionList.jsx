@@ -1,7 +1,6 @@
 import { NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
-import { getTransactionCategories } from 'shared/api/AuthApi';
 import css from '../TransactionList/TransactionList.module.scss';
 import svg from '../../assets/svg/edit-02.svg';
 import {
@@ -16,7 +15,6 @@ const TransactionList = () => {
     dispatch(getAllTransaction());
   }, [dispatch]);
 
-  const categories = useSelector(state => state.categories.categories);
   const transactions = useSelector(state => state.categories.history);
   return (
     <div className={css.box}>
