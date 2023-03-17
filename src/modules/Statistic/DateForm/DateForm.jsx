@@ -1,8 +1,25 @@
 import React from 'react';
+import { useMediaQuery } from 'react-responsive';
 import Select, { components } from 'react-select';
 import month from './month';
 import years from './years.js';
 import styles from './date-form.module.scss';
+
+const size = {
+  desctop: { width: 182 },
+  tablet: { width: 160 },
+  mobile: { width: 280 },
+};
+
+const getSize = (desktop, tablet, mobile) => {
+  if (desktop) {
+    return size.desctop;
+  }
+  if (tablet) {
+    return size.tablet;
+  }
+  return size.mobile;
+};
 
 const DateForm = () => {
   const handleChange = ({ label }) => {
@@ -27,13 +44,18 @@ const DateForm = () => {
     );
   };
 
+  const isDesktop = useMediaQuery({ minWidth: 1280 });
+  const isTablet = useMediaQuery({ minWidth: 768 });
+  const isMobile = useMediaQuery({ minWidth: 573 });
+
+  const { width } = getSize(isDesktop, isTablet, isMobile);
+
   return (
     <div className={styles.form}>
       <Select
-        classNames={styles.control}
         classNamePrefix="react-select"
         onChange={handleChange}
-        defaultValue={month[0]}
+        // defaultValue={month[0]}
         options={month}
         components={{ DropdownIndicator }}
         styles={{
@@ -43,7 +65,7 @@ const DateForm = () => {
             fontWeight: 400,
             paddingLeft: '10px',
             boxShadow: 'none',
-            width: 280,
+            width: width,
             height: 50,
             border: '1px solid #000000',
             borderRadius: '30px',
@@ -59,7 +81,7 @@ const DateForm = () => {
             padding: 0,
             margin: 0,
             borderRadius: '20px',
-            width: 280,
+            width: width,
             overflow: 'hidden',
             backgroundColor: '#F5F6F5',
             backdropFilter: 'blur(25px)',
@@ -101,10 +123,10 @@ const DateForm = () => {
         }}
       />
       <Select
-        onChange={handleChange}
-        defaultValue={years[0]}
-        options={years}
         classNamePrefix="react-select"
+        onChange={handleChange}
+        // defaultValue={years[0]}
+        options={years}
         components={{ DropdownIndicator }}
         styles={{
           control: (baseStyles, state) => ({
@@ -113,7 +135,7 @@ const DateForm = () => {
             fontWeight: 400,
             paddingLeft: '10px',
             boxShadow: 'none',
-            width: 280,
+            width: width,
             height: 50,
             border: '1px solid #000000',
             borderRadius: '30px',
@@ -129,7 +151,7 @@ const DateForm = () => {
             padding: 0,
             margin: 0,
             borderRadius: '20px',
-            width: 280,
+            width: width,
             overflow: 'hidden',
             backgroundColor: '#F5F6F5',
             // cursor: "pointer",
@@ -170,28 +192,6 @@ const DateForm = () => {
           }),
         }}
       />
-
-      {/* <Formik>
-        <Form className={styles.form}>
-          <Field
-            className={styles.input}
-            name="month"
-            as="select"
-            onChange={handleChange}
-            placeHolder="select"
-          >
-            {monthList}
-          </Field>
-          <Field
-            className={styles.input}
-            name="year"
-            as="select"
-            onChange={handleChange}
-          >
-            {yearsList}
-          </Field>
-        </Form>
-      </Formik> */}
     </div>
   );
 };
