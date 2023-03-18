@@ -7,40 +7,41 @@ import backgroundDesc from '../../../assets/background/currency-table.png';
 import backgrounTab from '../../../assets/background/bg-tab-curr.png';
 import getDataFromLocalStorage from 'shared/utils/localStorage';
 
-const INITIAL_STATE = { currency: [], loader: false };
+const INITIAL_STATE = {
+  currency: [],
+  loader: false,
+  moreThanHour: false,
+  error: false,
+};
 
 const Currency = () => {
   const [currency, setCurrency] = useState(INITIAL_STATE.currency);
-  const [loader, setLoader] = useState('');
-  // const [moreThanHour, setMoreThanHour] = useState(INITIAL_STATE.loader);
-  // const currencyFromStorage = getDataFromLocalStorage('currency', []);
+  const [loader, setLoader] = useState(INITIAL_STATE.loader);
+  const [moreThanHour, setMoreThanHour] = useState(INITIAL_STATE.moreThanHour);
+  const [isError, setIsError] = useState(INITIAL_STATE.error);
+  const currencyFromStorage = getDataFromLocalStorage('currency', []);
 
   useEffect(() => {
     const getCurrency = async () => {
       try {
-        // if (currencyFromStorage.length > 0) {
-        //   const prevDate = getDataFromLocalStorage('currencyFetchDate');
-        //   setMoreThanHour(Date.now() - prevDate > 36000);
-        // }
-
-        // if (currencyFromStorage.length > 0 && !moreThanHour) {
-        //   setCurrency(currencyFromStorage);
-        //   return;
-        // }
-
         setLoader(true);
+        if (currencyFromStorage.length > 0) {
+          const prevDate = getDataFromLocalStorage('currencyFetchDate');
+          setMoreThanHour(Date.now() - prevDate > 36000);
+        }
+
+        if (currencyFromStorage.length > 0 && !moreThanHour) {
+          setCurrency(currencyFromStorage);
+          setLoader(false);
+          return;
+        }
         const { data } = await fetchCurrency();
-        console.log('fetch done -->');
-
         setLoader(false);
-        console.log(' loader afterfetch-->', loader);
-
         setCurrency(data);
-        console.log('after fetch -->', loader);
-        // localStorage.setItem('currency', JSON.stringify(data));
-        // localStorage.setItem('currencyFetchDate', JSON.stringify(Date.now()));
+        localStorage.setItem('currency', JSON.stringify(data));
+        localStorage.setItem('currencyFetchDate', JSON.stringify(Date.now()));
       } catch ({ message }) {
-        console.log(message);
+        setIsError(true);
         setLoader(false);
       }
     };
@@ -61,7 +62,13 @@ const Currency = () => {
   return (
     <div className={styles.currency} style={{ backgroundImage: bg }}>
       {loader && <SpinnerClock />}
-      {!loader && (
+      {isError && (
+        <p className={styles.error}>
+          Exchange rate information is not available at the moment, please try
+          again later.
+        </p>
+      )}
+      {!loader && !isError && (
         <table className={styles.table}>
           <thead className={styles.thead}>
             <tr className={styles.tr}>

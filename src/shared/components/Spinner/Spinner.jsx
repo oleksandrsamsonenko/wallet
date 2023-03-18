@@ -1,9 +1,7 @@
 import { Watch, ThreeDots } from 'react-loader-spinner';
-import styles from './Spinner.module.scss';
 import { useMediaQuery } from 'react-responsive';
 
 export const SpinnerClock = () => {
-  const isTabletMin = useMediaQuery({ query: '(min-width: 768px)' });
   const isDesctopMin = useMediaQuery({ query: '(min-width: 1280px)' });
   const margin = isDesctopMin ? '100px' : '65px';
 
@@ -14,7 +12,10 @@ export const SpinnerClock = () => {
       radius="48"
       color="#ffffff"
       ariaLabel="watch-loading"
-      wrapperStyle={{ justifyContent: 'center', marginTop: margin }}
+      wrapperStyle={{
+        justifyContent: 'center',
+        marginTop: margin,
+      }}
       visible={true}
     />
   );
