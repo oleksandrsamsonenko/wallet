@@ -33,8 +33,14 @@ export const TempPage = () => {
       <TransitionOnClick showIt={showIt} type={'opacity'} setShowIt={setShowIt}>
         <Modal
           hide={hideModal}
-          // categoryProp={`76cc875a-3b43-4eae-8fdb-f76633821a34`}
-          // DONTCHANGE={false}
+          textProp={'Add'}
+          typeProp={`EXPENSE`}
+          amountProp={''}
+          dateProp={new Date()}
+          commentProp={''}
+          // categoryProp={''}
+          preventEdit={false}
+          // operation={'ADD'}
         />
       </TransitionOnClick>
     </div>,

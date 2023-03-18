@@ -10,10 +10,19 @@ import { useSelector } from 'react-redux';
 import { categories } from 'redux/AddTransaction/addTransaction-selectors';
 import * as Yup from 'yup';
 
-export const Modal = ({ hide, DONTCHANGE = false }) => {
+export const Modal = ({
+  hide,
+  textProp,
+  typeProp,
+  amountProp,
+  dateProp,
+  commentProp,
+  categoryProp = 'disabled',
+  preventEdit,
+}) => {
   const [showIt, setShowIt] = useState(false);
-  const [type, setType] = useState('EXPENSE');
-  const [date, setDate] = useState(new Date());
+  const [type, setType] = useState(typeProp);
+  const [date, setDate] = useState(dateProp);
 
   const incomeCategory = useSelector(categories);
   const list = useSelector(categories);
@@ -29,9 +38,9 @@ export const Modal = ({ hide, DONTCHANGE = false }) => {
       : [...validCategories, incomeId, 'disabled'];
 
   const initialValues = {
-    amount: '',
-    comment: '',
-    categoryId: 'disabled',
+    amount: amountProp,
+    comment: commentProp,
+    categoryId: categoryProp,
   };
 
   const validationSchema = Yup.object({
@@ -114,11 +123,12 @@ export const Modal = ({ hide, DONTCHANGE = false }) => {
       >
         <Form className={style.modal}>
           <button className={style.close} type="button" onClick={hide}></button>
-          <h2 className={style.header}>Add transaction</h2>
+          <h2 className={style.header}>{textProp} transaction</h2>
           <ToggleButton
             status={currentStatus}
             name="type"
             onChange={handleType}
+            disabled={preventEdit}
           />
           <div style={{ height: '73px' }}>
             <Transition showIt={showIt} type="opacity" setShowIt={setShowIt}>
@@ -126,7 +136,7 @@ export const Modal = ({ hide, DONTCHANGE = false }) => {
                 <Field
                   as="select"
                   className={style.selector}
-                  disabled={DONTCHANGE}
+                  disabled={preventEdit}
                   name="categoryId"
                 >
                   <option name="disabled" value="disabled">
@@ -145,10 +155,15 @@ export const Modal = ({ hide, DONTCHANGE = false }) => {
                 type="text"
                 name="amount"
                 placeholder="0.00"
+                disabled={preventEdit}
               ></Field>
               <FormError name="amount" />
             </div>
-            <Calendar date={date} onSubmit={handleCalendar} />
+            <Calendar
+              preventEdit={preventEdit}
+              date={date}
+              onSubmit={handleCalendar}
+            />
           </div>
           <Field
             as="textarea"
@@ -156,10 +171,11 @@ export const Modal = ({ hide, DONTCHANGE = false }) => {
             type="text"
             placeholder="comment"
             name="comment"
+            disabled={preventEdit}
           ></Field>
 
           <button className={style.add} type="submit">
-            ADD
+            {textProp.toUpperCase()}
           </button>
 
           <button className={style.cancel} type="button" onClick={hide}>
