@@ -6,6 +6,23 @@
   margin-top: 32px;
 }
 
+.boxNotFound {
+  margin-top: 20px;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.img {
+  width: 340px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.text {
+  margin-bottom: 20px;
+  @include main-font(700, 18px, 25px);
+}
+
 .table {
   background-color: getColor(full-white);
   border-collapse: collapse;
@@ -25,19 +42,34 @@
   padding-left: 20px;
   @include main-font(700, 18px, 27px);
 }
-.point {
+.pointExpence {
   width: 5px;
   background-color: getColor(wrong-pink);
 }
-.pointFirst {
+.pointFirstExpence {
   width: 5px;
   background-color: getColor(wrong-pink);
   border-top-left-radius: 10px;
 }
 
-.pointLast {
+.pointLastExpence {
   width: 5px;
   background-color: getColor(wrong-pink);
+  border-bottom-left-radius: 10px;
+}
+.pointIncome {
+  width: 5px;
+  background-color: getColor(success-green);
+}
+.pointFirstIncome {
+  width: 5px;
+  background-color: getColor(success-green);
+  border-top-left-radius: 10px;
+}
+
+.pointLastIncome {
+  width: 5px;
+  background-color: getColor(success-green);
   border-bottom-left-radius: 10px;
 }
 .body {
