@@ -1,6 +1,5 @@
 import css from './header.module.scss';
 import logo from 'assets/svg/main-logo.svg';
-import Button from '../Button/Button';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout } from 'redux/Auth/auth-operations';
 import exit from '../../../assets/svg/exit.svg';
