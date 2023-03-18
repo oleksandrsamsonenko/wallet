@@ -8,6 +8,25 @@
   }
 }
 
+.boxNotFound {
+  margin-top: 20px;
+
+  @include media-min(desktop) {
+    margin-top: 46px;
+  }
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.img {
+  margin-left: auto;
+  margin-right: auto;
+}
+.text {
+  margin-bottom: 20px;
+  @include main-font(700, 25px, 32px);
+}
 .table {
   height: 58px;
   margin-bottom: 20px;
@@ -121,8 +140,10 @@
 
 .income {
   color: getColor(success-green);
+  @include main-font(700, 16px, 24px);
 }
 
 .expence {
   color: getColor(wrong-pink);
+  @include main-font(700, 16px, 24px);
 }
