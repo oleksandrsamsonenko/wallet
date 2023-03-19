@@ -3,35 +3,79 @@ import { Link } from 'react-router-dom';
 import css from './SignUp.module.scss';
 import emailSvg from 'assets/svg/email.svg';
 import passwordSvg from 'assets/svg/password.svg';
-import { useFormik } from 'formik';
+import userSvg from 'assets/svg/user.svg';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { useDispatch } from 'react-redux';
 import { register } from 'redux/Auth/auth-operations';
+import * as Yup from 'yup';
 
 import logo from '../../../assets/svg/main-logo.svg';
 
 const SignUp = () => {
   const dispatch = useDispatch();
-  const formik = useFormik({
-    initialValues: {
-      firstName: '',
-      password: '',
-      confirmPassword: '',
-      email: '',
-    },
 
-    onSubmit: values => {
-      if (values.password !== values.confirmPassword) {
-        return;
-      }
-      const user = {
-        password: values.password,
-        username: values.firstName,
-        email: values.email,
-      };
-      dispatch(register(user));
-    },
+  const initialValues = {
+    firstName: '',
+    password: '',
+    confirmPassword: '',
+    email: '',
+  };
+  const onSubmit = values => {
+    if (values.password !== values.confirmPassword) {
+      alert('passwords do not match');
+      return;
+    }
+    const user = {
+      password: values.password,
+      username: values.firstName,
+      email: values.email,
+    };
+    dispatch(register(user));
+  };
+  const validationSchema = Yup.object({
+    email: Yup.string()
+      .email('*incorrectly specified email')
+      .required('*Email is required'),
+    firstName: Yup.string().min(2).max(10).required('Name is required'),
+    password: Yup.string()
+      .required('*Password is required')
+      .min(8, 'Your password must contain a least 8 characters'),
   });
+  const getStyleValidator = value => {
+    const perfectValidationString =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/;
+    const firstValidationString = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/;
+    const secondValidationString =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#\$%\^&\*])(?=.{8,})/;
+    const thirdValidationString =
+      /^(?=.*[a-z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/;
+    const quatroValidationString =
+      /^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/;
+    const normalPassword =
+      firstValidationString.exec(value) ||
+      secondValidationString.exec(value) ||
+      thirdValidationString.exec(value) ||
+      quatroValidationString.exec(value);
+    const perfectPassword = perfectValidationString.exec(value);
 
+    if (value.length < 8) {
+      return 'empty';
+    } else if (perfectPassword) {
+      return 'perfect';
+    } else if (normalPassword) {
+      return 'normal';
+    } else {
+      return 'bad';
+    }
+  };
+  const FormError = ({ name }) => {
+    return (
+      <ErrorMessage
+        name={name}
+        render={message => <p className={css.error}>{message}</p>}
+      />
+    );
+  };
   return (
     <>
       <div className={css.desktopWrapper}>
@@ -40,78 +84,106 @@ const SignUp = () => {
           <p className={css.backText}>Finance App</p>
         </div>
         <div className={css.backdrop}>
-          <form onSubmit={formik.handleSubmit} className={css.form}>
-            <div className={css.logoBox}>
-              <img src={logo} alt="logo" />
-              <span className={css.logoText}> Wallet</span>
-            </div>
-            <label className={css.label}>
-              <img src={emailSvg} alt="user-email" className={css.svg} />
+          <Formik
+            onSubmit={onSubmit}
+            className={css.form}
+            initialValues={initialValues}
+            validationSchema={validationSchema}
+          >
+            <Form>
+              <div className={css.logoBox}>
+                <img className={css.logo} src={logo} alt="logo" />
+                <span className={css.logoText}> Wallet</span>
+              </div>
+              <label className={css.label}>
+                <img src={emailSvg} alt="user-email" className={css.svg} />
+                <Field
+                  id="email"
+                  name="email"
+                  type="email"
+                  placeholder="E-mail"
+                  className={css.input}
+                ></Field>
+                <FormError name="email" />
+              </label>
 
-              <input
-                id="email"
-                name="email"
-                type="email"
-                onChange={formik.handleChange}
-                value={formik.values.email}
-                placeholder="E-mail"
-                className={css.input}
-              />
-            </label>
+              <label className={css.passwordLabel}>
+                <div className={css.flexedPassword}>
+                  <img
+                    src={passwordSvg}
+                    alt="user-password"
+                    className={css.svg}
+                  />
+                  <Field name="password">
+                    {({ field, form: { touched, errors }, meta }) => {
+                      return (
+                        <>
+                          <input
+                            type="password"
+                            placeholder="Password"
+                            {...field}
+                            className={css.input}
+                          />
 
-            <label className={css.label}>
-              <img src={passwordSvg} alt="user-password" className={css.svg} />
+                          <div className={css.indicate}>
+                            <div
+                              className={getStyleValidator(meta.value)}
+                            ></div>
+                          </div>
 
-              <input
-                id="password"
-                name="password"
-                type="password"
-                onChange={formik.handleChange}
-                value={formik.values.password}
-                placeholder="password"
-                className={css.input}
-              />
-            </label>
-            <label className={css.label}>
-              <img
-                src={passwordSvg}
-                alt="confirm-password"
-                className={css.svg}
-              />
+                          {meta.touched && meta.error && (
+                            <div className="error"></div>
+                          )}
+                        </>
+                      );
+                    }}
+                  </Field>
+                </div>
+                <FormError name="password" />
+              </label>
+              <label className={css.label}>
+                <img
+                  src={passwordSvg}
+                  alt="confirm-password"
+                  className={css.svg}
+                />
 
-              <input
-                id="confirmPassword"
-                name="confirmPassword"
-                type="password"
-                onChange={formik.handleChange}
-                value={formik.values.confirmPassword}
-                placeholder="Confirm password"
-                className={css.input}
-              />
-            </label>
-            <label className={css.label}>
-              <img src={emailSvg} alt="user-name" className={css.svg} />
+                <Field
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  type="password"
+                  placeholder="Confirm password"
+                  className={css.input}
+                ></Field>
+                <FormError name="confirmPassword" />
+              </label>
+              <label className={css.label}>
+                <img src={userSvg} alt="user-name" className={css.svg} />
 
-              <input
-                id="firstName"
-                name="firstName"
-                type="text"
-                onChange={formik.handleChange}
-                value={formik.values.firstName}
-                placeholder="First name"
-                className={css.input}
-              />
-            </label>
+                <Field
+                  id="firstName"
+                  name="firstName"
+                  type="text"
+                  placeholder="First name"
+                  className={css.input}
+                ></Field>
+                <FormError name="firstName" />
+              </label>
 
-            <Button text="Sign up" type="submit" styleName="btn-auth" />
+              <Button text="Sign up" type="submit" styleName="btn-auth" />
 
-            <Link to="/" className={css.btnAuth}>
-              Log in
-            </Link>
-          </form>
+              <Link to="/" className={css.btnAuth}>
+                Log in
+              </Link>
+            </Form>
+          </Formik>
         </div>
       </div>
     </>
   );
 };
 export default SignUp;
+
+// не менее 6 симоволов, / 1 бал
+// 1 заглвная буква, / 2 бала
+// 1 символ, / 3 бала
