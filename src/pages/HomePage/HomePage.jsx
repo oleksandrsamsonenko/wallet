@@ -24,8 +24,8 @@ function HomePage() {
       <div className={`home-wrapper ${css.wrapper}`}>
         <div className="container">
           <AppBar />
-          <Outlet />
           <TempPage />
+          <Outlet />
         </div>
       </div>
     </>

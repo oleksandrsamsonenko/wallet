@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Modal } from '../Modal/Modal';
-import { useLocation } from 'react-router-dom';
+import { createPortal } from 'react-dom';
 import style from './TempPage.module.scss';
 import { TransitionOnClick } from '../Transition/Transition';
 import { createPortal } from 'react-dom';
@@ -9,6 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 // import { useSelector } from 'react-redux';
 // import { useMemo } from 'react';
 // import { loadingStatus } from 'redux/AddTransaction/addTransaction-selectors';
+import { useLocation } from 'react-router-dom';
 
 const modalRoot = document.querySelector('#modal-root');
 
@@ -53,18 +54,10 @@ export const TempPage = () => {
         className={style.btn}
         onClick={showModal}
         type="button"
-        name="add"
         style={{ display: `${isButtonHidden}` }}
       ></button>
       <TransitionOnClick showIt={showIt} type={'opacity'} setShowIt={setShowIt}>
-        <Modal
-          OPEN={true}
-          hide={hideModal}
-          textProp={'Add'}
-          typeProp={`EXPENSE`}
-          dateProp={new Date()}
-          preventEdit={false}
-        />
+        <Modal hide={hideModal} />
       </TransitionOnClick>
       {/* <ToastContainer /> */}
     </div>,

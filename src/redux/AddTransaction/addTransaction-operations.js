@@ -18,6 +18,7 @@ export const getTransactionCategories = createAsyncThunk(
   async (data, { rejectWithValue }) => {
     try {
       const result = await api.getTransactionCategories(data);
+
       return result;
     } catch ({ response }) {
       return rejectWithValue(response.data.message);

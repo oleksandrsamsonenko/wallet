@@ -5,56 +5,36 @@ import { Calendar } from '../Calendar/Calendar';
 import { Transition } from '../Transition/Transition';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import style from './Modal.module.scss';
-import {
-  addTransaction,
-  editTransactions,
-} from 'redux/AddTransaction/addTransaction-operations';
+import { addTransaction } from 'redux/AddTransaction/addTransaction-operations';
 import { useSelector } from 'react-redux';
 import { categories } from 'redux/AddTransaction/addTransaction-selectors';
 import * as Yup from 'yup';
 
-export const Modal = ({
-  hide,
-  textProp,
-  typeProp,
-  amountProp = '',
-  dateProp,
-  commentProp = '',
-  categoryProp = 'disabled',
-  preventEdit,
-  id,
-}) => {
+export const Modal = ({ hide }) => {
   const [showIt, setShowIt] = useState(false);
-  const [type, setType] = useState(typeProp);
-  const [date, setDate] = useState(new Date(dateProp));
+  const [type, setType] = useState('EXPENSE');
+  const [date, setDate] = useState(new Date());
+
   const incomeCategory = useSelector(categories);
   const list = useSelector(categories);
 
-  const currentStatus = type === 'EXPENSE' ? true : false;
-
-  useEffect(() => setShowIt(currentStatus), [currentStatus]);
-
   const incomeId = incomeCategory.find(item => item.type === 'INCOME').id;
-  const validCategories = list
-    .filter(item => item.type === 'EXPENSE')
-    .map(item => item.id);
-
   const validationList =
     type === 'EXPENSE'
-      ? validCategories
-      : [...validCategories, incomeId, 'disabled'];
+      ? list.filter(item => item.type === 'EXPENSE').map(item => item.id)
+      : [incomeId];
 
   const initialValues = {
-    amount: amountProp,
-    comment: commentProp,
-    categoryId: categoryProp,
+    amount: '',
+    comment: '',
+    categoryId: incomeId,
   };
 
   const validationSchema = Yup.object({
     amount: Yup.number()
       .positive('Must be a positive number')
-      .required('Amount is required')
-      .typeError('Must be a number'),
+      .required('Must be a positive number')
+      .typeError('Must be a positive number'),
     categoryId: Yup.string()
       .oneOf(validationList, 'Choose category')
       .required('Choose category'),
@@ -81,21 +61,20 @@ export const Modal = ({
     }
   };
 
+  const currentStatus = type === 'EXPENSE' ? true : false;
+
   const handleType = () => {
     type === 'EXPENSE' ? setType('INCOME') : setType('EXPENSE');
-    setShowIt(prevState => (prevState ? false : true));
+    setShowIt(ps => !ps);
   };
 
-  const handleSubmit = ({ amount, comment, categoryId }) => {
-    if (type === `INCOME`) {
-      categoryId = incomeId;
-    }
+  const handleSubmit = ({ amount, comment, categoryId }, actions) => {
     const result = {
       transactionDate: date.toISOString(),
       type,
       categoryId: categoryId,
       comment: comment,
-      amount: type === 'EXPENSE' ? +`-${amount}` : +amount,
+      amount: type === 'EXPENSE' ? +`-${amount}` : amount,
     };
     textProp === 'Edit'
       ? dispatch(editTransactions({ result, id }))

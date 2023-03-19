@@ -4,7 +4,6 @@ import Chart from './Chart/Chart';
 
 import styles from './statistic.module.scss';
 const Statistic = () => {
-
   return (
     <div className={styles.statistic_container}>
       <h2 className={styles.title}>Statistic</h2>

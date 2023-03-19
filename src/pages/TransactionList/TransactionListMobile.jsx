@@ -7,14 +7,8 @@ import {
 import css from '../TransactionList/TransactionListMobile.module.scss';
 import svg from '../../assets/svg/edit-02.svg';
 import notfound from '../../assets/background/notfound.png';
-import { Modal } from 'shared/components/Modal/Modal';
-import { TransitionOnClick } from 'shared/components/Transition/Transition';
-import { useState } from 'react';
-import React from 'react';
 
 const TransactionListMobile = () => {
-  const [state, setState] = useState({});
-  const [showIt, setShowIt] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -22,31 +16,6 @@ const TransactionListMobile = () => {
   }, [dispatch]);
   const categories = useSelector(state => state.categories.categories);
   const transactions = useSelector(state => state.categories.history);
-
-  const showModal = (
-    categoryId,
-    amount,
-    type,
-    transactionDate,
-    comment,
-    id
-  ) => {
-    const finalComment = comment ? comment : '';
-    setState({
-      categoryId,
-      amount,
-      type,
-      transactionDate,
-      comment: finalComment,
-      id,
-    });
-    setShowIt(true);
-  };
-
-  const hideModal = () => {
-    setShowIt(false);
-  };
-
   if (transactions.length !== 0) {
     return (
       <ul className={css.list}>
