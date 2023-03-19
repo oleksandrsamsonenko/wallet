@@ -1,7 +1,6 @@
 import DateForm from './DateForm/DateForm';
 import StatisticList from './StatisticList/StatisticList';
 import Chart from './Chart/Chart';
-import { useSelector } from 'react-redux';
 
 import styles from './statistic.module.scss';
 const Statistic = () => {
