@@ -2,7 +2,7 @@
 
 .btn {
   transition: all 400ms;
-
+  z-index: 500;
   position: fixed;
   right: 20px;
   bottom: 20px;
@@ -17,6 +17,7 @@
   border-style: none;
   cursor: pointer;
   @include media-min(mobile-resp) {
+    position: fixed;
     right: 40px;
     bottom: 40px;
   }

@@ -3,7 +3,6 @@ import { Modal } from '../Modal/Modal';
 import { createPortal } from 'react-dom';
 import style from './TempPage.module.scss';
 import { TransitionOnClick } from '../Transition/Transition';
-import { createPortal } from 'react-dom';
 import 'react-toastify/dist/ReactToastify.css';
 // import { useSelector } from 'react-redux';
 // import { useMemo } from 'react';
@@ -53,10 +52,18 @@ export const TempPage = () => {
         className={style.btn}
         onClick={showModal}
         type="button"
+        name="add"
         style={{ display: `${isButtonHidden}` }}
       ></button>
       <TransitionOnClick showIt={showIt} type={'opacity'} setShowIt={setShowIt}>
-        <Modal hide={hideModal} />
+        <Modal
+          OPEN={true}
+          hide={hideModal}
+          textProp={'Add'}
+          typeProp={`EXPENSE`}
+          dateProp={new Date()}
+          preventEdit={false}
+        />
       </TransitionOnClick>
       {/* <ToastContainer /> */}
     </div>,

@@ -16,7 +16,6 @@ const StatisticList = () => {
     dispatch(addChartData(valueChart));
   }, [dispatch, valueChart]);
 
-
   const filteredExpenses = history.filter(hist => hist.type === 'EXPENSE');
 
   const filteredIncome = history.filter(hist => hist.type === 'INCOME');
