@@ -4,7 +4,6 @@ import { useLocation } from 'react-router-dom';
 import style from './TempPage.module.scss';
 import { TransitionOnClick } from '../Transition/Transition';
 import { createPortal } from 'react-dom';
-// import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 // import { useSelector } from 'react-redux';
 // import { useMemo } from 'react';
