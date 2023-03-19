@@ -46,7 +46,7 @@ const Currency = () => {
       }
     };
     getCurrency();
-  }, []);
+  }, [currencyFromStorage, moreThanHour]);
 
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1279px)' });
   if (currency.length === 0) {
