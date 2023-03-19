@@ -42,17 +42,17 @@ const SignUp = () => {
       .min(8, 'Your password must contain a least 8 characters'),
   });
   const getStyleValidator = value => {
-    const perfectValidationString = ``;
-    const firstValidationString = `/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/`;
-    const secondValidationString = `/^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#\$%\^&\*])(?=.{8,})/`;
-    const thirdValidationString = `/^(?=.*[a-z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/`;
-    const quatroValidationString = `/^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/`;
+    const perfectValidationString = "/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/";
+    const firstValidationString = "/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/";
+    const secondValidationString = "/^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#\$%\^&\*])(?=.{8,})/";
+    const thirdValidationString = "/^(?=.*[a-z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/";
+    const quatroValidationString = "/^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/";
     const normalPassword =
       firstValidationString.exec(value) ||
       secondValidationString.exec(value) ||
       thirdValidationString.exec(value) ||
       quatroValidationString.exec(value);
-    const perfectPassword = value.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/);
+    const perfectPassword = perfectValidationString.match(value);
 
     if (value.length < 8) {
       return 'empty';
