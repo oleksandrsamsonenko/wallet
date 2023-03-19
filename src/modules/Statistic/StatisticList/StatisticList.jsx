@@ -15,7 +15,7 @@ const StatisticList = () => {
     if (arrForChart.length !== 0) {
       dispatch(addChartData(arrForChart));
     }
-  }, [arrForChart]);
+  }, [arrForChart, dispatch]);
 
   const filteredExpenses = history.filter(hist => hist.type === 'EXPENSE');
   const filteredIncome = history.filter(hist => hist.type === 'INCOME');
@@ -30,7 +30,7 @@ const StatisticList = () => {
 
   const SUPERARR = [];
 
-  const SUPERRESULT = categoriesList.forEach(item => {
+  categoriesList.forEach(item => {
     SUPERARR.push({
       categoryId: item,
       amount: filteredExpenses.reduce((acc, element) => {
