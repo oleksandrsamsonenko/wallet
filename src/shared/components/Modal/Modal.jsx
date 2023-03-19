@@ -47,6 +47,14 @@ export const Modal = ({ hide }) => {
     return () => document.removeEventListener(`keydown`, handleClose);
   });
 
+  useEffect(() => {
+    const body = document.querySelector('body');
+    body.classList.add('modal-open');
+    return () => {
+      body.classList.remove('modal-open');
+    };
+  }, []);
+
   const handleClose = event => {
     if (event.code === 'Escape' || event.target === event.currentTarget) {
       hide();
@@ -68,10 +76,10 @@ export const Modal = ({ hide }) => {
       comment: comment,
       amount: type === 'EXPENSE' ? +`-${amount}` : amount,
     };
-    console.log('RESULT', result);
-    dispatch(addTransaction(result));
-    // hide();
-    actions.resetForm();
+    textProp === 'Edit'
+      ? dispatch(editTransactions({ result, id }))
+      : dispatch(addTransaction(result));
+    hide();
   };
 
   const handleCalendar = date => {
@@ -103,33 +111,41 @@ export const Modal = ({ hide }) => {
         validationSchema={validationSchema}
         initialValues={initialValues}
         onSubmit={handleSubmit}
-        // validateOnChange={false}
-        validateOnBlur={false}
+        // validateOnBlur={false}
+        validateOnChange={false}
       >
-        {({ errors, touched }) => (
-          <Form className={style.modal}>
+        <Form className={style.modal}>
+          <div className={style.div}>
             <button
               className={style.close}
               type="button"
               onClick={hide}
             ></button>
-            <h2 className={style.header}>Add transaction</h2>
+            <h2 className={style.header}>{textProp} transaction</h2>
             <ToggleButton
               status={currentStatus}
               name="type"
               onChange={handleType}
+              disabled={preventEdit}
             />
-            <Transition showIt={showIt} type="opacity" setShowIt={setShowIt}>
-              <div className={style.wrapper}>
-                <Field as="select" className={style.selector} name="categoryId">
-                  <option name="disabled" value="disabled">
-                    Select category
-                  </option>
-                  {categoriesList}
-                </Field>
-                <FormError name="categoryId" className={style.error} />
-              </div>
-            </Transition>
+            <div style={{ height: '73px' }}>
+              <Transition showIt={showIt} type="opacity" setShowIt={setShowIt}>
+                <div className={style.wrapper}>
+                  <Field
+                    as="select"
+                    className={style.selector}
+                    disabled={preventEdit}
+                    name="categoryId"
+                  >
+                    <option name="disabled" value="disabled">
+                      Select category
+                    </option>
+                    {categoriesList}
+                  </Field>
+                  <FormError name="categoryId" className={style.error} />
+                </div>
+              </Transition>
+            </div>
             <div className={style.direction}>
               <div className={style.wrapper}>
                 <Field
@@ -140,7 +156,11 @@ export const Modal = ({ hide }) => {
                 ></Field>
                 <FormError name="amount" />
               </div>
-              <Calendar date={date} onSubmit={handleCalendar} />
+              <Calendar
+                preventEdit={preventEdit}
+                date={date}
+                onSubmit={handleCalendar}
+              />
             </div>
             <Field
               as="textarea"
@@ -151,14 +171,14 @@ export const Modal = ({ hide }) => {
             ></Field>
 
             <button className={style.add} type="submit">
-              ADD
+              {textProp.toUpperCase()}
             </button>
 
             <button className={style.cancel} type="button" onClick={hide}>
               CANCEL
             </button>
-          </Form>
-        )}
+          </div>
+        </Form>
       </Formik>
     </div>
   );

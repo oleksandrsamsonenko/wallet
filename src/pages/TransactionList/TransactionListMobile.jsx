@@ -17,98 +17,131 @@ const TransactionListMobile = () => {
   const categories = useSelector(state => state.categories.categories);
   const transactions = useSelector(state => state.categories.history);
   if (transactions.length !== 0) {
-    return transactions?.map(
-      ({ id, transactionDate, type, comment, amount, categoryId }) => {
-        const date = new Date(transactionDate).toLocaleDateString();
-        const transactionName = categories.find(
-          category => category.id === categoryId
-        );
-        return (
-          <div className={css.box}>
-            <table className={css.table} key={id}>
-              <tbody className={css.tbody}>
-                <tr className={css.part}>
-                  {type === 'EXPENSE' ? (
-                    <td className={css.pointFirstExpence}></td>
-                  ) : (
-                    <td className={css.pointFirstIncome}></td>
-                  )}
-                  <td className={css.head}>Date</td>
-                  <td className={css.body}>{date}</td>
-                </tr>
-                <tr>
-                  {type === 'EXPENSE' ? (
-                    <td className={css.pointExpence}></td>
-                  ) : (
-                    <td className={css.pointIncome}></td>
-                  )}
-                  <td className={css.head}>Type</td>
-                  {type === 'EXPENSE' ? (
-                    <td className={css.body}>-</td>
-                  ) : (
-                    <td className={css.body}>+</td>
-                  )}
-                </tr>
-                <tr>
-                  {type === 'EXPENSE' ? (
-                    <td className={css.pointExpence}></td>
-                  ) : (
-                    <td className={css.pointIncome}></td>
-                  )}
-                  <td className={css.head}>Category</td>
-                  <td className={css.body}>{transactionName?.name}</td>
-                </tr>
-                <tr>
-                  {type === 'EXPENSE' ? (
-                    <td className={css.pointExpence}></td>
-                  ) : (
-                    <td className={css.pointIncome}></td>
-                  )}
-                  <td className={css.head}>Comment</td>
-                  <td className={css.body}>{comment}</td>
-                </tr>
-                <tr>
-                  {type === 'EXPENSE' ? (
-                    <td className={css.pointExpence}></td>
-                  ) : (
-                    <td className={css.pointIncome}></td>
-                  )}
-                  <td className={css.head}>Sum</td>
-                  {type === 'EXPENSE' ? (
-                    <td className={css.expence}>
-                      {Math.abs(amount).toFixed(2)}
-                    </td>
-                  ) : (
-                    <td className={css.income}>{amount.toFixed(2)}</td>
-                  )}
-                </tr>
-                <tr>
-                  {type === 'EXPENSE' ? (
-                    <td className={css.pointLastExpence}></td>
-                  ) : (
-                    <td className={css.pointLastIncome}></td>
-                  )}
-                  <td className={css.head}>
-                    <button
-                      className={css.btn}
-                      type="button"
-                      onClick={() => dispatch(deleteTransactions(id))}
-                    >
-                      Delete
-                    </button>
-                  </td>
-                  <td className={css.bodyLink}>
-                    <button className={css.editBtn}>
-                      <img src={svg} alt="Edit" className={css.svg} />
-                      <span> Edit</span>
-                    </button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        );
-      }
+    return (
+      <ul className={css.list}>
+        {transactions?.map(
+          ({ id, transactionDate, type, comment, amount, categoryId }) => {
+            const date = new Date(transactionDate).toLocaleDateString();
+            const transactionName = categories.find(
+              category => category.id === categoryId
+            );
+            return (
+              <li className={css.box} key={id}>
+                <table className={css.table}>
+                  <tbody className={css.tbody}>
+                    <tr className={css.part}>
+                      {type === 'EXPENSE' ? (
+                        <td className={css.pointFirstExpence}></td>
+                      ) : (
+                        <td className={css.pointFirstIncome}></td>
+                      )}
+                      <td className={css.head}>Date</td>
+                      <td className={css.body}>{date}</td>
+                    </tr>
+                    <tr>
+                      {type === 'EXPENSE' ? (
+                        <td className={css.pointExpence}></td>
+                      ) : (
+                        <td className={css.pointIncome}></td>
+                      )}
+                      <td className={css.head}>Type</td>
+                      {type === 'EXPENSE' ? (
+                        <td className={css.body}>-</td>
+                      ) : (
+                        <td className={css.body}>+</td>
+                      )}
+                    </tr>
+                    <tr>
+                      {type === 'EXPENSE' ? (
+                        <td className={css.pointExpence}></td>
+                      ) : (
+                        <td className={css.pointIncome}></td>
+                      )}
+                      <td className={css.head}>Category</td>
+                      <td className={css.body}>{transactionName?.name}</td>
+                    </tr>
+                    <tr>
+                      {type === 'EXPENSE' ? (
+                        <td className={css.pointExpence}></td>
+                      ) : (
+                        <td className={css.pointIncome}></td>
+                      )}
+                      <td className={css.head}>Comment</td>
+                      <td className={css.body}>{comment}</td>
+                    </tr>
+                    <tr>
+                      {type === 'EXPENSE' ? (
+                        <td className={css.pointExpence}></td>
+                      ) : (
+                        <td className={css.pointIncome}></td>
+                      )}
+                      <td className={css.head}>Sum</td>
+                      {type === 'EXPENSE' ? (
+                        <td className={css.expence}>
+                          {Math.abs(amount).toFixed(2)}
+                        </td>
+                      ) : (
+                        <td className={css.income}>{amount.toFixed(2)}</td>
+                      )}
+                    </tr>
+                    <tr>
+                      {type === 'EXPENSE' ? (
+                        <td className={css.pointLastExpence}></td>
+                      ) : (
+                        <td className={css.pointLastIncome}></td>
+                      )}
+                      <td className={css.head}>
+                        <button
+                          className={css.btn}
+                          type="button"
+                          onClick={() => dispatch(deleteTransactions(id))}
+                        >
+                          Delete
+                        </button>
+                      </td>
+                      <td className={css.bodyLink}>
+                        <button
+                          className={css.editBtn}
+                          onClick={() =>
+                            showModal(
+                              categoryId,
+                              amount,
+                              type,
+                              transactionDate,
+                              comment,
+                              id
+                            )
+                          }
+                        >
+                          <img src={svg} alt="Edit" className={css.svg} />
+                          <span> Edit</span>
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <TransitionOnClick
+                  showIt={showIt}
+                  type={'opacity'}
+                  setShowIt={setShowIt}
+                >
+                  <Modal
+                    hide={hideModal}
+                    textProp={'Edit'}
+                    typeProp={state.type}
+                    amountProp={Math.abs(state.amount)}
+                    dateProp={state.transactionDate}
+                    commentProp={state.comment}
+                    categoryProp={state.categoryId}
+                    preventEdit={true}
+                    id={state.id}
+                  />
+                </TransitionOnClick>
+              </li>
+            );
+          }
+        )}
+      </ul>
     );
   } else {
     return (
