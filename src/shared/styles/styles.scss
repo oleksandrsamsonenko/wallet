@@ -1,7 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Poppins:wght@400;700&display=swap');
 
+@import './normalize';
 @import './colors';
 @import './mixins/mixins-main';
+@import './container';
+@import './bacground';
+@import './picture-styles-log-sign';
 
 @font-face {
   font-family: 'Circe';
@@ -21,30 +25,8 @@ g {
   outline: none;
 }
 
-body {
-  background-color: white;
-  background-attachment: fixed;
-  @include media-min(tablet) {
-    background-color: #e5e5e5;
-    background-image: url('../../assets/background/ellipse_blue.png'),
-      url('../../assets/background/ellipse_pink.png');
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-size: 40%;
-    background-position: bottom 0 left 0, top 0 right 0;
-  }
-}
-
-.red {
-  border: 3px solid red;
-}
-
 #root {
   display: flex;
   flex-direction: column;
   height: 100vh;
-}
-
-.modal-open {
-  overflow: hidden;
 }

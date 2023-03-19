@@ -1,5 +1,3 @@
-@import './styles.scss';
-
 .boy__box {
   @include media-min(tablet) {
     background-image: url('../../assets/background/tablet-man.png');

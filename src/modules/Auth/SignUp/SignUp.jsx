@@ -42,7 +42,7 @@ const SignUp = () => {
         <div className={css.backdrop}>
           <form onSubmit={formik.handleSubmit} className={css.form}>
             <div className={css.logoBox}>
-              <img className={css.logo} src={logo} alt="logo" />
+              <img src={logo} alt="logo" />
               <span className={css.logoText}> Wallet</span>
             </div>
             <label className={css.label}>
