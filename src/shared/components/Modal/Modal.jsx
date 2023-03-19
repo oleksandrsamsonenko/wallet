@@ -68,13 +68,8 @@ export const Modal = ({
   });
 
   useEffect(() => {
-    // Получить элемент <body>
     const body = document.querySelector('body');
-
-    // Добавить класс 'modal-open' к <body>
     body.classList.add('modal-open');
-
-    // Удалить класс 'modal-open' из <body'
     return () => {
       body.classList.remove('modal-open');
     };
@@ -103,9 +98,8 @@ export const Modal = ({
       amount: type === 'EXPENSE' ? +`-${amount}` : +amount,
     };
     textProp === 'Edit'
-      ? dispatch(editTransactions({ ...result, id }))
+      ? dispatch(editTransactions({ result, id }))
       : dispatch(addTransaction(result));
-    console.log(id, result);
     hide();
   };
 
@@ -139,66 +133,72 @@ export const Modal = ({
         initialValues={initialValues}
         onSubmit={handleSubmit}
         // validateOnBlur={false}
-        // validateOnChange={true}
+        validateOnChange={false}
       >
         <Form className={style.modal}>
-          <button className={style.close} type="button" onClick={hide}></button>
-          <h2 className={style.header}>{textProp} transaction</h2>
-          <ToggleButton
-            status={currentStatus}
-            name="type"
-            onChange={handleType}
-            disabled={preventEdit}
-          />
-          <div style={{ height: '73px' }}>
-            <Transition showIt={showIt} type="opacity" setShowIt={setShowIt}>
+          <div className={style.div}>
+            <button
+              className={style.close}
+              type="button"
+              onClick={hide}
+            ></button>
+            <h2 className={style.header}>{textProp} transaction</h2>
+            <ToggleButton
+              status={currentStatus}
+              name="type"
+              onChange={handleType}
+              disabled={preventEdit}
+            />
+            <div style={{ height: '73px' }}>
+              <Transition showIt={showIt} type="opacity" setShowIt={setShowIt}>
+                <div className={style.wrapper}>
+                  <Field
+                    as="select"
+                    className={style.selector}
+                    disabled={preventEdit}
+                    name="categoryId"
+                  >
+                    <option name="disabled" value="disabled">
+                      Select category
+                    </option>
+                    {categoriesList}
+                  </Field>
+                  <FormError name="categoryId" className={style.error} />
+                </div>
+              </Transition>
+            </div>
+            <div className={style.direction}>
               <div className={style.wrapper}>
                 <Field
-                  as="select"
-                  className={style.selector}
-                  disabled={preventEdit}
-                  name="categoryId"
-                >
-                  <option name="disabled" value="disabled">
-                    Select category
-                  </option>
-                  {categoriesList}
-                </Field>
-                <FormError name="categoryId" className={style.error} />
+                  className={style.amount}
+                  type="text"
+                  name="amount"
+                  placeholder="0.00"
+                ></Field>
+                <FormError name="amount" />
               </div>
-            </Transition>
-          </div>
-          <div className={style.direction}>
-            <div className={style.wrapper}>
-              <Field
-                className={style.amount}
-                type="text"
-                name="amount"
-                placeholder="0.00"
-              ></Field>
-              <FormError name="amount" />
+              <Calendar
+                preventEdit={preventEdit}
+                date={date}
+                onSubmit={handleCalendar}
+              />
             </div>
-            <Calendar
-              preventEdit={preventEdit}
-              date={date}
-              onSubmit={handleCalendar}
-            />
+            <Field
+              as="textarea"
+              className={style.comment}
+              type="text"
+              placeholder="comment"
+              name="comment"
+            ></Field>
+
+            <button className={style.add} type="submit">
+              {textProp.toUpperCase()}
+            </button>
+
+            <button className={style.cancel} type="button" onClick={hide}>
+              CANCEL
+            </button>
           </div>
-          <Field
-            as="textarea"
-            className={style.comment}
-            type="text"
-            placeholder="comment"
-            name="comment"
-          ></Field>
-
-          <button className={style.add} type="submit">
-            {textProp.toUpperCase()}
-          </button>
-
-          <button className={style.cancel} type="button" onClick={hide}>
-            CANCEL
-          </button>
         </Form>
       </Formik>
     </div>
