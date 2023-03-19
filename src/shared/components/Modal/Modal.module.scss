@@ -28,6 +28,7 @@ label {
   align-items: center;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
   @include media-min(mobile-resp) {
     width: 540px;
     padding: 20px 73px 37px 73px;
