@@ -22,8 +22,7 @@ const getSize = (desktop, tablet, mobile) => {
 };
 
 const DateForm = () => {
-  const handleChange = ({ label }) => {
-    console.log(label);
+  const handleChange = value => {
     //сюда вешать логику!!!
   };
 

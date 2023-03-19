@@ -25,11 +25,6 @@ const Header = () => {
           <img src={exit} width="18" alt="exit" />
           <p>Exit</p>
         </button>
-        {/* <Button onClick={LogOut} text="exit"></Button> */}
-        {/* <a className={s.exit} href="https://www.google.com.ua/">
-          <img src={exit} width="18" alt="exit" />
-          <p>Exit</p>
-        </a> */}
       </div>
     </header>
   );

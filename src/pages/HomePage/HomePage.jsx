@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router';
 import AppBar from 'modules/AppBar/AppBar';
-// import { TempPage } from 'shared/components/TempPage/TempPage';
+import { TempPage } from 'shared/components/TempPage/TempPage';
 import Header from 'shared/components/Header/Header';
 import css from 'pages/HomePage/HomePage.module.scss';
 import {
@@ -24,8 +24,8 @@ function HomePage() {
       <div className={`home-wrapper ${css.wrapper}`}>
         <div className="container">
           <AppBar />
+          <TempPage />
           <Outlet />
-          {/* <TempPage /> */}
         </div>
       </div>
     </>

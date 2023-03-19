@@ -1,7 +1,91 @@
 import StatisticItem from './StatisticItem/StatisticItem';
-
+import { useSelector, useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { addChartData } from 'redux/AddTransaction/addTransaction-slice';
 import styles from './statistic-list.module.scss';
+import getValueChart from 'shared/utils/getValueChart';
+
 const StatisticList = () => {
+  const categories = useSelector(state => state.categories.categories);
+  const history = useSelector(state => state.categories.history);
+  const dispatch = useDispatch();
+  const SUPERARR = [];
+  const valueChart = getValueChart(categories, history);
+
+  useEffect(() => {
+    dispatch(addChartData(valueChart));
+  }, [dispatch, valueChart]);
+
+  const filteredExpenses = history.filter(hist => hist.type === 'EXPENSE');
+
+  const filteredIncome = history.filter(hist => hist.type === 'INCOME');
+
+  // const getDate = () => {
+  //   const transactionsDate = history.map(item => {
+  //     const month = new Date(item.transactionDate).getMonth() + 1;
+  //     const year = new Date(item.transactionDate).getFullYear();
+  //     return {};
+  //   });
+  // };
+  // getDate();
+
+  const noDublicate = filteredExpenses.filter(
+    (item, index) =>
+      filteredExpenses.findIndex(obj => obj.categoryId === item.categoryId) ===
+      index
+  );
+
+  const categoriesList = noDublicate.map(item => item.categoryId);
+
+  categoriesList.forEach(item => {
+    SUPERARR.push({
+      categoryId: item,
+      amount: filteredExpenses.reduce((acc, element) => {
+        if (element.categoryId === item) {
+          return (acc += element.amount);
+        }
+        return acc;
+      }, 0),
+    });
+  });
+
+  const expenses = filteredExpenses.reduce((acc, item) => {
+    return (acc += item.amount);
+  }, 0);
+
+  const income = filteredIncome.reduce((acc, item) => {
+    return (acc += item.amount);
+  }, 0);
+
+  // arrForChart = [
+  //   ...initialValue,
+  //   ...SUPERARR.map(({ categoryId, amount }) => {
+  //     const categoryArr = categories.find(
+  //       category => category.id === categoryId
+  //     );
+  //     const { color, name } = categoryArr;
+  //     return {
+  //       name,
+  //       fill: color,
+  //       value: Math.abs(amount),
+  //     };
+  //   }),
+  // ];
+
+  const fields = SUPERARR.map(({ categoryId, amount }) => {
+    const categoryArr = categories.find(category => category.id === categoryId);
+    const { color, name } = categoryArr;
+
+    return (
+      <StatisticItem
+        key={categoryId}
+        category={name}
+        color={color}
+        summ={Math.abs(amount).toFixed(2)}
+      />
+    );
+  });
+
   return (
     <div className={styles.list_wrapper}>
       <div className={styles.title}>
@@ -9,32 +93,16 @@ const StatisticList = () => {
         <p>Summ</p>
       </div>
       <div className={styles.list_box}>
-        <ul className={styles.list}>
-          <StatisticItem color="orange" category="Main expenses" summ="1700" />
-          <StatisticItem color="pinc" category="Products" summ="3700" />
-          <StatisticItem color="red" category="Car" summ="1000" />
-          <StatisticItem color="purple" category="Self care" summ="700" />
-          <StatisticItem color="cyan" category="Child care" summ="500" />
-          <StatisticItem
-            color="blu"
-            category="Household Production"
-            summ="1800"
-          />
-          <StatisticItem color="aqua" category="Education" summ="1200" />
-          <StatisticItem color="green" category="Leisure" summ="2200" />
-          <StatisticItem
-            color="forestgreen"
-            category="Other expenses"
-            summ="300"
-          />
-        </ul>
+        <ul className={styles.list}>{fields}</ul>
         <div className={styles.total}>
           <p className={styles.text}>Expenses:</p>
-          <span className={styles.expenses}>22500</span>
+          <span className={styles.expenses}>
+            {Math.abs(expenses).toFixed(2)}
+          </span>
         </div>
         <div className={styles.total}>
           <p className={styles.text}>Income:</p>
-          <span className={styles.income}>27300</span>
+          <span className={styles.income}>{Math.abs(income).toFixed(2)}</span>
         </div>
       </div>
     </div>
