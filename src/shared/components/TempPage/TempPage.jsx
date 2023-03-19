@@ -1,10 +1,9 @@
 import { useState } from 'react';
 import { Modal } from '../Modal/Modal';
-import { createPortal } from 'react-dom';
+import { useLocation } from 'react-router-dom';
 import style from './TempPage.module.scss';
 import { TransitionOnClick } from '../Transition/Transition';
-import { useLocation } from 'react-router-dom';
-
+import { createPortal } from 'react-dom';
 const modalRoot = document.querySelector('#modal-root');
 
 export const TempPage = () => {
@@ -32,9 +31,12 @@ export const TempPage = () => {
       ></button>
       <TransitionOnClick showIt={showIt} type={'opacity'} setShowIt={setShowIt}>
         <Modal
+          OPEN={true}
           hide={hideModal}
-          // categoryProp={`76cc875a-3b43-4eae-8fdb-f76633821a34`}
-          // DONTCHANGE={false}
+          textProp={'Add'}
+          typeProp={`EXPENSE`}
+          dateProp={new Date()}
+          preventEdit={false}
         />
       </TransitionOnClick>
     </div>,

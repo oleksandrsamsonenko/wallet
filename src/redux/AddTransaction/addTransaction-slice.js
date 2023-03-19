@@ -4,6 +4,7 @@ import {
   getTransactionCategories,
   getAllTransaction,
   deleteTransactions,
+  editTransactions,
 } from './addTransaction-operations';
 
 const initialState = {
@@ -72,6 +73,28 @@ const addTransactionSlice = createSlice({
         state.history = state.history.filter(el => el.id !== action.meta.arg);
       })
       .addCase(deleteTransactions.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(editTransactions.pending, state => {
+        state.loading = true;
+      })
+      .addCase(editTransactions.fulfilled, (state, action) => {
+        state.loading = false;
+        state.error = null;
+        // state.history = [
+        //   ...state.history.filter(el => el.id !== action.meta.arg.id),
+        //   action.meta.arg.result,
+        // ];
+        console.log(`!!!!`, action);
+        state.history = state.history.map(item =>
+          item.id === action.meta.arg.id
+            ? // ? { ...action.meta.arg.result, id: action.meta.arg.id }
+              action.meta.arg
+            : item
+        );
+      })
+      .addCase(editTransactions.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       });
