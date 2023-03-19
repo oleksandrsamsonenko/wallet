@@ -13,28 +13,22 @@ const INITIAL_STATE = {
   moreThanHour: false,
   error: false,
 };
+const currencyFromStorage = getDataFromLocalStorage('currency', []);
+const prevDate = getDataFromLocalStorage('currencyFetchDate');
+const moreThanHour = Date.now() - prevDate > 360000;
 
 const Currency = () => {
-  const [currency, setCurrency] = useState(INITIAL_STATE.currency);
+  const [currency, setCurrency] = useState(currencyFromStorage);
   const [loader, setLoader] = useState(INITIAL_STATE.loader);
-  const [moreThanHour, setMoreThanHour] = useState(INITIAL_STATE.moreThanHour);
   const [isError, setIsError] = useState(INITIAL_STATE.error);
-  const currencyFromStorage = getDataFromLocalStorage('currency', []);
 
   useEffect(() => {
     const getCurrency = async () => {
       try {
-        setLoader(true);
-        if (currencyFromStorage.length > 0) {
-          const prevDate = getDataFromLocalStorage('currencyFetchDate');
-          setMoreThanHour(Date.now() - prevDate > 36000);
-        }
-
         if (currencyFromStorage.length > 0 && !moreThanHour) {
-          setCurrency(currencyFromStorage);
-          setLoader(false);
           return;
         }
+        setLoader(true);
         const { data } = await fetchCurrency();
         setLoader(false);
         setCurrency(data);
@@ -46,7 +40,7 @@ const Currency = () => {
       }
     };
     getCurrency();
-  }, [currencyFromStorage, moreThanHour]);
+  }, [moreThanHour, currencyFromStorage]);
 
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1279px)' });
   if (currency.length === 0) {
