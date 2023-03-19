@@ -5,6 +5,7 @@ import {
   getAllTransaction,
   deleteTransactions,
 } from './addTransaction-operations';
+import { colorPalette } from 'shared/utils/color';
 
 const initialState = {
   categories: [],
@@ -12,11 +13,19 @@ const initialState = {
   result: {},
   loading: false,
   error: null,
+  chart: [],
 };
 
 const addTransactionSlice = createSlice({
   name: 'categories',
   initialState,
+  reducers: {
+    addChartData: {
+      reducer: (state, { payload }) => {
+        state.chart = payload;
+      },
+    },
+  },
   extraReducers: builder => {
     builder
       .addCase(addTransaction.pending, state => {
@@ -40,7 +49,10 @@ const addTransactionSlice = createSlice({
       })
       .addCase(getTransactionCategories.fulfilled, (state, { payload }) => {
         state.loading = false;
-        state.categories = payload;
+        state.categories = payload.map((item, index) => ({
+          ...item,
+          color: colorPalette[index],
+        }));
         state.error = null;
         state.isLogin = true;
       })
@@ -77,5 +89,7 @@ const addTransactionSlice = createSlice({
       });
   },
 });
+
+export const { addChartData } = addTransactionSlice.actions;
 
 export default addTransactionSlice.reducer;

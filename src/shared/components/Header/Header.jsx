@@ -1,12 +1,12 @@
 import css from './header.module.scss';
 import logo from 'assets/svg/main-logo.svg';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { logout } from 'redux/Auth/auth-operations';
 import exit from '../../../assets/svg/exit.svg';
-import { getUser } from 'redux/Auth/auth-selector';
+
+const nameFromState = 'name';
 
 const Header = () => {
-  const name = useSelector(getUser);
   const dispatch = useDispatch();
   const LogOut = () => {
     dispatch(logout());
@@ -19,7 +19,7 @@ const Header = () => {
         <span>Wallet</span>
       </div>
       <div className={css.box}>
-        <p className={css.name}>{name}</p>
+        <p className={css.name}>{nameFromState}</p>
         <div className={css.stik}></div>
         <button className={css.exit} onClick={LogOut} type="button">
           <img src={exit} width="18" alt="exit" />

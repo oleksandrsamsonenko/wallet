@@ -27,15 +27,10 @@ export const TempPage = () => {
         className={style.btn}
         onClick={showModal}
         type="button"
-        name="add"
         style={{ display: `${isButtonHidden}` }}
       ></button>
       <TransitionOnClick showIt={showIt} type={'opacity'} setShowIt={setShowIt}>
-        <Modal
-          hide={hideModal}
-          // categoryProp={`76cc875a-3b43-4eae-8fdb-f76633821a34`}
-          // DONTCHANGE={false}
-        />
+        <Modal hide={hideModal} />
       </TransitionOnClick>
     </div>,
     modalRoot
