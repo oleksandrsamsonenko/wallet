@@ -52,7 +52,7 @@ const SignUp = () => {
       secondValidationString.exec(value) ||
       thirdValidationString.exec(value) ||
       quatroValidationString.exec(value);
-    const perfectPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/.exec(value);
+    const perfectPassword = value.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/);
 
     if (value.length < 8) {
       return 'empty';
