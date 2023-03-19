@@ -40,7 +40,7 @@ const Currency = () => {
       }
     };
     getCurrency();
-  }, [moreThanHour, currencyFromStorage]);
+  }, []);
 
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1279px)' });
   if (currency.length === 0) {
