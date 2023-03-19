@@ -7,14 +7,8 @@ import {
 import css from '../TransactionList/TransactionListMobile.module.scss';
 import svg from '../../assets/svg/edit-02.svg';
 import notfound from '../../assets/background/notfound.png';
-import { Modal } from 'shared/components/Modal/Modal';
-import { TransitionOnClick } from 'shared/components/Transition/Transition';
-import { useState } from 'react';
-import React from 'react';
 
 const TransactionListMobile = () => {
-  const [state, setState] = useState({});
-  const [showIt, setShowIt] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -22,31 +16,6 @@ const TransactionListMobile = () => {
   }, [dispatch]);
   const categories = useSelector(state => state.categories.categories);
   const transactions = useSelector(state => state.categories.history);
-
-  const showModal = (
-    categoryId,
-    amount,
-    type,
-    transactionDate,
-    comment,
-    id
-  ) => {
-    const finalComment = comment ? comment : '';
-    setState({
-      categoryId,
-      amount,
-      type,
-      transactionDate,
-      comment: finalComment,
-      id,
-    });
-    setShowIt(true);
-  };
-
-  const hideModal = () => {
-    setShowIt(false);
-  };
-
   if (transactions.length !== 0) {
     return transactions?.map(
       ({ id, transactionDate, type, comment, amount, categoryId }) => {
@@ -55,8 +24,8 @@ const TransactionListMobile = () => {
           category => category.id === categoryId
         );
         return (
-          <div className={css.box} key={id}>
-            <table className={css.table}>
+          <div className={css.box}>
+            <table className={css.table} key={id}>
               <tbody className={css.tbody}>
                 <tr className={css.part}>
                   {type === 'EXPENSE' ? (
@@ -129,19 +98,7 @@ const TransactionListMobile = () => {
                     </button>
                   </td>
                   <td className={css.bodyLink}>
-                    <button
-                      className={css.editBtn}
-                      onClick={() =>
-                        showModal(
-                          categoryId,
-                          amount,
-                          type,
-                          transactionDate,
-                          comment,
-                          id
-                        )
-                      }
-                    >
+                    <button className={css.editBtn}>
                       <img src={svg} alt="Edit" className={css.svg} />
                       <span> Edit</span>
                     </button>
@@ -149,23 +106,6 @@ const TransactionListMobile = () => {
                 </tr>
               </tbody>
             </table>
-            <TransitionOnClick
-              showIt={showIt}
-              type={'opacity'}
-              setShowIt={setShowIt}
-            >
-              <Modal
-                hide={hideModal}
-                textProp={'Edit'}
-                typeProp={state.type}
-                amountProp={Math.abs(state.amount)}
-                dateProp={state.transactionDate}
-                commentProp={state.comment}
-                categoryProp={state.categoryId}
-                preventEdit={true}
-                id={state.id}
-              />
-            </TransitionOnClick>
           </div>
         );
       }

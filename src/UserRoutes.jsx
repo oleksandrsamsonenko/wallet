@@ -4,8 +4,6 @@ import SignUpPage from 'pages/AuthPages/SignUpPage/SignUpPage';
 import PublicRoute from 'modules/PublicRoute/PublicRoute';
 import PrivateRoute from 'modules/PrivateRoute/PrivateRoute';
 
-import NotFound from 'pages/NotFound/NotFound';
-
 // Временно ненужное:
 import HomePage from 'pages/HomePage/HomePage';
 import Transaction from 'pages/TransactionList/Transaction/Transactions';
@@ -30,7 +28,6 @@ function UserRoutes() {
           <Route path="sign-up" element={<SignUpPage />} />
         </Route>
       </Route>
-      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 }
