@@ -1,24 +1,34 @@
 import StatisticItem from './StatisticItem/StatisticItem';
 import { useSelector, useDispatch } from 'react-redux';
-
+import { useEffect } from 'react';
 import { addChartData } from 'redux/AddTransaction/addTransaction-slice';
 import styles from './statistic-list.module.scss';
-import { useEffect } from 'react';
+import getValueChart from 'shared/utils/getValueChart';
 
 const StatisticList = () => {
   const categories = useSelector(state => state.categories.categories);
   const history = useSelector(state => state.categories.history);
   const dispatch = useDispatch();
-  const arrForChart = [{ name: '$14000', value: 0 }];
+  const SUPERARR = [];
+  const valueChart = getValueChart(categories, history);
 
   useEffect(() => {
-    if (arrForChart.length !== 0) {
-      dispatch(addChartData(arrForChart));
-    }
-  }, [ dispatch]);
+    dispatch(addChartData(valueChart));
+  }, [dispatch, valueChart]);
+
 
   const filteredExpenses = history.filter(hist => hist.type === 'EXPENSE');
+
   const filteredIncome = history.filter(hist => hist.type === 'INCOME');
+
+  // const getDate = () => {
+  //   const transactionsDate = history.map(item => {
+  //     const month = new Date(item.transactionDate).getMonth() + 1;
+  //     const year = new Date(item.transactionDate).getFullYear();
+  //     return {};
+  //   });
+  // };
+  // getDate();
 
   const noDublicate = filteredExpenses.filter(
     (item, index) =>
@@ -27,8 +37,6 @@ const StatisticList = () => {
   );
 
   const categoriesList = noDublicate.map(item => item.categoryId);
-
-  const SUPERARR = [];
 
   categoriesList.forEach(item => {
     SUPERARR.push({
@@ -50,14 +58,24 @@ const StatisticList = () => {
     return (acc += item.amount);
   }, 0);
 
+  // arrForChart = [
+  //   ...initialValue,
+  //   ...SUPERARR.map(({ categoryId, amount }) => {
+  //     const categoryArr = categories.find(
+  //       category => category.id === categoryId
+  //     );
+  //     const { color, name } = categoryArr;
+  //     return {
+  //       name,
+  //       fill: color,
+  //       value: Math.abs(amount),
+  //     };
+  //   }),
+  // ];
+
   const fields = SUPERARR.map(({ categoryId, amount }) => {
     const categoryArr = categories.find(category => category.id === categoryId);
     const { color, name } = categoryArr;
-    arrForChart.push({
-      name,
-      fill: color,
-      value: Math.abs(amount),
-    });
 
     return (
       <StatisticItem
