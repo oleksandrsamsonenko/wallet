@@ -40,7 +40,6 @@ const authSlice = createSlice({
         state.token = payload.token;
       })
       .addCase(login.rejected, (state, { payload }) => {
-        alert(`${payload}`);
         state.loading = false;
         state.error = payload;
       })

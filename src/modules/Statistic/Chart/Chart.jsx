@@ -1,20 +1,18 @@
 import React, { useCallback, useState } from 'react';
 import { PieChart, Pie, Sector } from 'recharts';
 import { useMediaQuery } from 'react-responsive';
-import { useSelector } from 'react-redux';
-
-// const data = [
-//   { name: '$14000', value: 0 },
-//   { name: 'Main expenses', value: 1700, fill: 'green' },
-//   { name: 'Products', value: 3700, fill: 'pinc' },
-//   { name: 'Car', value: 1000, fill: '#fd9498' },
-//   { name: 'Self care', value: 700, fill: '#c5baff' },
-//   { name: 'Child care', value: 500, fill: '#6e78e8' },
-//   { name: 'Group B', value: 1800, fill: '#4a56e2' },
-//   { name: 'Group C', value: 1200, fill: '#81e1ff' },
-//   { name: 'Group D', value: 2200, fill: '#24cca7' },
-//   { name: 'Group D', value: 300, fill: '#00ad84' },
-// ];
+const data = [
+  { name: '$14000', value: 0 },
+  { name: 'Main expenses', value: 1700, fill: '#fed057' },
+  { name: 'Products', value: 3700, fill: '#ffd8d0' },
+  { name: 'Car', value: 1000, fill: '#fd9498' },
+  { name: 'Self care', value: 700, fill: '#c5baff' },
+  { name: 'Child care', value: 500, fill: '#6e78e8' },
+  { name: 'Group B', value: 1800, fill: '#4a56e2' },
+  { name: 'Group C', value: 1200, fill: '#81e1ff' },
+  { name: 'Group D', value: 2200, fill: '#24cca7' },
+  { name: 'Group D', value: 300, fill: '#00ad84' },
+];
 
 const size = {
   desctop: {
@@ -87,8 +85,6 @@ const renderActiveShape = props => {
 };
 
 const Chart = () => {
-  const data = useSelector(state => state.categories.chart);
-
   const [activeIndex, setActiveIndex] = useState(0);
   const onPieEnter = useCallback(
     (_, index) => {

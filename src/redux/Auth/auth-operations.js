@@ -5,6 +5,9 @@ export const register = createAsyncThunk(
   async (data, { rejectWithValue }) => {
     try {
       const result = await api.signUp(data);
+      console.log(result.user);
+      console.log(result.token);
+
       return result;
     } catch ({ response }) {
       return rejectWithValue(response.data.message);

@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import css from '../TransactionList/TransactionList.module.scss';
 import svg from '../../assets/svg/edit-02.svg';
 import notfound from '../../assets/background/notfound.png';
@@ -7,15 +7,44 @@ import {
   getAllTransaction,
   deleteTransactions,
 } from 'redux/AddTransaction/addTransaction-operations';
+import { Modal } from 'shared/components/Modal/Modal';
+import { TransitionOnClick } from 'shared/components/Transition/Transition';
 
 const TransactionList = () => {
   const dispatch = useDispatch();
+
+  const [state, setState] = useState({});
+  const [showIt, setShowIt] = useState(false);
 
   useEffect(() => {
     dispatch(getAllTransaction());
   }, [dispatch]);
   const categories = useSelector(state => state.categories.categories);
   const transactions = useSelector(state => state.categories.history);
+
+  const showModal = (
+    categoryId,
+    amount,
+    type,
+    transactionDate,
+    comment,
+    id
+  ) => {
+    const finalComment = comment ? comment : '';
+    setState({
+      categoryId,
+      amount,
+      type,
+      transactionDate,
+      comment: finalComment,
+      id,
+    });
+    setShowIt(true);
+  };
+
+  const hideModal = () => {
+    setShowIt(false);
+  };
 
   if (transactions.length !== 0) {
     return (
@@ -52,7 +81,19 @@ const TransactionList = () => {
                       <td className={css.income}>{amount.toFixed(2)}</td>
                     )}
                     <td>
-                      <button className={css.btnEdit}>
+                      <button
+                        className={css.btnEdit}
+                        onClick={() =>
+                          showModal(
+                            categoryId,
+                            amount,
+                            type,
+                            transactionDate,
+                            comment,
+                            id
+                          )
+                        }
+                      >
                         <img src={svg} alt="Edit" className={css.svg} />
                       </button>
                       <button
@@ -69,6 +110,23 @@ const TransactionList = () => {
             )}
           </tbody>
         </table>
+        <TransitionOnClick
+          showIt={showIt}
+          type={'opacity'}
+          setShowIt={setShowIt}
+        >
+          <Modal
+            hide={hideModal}
+            textProp={'Edit'}
+            typeProp={state.type}
+            amountProp={Math.abs(state.amount)}
+            dateProp={state.transactionDate}
+            commentProp={state.comment}
+            categoryProp={state.categoryId}
+            preventEdit={true}
+            id={state.id}
+          />
+        </TransitionOnClick>
       </div>
     );
   } else {

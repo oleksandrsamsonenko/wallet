@@ -2,7 +2,7 @@ import React from 'react';
 import { useMediaQuery } from 'react-responsive';
 import Select, { components } from 'react-select';
 import month from './month';
-import years from './years';
+import years from './years.js';
 import styles from './date-form.module.scss';
 
 const size = {
@@ -22,7 +22,8 @@ const getSize = (desktop, tablet, mobile) => {
 };
 
 const DateForm = () => {
-  const handleChange = value => {
+  const handleChange = ({ label }) => {
+    console.log(label);
     //сюда вешать логику!!!
   };
 

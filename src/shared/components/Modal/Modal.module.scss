@@ -6,65 +6,39 @@ label {
 
 .backdrop {
   position: fixed;
-  height: 100vh;
-  top: 60px;
+  top: 0;
   bottom: 0;
   left: 0;
   right: 0;
   z-index: 999;
   background-color: rgba(128, 128, 128, 0.5);
   display: flex;
-  overflow: scroll;
-  @include media-min(tablet) {
-    top: 0;
-  }
+  justify-content: center;
+  align-items: center;
 }
 
 .modal {
-  min-height: 690px;
-  height: 100%;
-  width: 100vw;
-  position: absolute;
-  display: flex;
-  // justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  background-color: #fff;
-
-  @include media-min(tablet) {
-    min-height: 603px;
-    height: 603px;
-    @include absolute;
-
-    @media screen and (max-height: 601px) {
-      top: 0;
-      transform: translateX(-50%) translateY(0);
-    }
-    width: 540px;
-
-    border-radius: 20px;
-  }
-}
-
-.div {
+  position: relative;
+  width: 100%;
+  max-width: 540px;
   padding: 20px 20px 37px 20px;
+  background-color: #fff;
   display: flex;
   justify-content: center;
   align-items: center;
+  display: flex;
   flex-direction: column;
-  @include media-min(tablet) {
+  overflow: hidden;
+  @include media-min(mobile-resp) {
     width: 540px;
-    // display: flex;
-    // justify-content: center;
-    // align-items: center;
-    // flex-direction: column;
-    padding: 40px 73px 60px 73px;
+    padding: 20px 73px 37px 73px;
+    border-radius: 20px;
   }
 }
 
 .header {
   @include main-font(400, 24px, 36px);
-  @include media-min(tablet) {
+  @include media-min(mobile-resp) {
     @include main-font(400, 30px, 45px);
   }
 }
@@ -72,7 +46,7 @@ label {
   width: 100%;
   display: flex;
   flex-direction: column;
-  @include media-min(tablet) {
+  @include media-min(mobile-resp) {
     flex-direction: row;
     justify-content: space-between;
   }
@@ -84,8 +58,8 @@ label {
   border-style: none;
   border-bottom: 2px solid rgba(224, 224, 224, 1);
 
-  @include media-min(tablet) {
-    width: 190px;
+  @include media-min(mobile-resp) {
+    width: 180px;
   }
 
   &::placeholder {
@@ -102,7 +76,7 @@ label {
   border-style: none;
   border-bottom: 2px solid rgba(224, 224, 224, 1);
 
-  @include media-min(tablet) {
+  @include media-min(mobile-resp) {
     height: 32px;
   }
 
@@ -148,14 +122,14 @@ label {
   resize: none;
   border-style: none;
   border-bottom: 2px solid rgba(224, 224, 224, 1);
-  @include media-min(tablet) {
+  @include media-min(mobile-resp) {
     width: 394px;
   }
 }
 
 .close {
   display: none;
-  @include media-min(tablet) {
+  @include media-min(mobile-resp) {
     transition: all 400ms;
     background-color: transparent;
     cursor: pointer;
