@@ -42,7 +42,7 @@ const SignUp = () => {
       .min(8, 'Your password must contain a least 8 characters'),
   });
   const getStyleValidator = value => {
-    const perfectValidationString = `/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/`;
+    const perfectValidationString = ``;
     const firstValidationString = `/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/`;
     const secondValidationString = `/^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#\$%\^&\*])(?=.{8,})/`;
     const thirdValidationString = `/^(?=.*[a-z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/`;
@@ -52,7 +52,7 @@ const SignUp = () => {
       secondValidationString.exec(value) ||
       thirdValidationString.exec(value) ||
       quatroValidationString.exec(value);
-    const perfectPassword = perfectValidationString.exec(value);
+    const perfectPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/.exec(value);
 
     if (value.length < 8) {
       return 'empty';
