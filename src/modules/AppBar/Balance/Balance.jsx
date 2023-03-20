@@ -11,7 +11,6 @@ const Balance = () => {
       return;
     }
     const lastBalance = history[history.length - 1].balanceAfter;
-    localStorage.setItem('lastBalance', lastBalance);
     setCurrentBalance(lastBalance);
   }, [history]);
 

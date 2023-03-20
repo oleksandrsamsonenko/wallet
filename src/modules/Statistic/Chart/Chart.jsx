@@ -1,8 +1,8 @@
 import React, { useCallback, useState, useEffect } from 'react';
 import { PieChart, Pie, Sector } from 'recharts';
 import { useMediaQuery } from 'react-responsive';
-import getDataFromLocalStorage from 'shared/utils/localStorage';
-//
+import { selectorHistory } from 'redux/AddTransaction/addTransaction-selectors';
+import { useSelector } from 'react-redux';
 // const data = [
 //   { name: '$14000', value: 0 },
 //   { name: 'Main expenses', value: 1700, fill: 'green' },
@@ -87,12 +87,16 @@ const renderActiveShape = props => {
 };
 
 const Chart = ({ transactions }) => {
-  const [balance, setBalance] = useState(0);
+  const [currentBallance, setCurrentBalance] = useState(0);
+  const history = useSelector(selectorHistory);
   useEffect(() => {
-    const lastBalance = getDataFromLocalStorage('lastBalance', 0);
+    if (history.length === 0) {
+      return;
+    }
+    const lastBalance = history[history.length - 1].balanceAfter;
+    setCurrentBalance(lastBalance);
+  }, [history, currentBallance]);
 
-    setBalance(lastBalance);
-  }, [balance]);
   const arr = transactions.map(({ name, amount, color }) => {
     return {
       name,
@@ -100,7 +104,7 @@ const Chart = ({ transactions }) => {
       fill: color,
     };
   });
-  const data = [{ name: balance.toString(), value: 0 }, ...arr];
+  const data = [{ name: currentBallance.toString(), value: 0 }, ...arr];
 
   const [activeIndex, setActiveIndex] = useState(0);
   const onPieEnter = useCallback(
