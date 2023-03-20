@@ -5,36 +5,56 @@ import { Calendar } from '../Calendar/Calendar';
 import { Transition } from '../Transition/Transition';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import style from './Modal.module.scss';
-import { addTransaction } from 'redux/AddTransaction/addTransaction-operations';
+import {
+  addTransaction,
+  editTransactions,
+} from 'redux/AddTransaction/addTransaction-operations';
 import { useSelector } from 'react-redux';
 import { categories } from 'redux/AddTransaction/addTransaction-selectors';
 import * as Yup from 'yup';
 
-export const Modal = ({ hide }) => {
+export const Modal = ({
+  hide,
+  textProp,
+  typeProp,
+  amountProp = '',
+  dateProp,
+  commentProp = '',
+  categoryProp = 'disabled',
+  preventEdit,
+  id,
+}) => {
   const [showIt, setShowIt] = useState(false);
-  const [type, setType] = useState('EXPENSE');
-  const [date, setDate] = useState(new Date());
-
+  const [type, setType] = useState(typeProp);
+  const [date, setDate] = useState(new Date(dateProp));
   const incomeCategory = useSelector(categories);
   const list = useSelector(categories);
 
+  const currentStatus = type === 'EXPENSE' ? true : false;
+
+  useEffect(() => setShowIt(currentStatus), [currentStatus]);
+
   const incomeId = incomeCategory.find(item => item.type === 'INCOME').id;
+  const validCategories = list
+    .filter(item => item.type === 'EXPENSE')
+    .map(item => item.id);
+
   const validationList =
     type === 'EXPENSE'
-      ? list.filter(item => item.type === 'EXPENSE').map(item => item.id)
-      : [incomeId];
+      ? validCategories
+      : [...validCategories, incomeId, 'disabled'];
 
   const initialValues = {
-    amount: '',
-    comment: '',
-    categoryId: incomeId,
+    amount: amountProp,
+    comment: commentProp,
+    categoryId: categoryProp,
   };
 
   const validationSchema = Yup.object({
     amount: Yup.number()
       .positive('Must be a positive number')
-      .required('Must be a positive number')
-      .typeError('Must be a positive number'),
+      .required('Amount is required')
+      .typeError('Must be a number'),
     categoryId: Yup.string()
       .oneOf(validationList, 'Choose category')
       .required('Choose category'),
@@ -47,31 +67,40 @@ export const Modal = ({ hide }) => {
     return () => document.removeEventListener(`keydown`, handleClose);
   });
 
+  useEffect(() => {
+    const body = document.querySelector('body');
+    body.classList.add('modal-open');
+    return () => {
+      body.classList.remove('modal-open');
+    };
+  }, []);
+
   const handleClose = event => {
     if (event.code === 'Escape' || event.target === event.currentTarget) {
       hide();
     }
   };
 
-  const currentStatus = type === 'EXPENSE' ? true : false;
-
   const handleType = () => {
     type === 'EXPENSE' ? setType('INCOME') : setType('EXPENSE');
-    setShowIt(ps => !ps);
+    setShowIt(prevState => (prevState ? false : true));
   };
 
-  const handleSubmit = ({ amount, comment, categoryId }, actions) => {
+  const handleSubmit = ({ amount, comment, categoryId }) => {
+    if (type === `INCOME`) {
+      categoryId = incomeId;
+    }
     const result = {
       transactionDate: date.toISOString(),
       type,
       categoryId: categoryId,
       comment: comment,
-      amount: type === 'EXPENSE' ? +`-${amount}` : amount,
+      amount: type === 'EXPENSE' ? +`-${amount}` : +amount,
     };
-    console.log('RESULT', result);
-    dispatch(addTransaction(result));
-    // hide();
-    actions.resetForm();
+    textProp === 'Edit'
+      ? dispatch(editTransactions({ result, id }))
+      : dispatch(addTransaction(result));
+    hide();
   };
 
   const handleCalendar = date => {
@@ -103,33 +132,41 @@ export const Modal = ({ hide }) => {
         validationSchema={validationSchema}
         initialValues={initialValues}
         onSubmit={handleSubmit}
-        // validateOnChange={false}
-        validateOnBlur={false}
+        // validateOnBlur={false}
+        validateOnChange={false}
       >
-        {({ errors, touched }) => (
-          <Form className={style.modal}>
+        <Form className={style.modal}>
+          <div className={style.div}>
             <button
               className={style.close}
               type="button"
               onClick={hide}
             ></button>
-            <h2 className={style.header}>Add transaction</h2>
+            <h2 className={style.header}>{textProp} transaction</h2>
             <ToggleButton
               status={currentStatus}
               name="type"
               onChange={handleType}
+              disabled={preventEdit}
             />
-            <Transition showIt={showIt} type="opacity" setShowIt={setShowIt}>
-              <div className={style.wrapper}>
-                <Field as="select" className={style.selector} name="categoryId">
-                  <option name="disabled" value="disabled">
-                    Select category
-                  </option>
-                  {categoriesList}
-                </Field>
-                <FormError name="categoryId" className={style.error} />
-              </div>
-            </Transition>
+            <div style={{ height: '73px' }}>
+              <Transition showIt={showIt} type="opacity" setShowIt={setShowIt}>
+                <div className={style.wrapper}>
+                  <Field
+                    as="select"
+                    className={style.selector}
+                    disabled={preventEdit}
+                    name="categoryId"
+                  >
+                    <option name="disabled" value="disabled">
+                      Select category
+                    </option>
+                    {categoriesList}
+                  </Field>
+                  <FormError name="categoryId" className={style.error} />
+                </div>
+              </Transition>
+            </div>
             <div className={style.direction}>
               <div className={style.wrapper}>
                 <Field
@@ -140,7 +177,11 @@ export const Modal = ({ hide }) => {
                 ></Field>
                 <FormError name="amount" />
               </div>
-              <Calendar date={date} onSubmit={handleCalendar} />
+              <Calendar
+                preventEdit={preventEdit}
+                date={date}
+                onSubmit={handleCalendar}
+              />
             </div>
             <Field
               as="textarea"
@@ -151,14 +192,14 @@ export const Modal = ({ hide }) => {
             ></Field>
 
             <button className={style.add} type="submit">
-              ADD
+              {textProp.toUpperCase()}
             </button>
 
             <button className={style.cancel} type="button" onClick={hide}>
               CANCEL
             </button>
-          </Form>
-        )}
+          </div>
+        </Form>
       </Formik>
     </div>
   );

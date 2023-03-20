@@ -4,6 +4,7 @@ import {
   getTransactionCategories,
   getAllTransaction,
   deleteTransactions,
+  editTransactions,
 } from './addTransaction-operations';
 import { colorPalette } from 'shared/utils/color';
 
@@ -32,9 +33,9 @@ const addTransactionSlice = createSlice({
         state.loading = true;
         state.error = null;
       })
-      .addCase(addTransaction.fulfilled, (state, { payload }) => {
+      .addCase(addTransaction.fulfilled, (state, action) => {
         state.loading = false;
-        state.history = [...state.history, payload];
+        state.history = [...state.history, action.payload];
         state.error = null;
         state.isLogin = true;
       })
@@ -84,6 +85,20 @@ const addTransactionSlice = createSlice({
         state.history = state.history.filter(el => el.id !== action.meta.arg);
       })
       .addCase(deleteTransactions.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(editTransactions.pending, state => {
+        state.loading = true;
+      })
+      .addCase(editTransactions.fulfilled, (state, { payload }) => {
+        state.loading = false;
+        state.error = null;
+        state.history = state.history.map(item =>
+          item.id === payload.id ? payload : item
+        );
+      })
+      .addCase(editTransactions.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       });

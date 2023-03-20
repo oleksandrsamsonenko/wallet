@@ -54,4 +54,9 @@ export const deleteTransaction = id => {
   return instance.delete(`/api/transactions/${id}`);
 };
 
+export const editTransaction = async ({ id, result }) => {
+  const { data } = await instance.patch(`/api/transactions/${id}`, result);
+  return data;
+};
+
 export default instance;

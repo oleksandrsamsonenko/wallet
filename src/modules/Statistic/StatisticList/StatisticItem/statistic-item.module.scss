@@ -23,10 +23,72 @@
 .cube {
   margin-right: 16px;
   border-radius: 2px;
+  display: inline-block;
   width: 24px;
   height: 24px;
+  font-size: 16px;
+  line-height: 1.5;
 }
 
 .summ {
   margin: 0;
+}
+
+.orange {
+  composes: trans_name;
+  &::before {
+    background-color: #fed057;
+  }
+}
+
+.pinc {
+  composes: trans_name;
+  &::before {
+    background-color: #ffd8d0;
+  }
+}
+.red {
+  composes: trans_name;
+  &::before {
+    background-color: #fd9498;
+  }
+}
+
+.purple {
+  composes: trans_name;
+  &::before {
+    background-color: #c5baff;
+  }
+}
+
+.cyan {
+  composes: trans_name;
+  &::before {
+    background-color: #6e78e8;
+  }
+}
+.blu {
+  composes: trans_name;
+  &::before {
+    background-color: #4a56e2;
+  }
+}
+.aqua {
+  composes: trans_name;
+  &::before {
+    background-color: #81e1ff;
+  }
+}
+
+.green {
+  composes: trans_name;
+  &::before {
+    background-color: #24cca7;
+  }
+}
+.forestgreen {
+  composes: trans_name;
+  &::before {
+    background-color: #00ad84;
+  }
 }

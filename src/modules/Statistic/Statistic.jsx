@@ -8,6 +8,7 @@ import getFinalTransaction from 'shared/utils/getFinalTransaction';
 import styles from './statistic.module.scss';
 import { useState } from 'react';
 const Statistic = () => {
+
   const [stmonth, setMonth] = useState(0);
   const [styear, setYear] = useState(0);
 
@@ -24,6 +25,7 @@ const Statistic = () => {
   const getYear = data => {
     setYear(data);
   };
+
   return (
     <div className={styles.statistic_container}>
       <h2 className={styles.title}>Statistic</h2>
