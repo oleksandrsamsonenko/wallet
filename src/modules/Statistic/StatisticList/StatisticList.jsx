@@ -1,7 +1,5 @@
 import StatisticItem from './StatisticItem/StatisticItem';
-import { useSelector } from 'react-redux';
 import styles from './statistic-list.module.scss';
-import filteredTransactions from 'shared/utils/filteredTransactions';
 
 const StatisticList = ({ transactions }) => {
   const filteredIncome = transactions.filter(hist => hist.type === 'INCOME');
