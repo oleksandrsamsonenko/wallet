@@ -4,10 +4,10 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-
+  position: fixed;
   width: 100%;
   min-height: 60px;
-
+  z-index: 500;
   background-color: white;
 
   padding-left: 20px;
@@ -15,9 +15,10 @@
 
   @include media-min(tablet) {
     min-height: 80px;
-
+    position: static;
     padding-left: 32px;
     padding-right: 32px;
+    z-index: 0;
   }
 }
 .logo {

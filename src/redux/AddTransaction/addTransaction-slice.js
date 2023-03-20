@@ -32,17 +32,18 @@ const addTransactionSlice = createSlice({
       .addCase(addTransaction.pending, state => {
         state.loading = true;
         state.error = null;
+        state.result = 'pending';
       })
       .addCase(addTransaction.fulfilled, (state, action) => {
         state.loading = false;
         state.history = [...state.history, action.payload];
         state.error = null;
-        state.isLogin = true;
+        state.result = `add`;
       })
       .addCase(addTransaction.rejected, (state, { payload }) => {
         state.loading = false;
         state.error = payload;
-        state.result = null;
+        state.result = 'error';
       })
       .addCase(getTransactionCategories.pending, state => {
         state.loading = true;
@@ -55,7 +56,6 @@ const addTransactionSlice = createSlice({
           color: colorPalette[index],
         }));
         state.error = null;
-        state.isLogin = true;
       })
       .addCase(getTransactionCategories.rejected, (state, { payload }) => {
         state.loading = false;
@@ -69,7 +69,6 @@ const addTransactionSlice = createSlice({
         state.loading = false;
         state.history = payload;
         state.error = null;
-        state.isLogin = true;
       })
       .addCase(getAllTransaction.rejected, (state, { payload }) => {
         state.loading = false;
@@ -77,19 +76,23 @@ const addTransactionSlice = createSlice({
       })
       .addCase(deleteTransactions.pending, state => {
         state.loading = true;
+        state.result = 'pending';
       })
 
       .addCase(deleteTransactions.fulfilled, (state, action) => {
         state.loading = false;
         state.error = null;
         state.history = state.history.filter(el => el.id !== action.meta.arg);
+        state.result = 'deleted';
       })
       .addCase(deleteTransactions.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
+        state.result = 'error';
       })
       .addCase(editTransactions.pending, state => {
         state.loading = true;
+        state.result = 'pending';
       })
       .addCase(editTransactions.fulfilled, (state, { payload }) => {
         state.loading = false;
@@ -97,10 +100,12 @@ const addTransactionSlice = createSlice({
         state.history = state.history.map(item =>
           item.id === payload.id ? payload : item
         );
+        state.result = 'edit';
       })
       .addCase(editTransactions.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
+        state.result = 'error';
       });
   },
 });
