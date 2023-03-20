@@ -119,12 +119,22 @@ const Chart = ({ transactions }) => {
 
     const isIncome = () => {
       if (filteredIncome.length === 0) {
-        return '0';
+        return 0;
       }
-      return String(filteredIncome[0].amount);
+      return filteredIncome[0].amount;
     };
-    const income = isIncome();
-    console.log(income);
+
+    const isExpense = () => {
+      if (filteredExpenses.length === 0) {
+        return 0;
+      }
+      const expenses = filteredExpenses.reduce((acc, item) => {
+        return (acc += item.amount);
+      }, 0);
+      return expenses;
+    };
+
+    const total = isIncome() + isExpense();
 
     const arr = filteredExpenses.map(({ name, amount, color }) => {
       return {
@@ -134,7 +144,7 @@ const Chart = ({ transactions }) => {
       };
     });
 
-    const data = [{ name: `₴${income}`, value: 0 }, ...arr];
+    const data = [{ name: `₴${total}`, value: 0 }, ...arr];
 
     return (
       <PieChart
