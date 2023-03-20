@@ -87,11 +87,10 @@ const SignUp = () => {
         <div className={css.backdrop}>
           <Formik
             onSubmit={onSubmit}
-            className={css.form}
             initialValues={initialValues}
             validationSchema={validationSchema}
           >
-            <Form>
+            <Form className={css.form}>
               <div className={css.logoBox}>
                 <img className={css.logo} src={logo} alt="logo" />
                 <span className={css.logoText}> Wallet</span>
