@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react';
 import { PieChart, Pie, Sector } from 'recharts';
 import { useMediaQuery } from 'react-responsive';
 import { useSelector } from 'react-redux';
-
+//
 // const data = [
 //   { name: '$14000', value: 0 },
 //   { name: 'Main expenses', value: 1700, fill: 'green' },
@@ -86,8 +86,15 @@ const renderActiveShape = props => {
   );
 };
 
-const Chart = () => {
-  const data = useSelector(state => state.categories.chart);
+const Chart = ({ transactions }) => {
+  const arr = transactions.map(({ name, amount, color }) => {
+    return {
+      name,
+      value: -amount,
+      fill: color,
+    };
+  });
+  const data = [{ name: '$14000', value: 0 }, ...arr];
 
   const [activeIndex, setActiveIndex] = useState(0);
   const onPieEnter = useCallback(
