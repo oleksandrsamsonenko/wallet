@@ -10,8 +10,10 @@ const Balance = () => {
     if (history.length === 0) {
       return;
     }
-    const lastBalance = history[history.length - 1].balanceAfter;
-    localStorage.setItem('lastBalance', lastBalance);
+    const lastBalance = history.reduce((total, transaction) => {
+      return total + transaction.amount;
+    }, 0);
+
     setCurrentBalance(lastBalance);
   }, [history]);
 
