@@ -1,48 +1,18 @@
 import { ToastContainer, toast } from 'react-toastify';
 import { useSelector } from 'react-redux';
 import { useMemo } from 'react';
-import { Zoom } from 'react-toastify';
+import { Slide } from 'react-toastify';
 
 export const notifySuccess = message => {
-  toast.success(message, {
-    position: 'top-right',
-    autoClose: 3000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
-    theme: 'colored',
-    transition: Zoom,
-  });
+  toast.success(message);
 };
 
 const notifyError = message => {
-  toast.error(message, {
-    position: 'top-right',
-    autoClose: 3000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
-    theme: 'colored',
-    transition: Zoom,
-  });
+  toast.error(message);
 };
 
 const notifyInfo = message => {
-  toast.info(message, {
-    position: 'top-right',
-    autoClose: 3000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
-    theme: 'colored',
-    transition: Zoom,
-  });
+  toast.info(message);
 };
 export const Notifications = () => {
   const loginError = useSelector(state => state.user.error);
@@ -67,14 +37,21 @@ export const Notifications = () => {
     if (transactionStatus === `error`) {
       notifyError(`Oops,something went wrong!`);
     }
-    // if (transactionStatus === `pending`) {
-    //   notifyInfo(`Wait, im working!`);
-    // }
   }, [transactionStatus]);
 
   return (
     <ToastContainer
-    // style={{ width: '50vw' }}
+      position="top-right"
+      autoClose={3000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+      theme="colored"
+      transition={Slide}
     />
   );
 };

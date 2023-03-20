@@ -1,9 +1,4 @@
 @import '../../styles/styles.scss';
-
-label {
-  width: 100%;
-}
-
 .backdrop {
   position: fixed;
   height: 100vh;
@@ -21,7 +16,7 @@ label {
 }
 
 .modal {
-  min-height: 690px;
+  min-height: 410px;
   height: 100%;
   width: 100vw;
   position: absolute;
@@ -29,87 +24,25 @@ label {
   align-items: center;
   flex-direction: column;
   background-color: #fff;
+  padding: 120px 20px 37px 20px;
 
   @include media-min(tablet) {
-    min-height: 603px;
-    height: 603px;
+    min-height: 310px;
+    height: 310px;
     @include absolute;
 
-    @media screen and (max-height: 601px) {
+    @media screen and (max-height: 320px) {
       top: 0;
       transform: translateX(-50%) translateY(0);
     }
     width: 540px;
+    padding: 40px 73px 60px 73px;
 
     border-radius: 20px;
   }
 }
 
-.div {
-  padding: 20px 20px 37px 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  @include media-min(tablet) {
-    width: 540px;
-    padding: 40px 73px 60px 73px;
-  }
-}
-
-.header {
-  @include main-font(400, 24px, 36px);
-  @include media-min(tablet) {
-    @include main-font(400, 30px, 45px);
-  }
-}
-.direction {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  @include media-min(tablet) {
-    flex-direction: row;
-    justify-content: space-between;
-  }
-}
-.amount {
-  width: 100%;
-  margin-top: 40px;
-  @include main-font(700, 18px, 27px);
-  border-style: none;
-  border-bottom: 2px solid rgba(224, 224, 224, 1);
-
-  @include media-min(tablet) {
-    width: 190px;
-  }
-
-  &::placeholder {
-    color: getColor(primaty-gray);
-  }
-}
-
-.comment {
-  width: 100%;
-  margin-top: 40px;
-  @include main-font(700, 18px, 27px);
-  height: 80px;
-  resize: none;
-  border-style: none;
-  border-bottom: 2px solid rgba(224, 224, 224, 1);
-
-  @include media-min(tablet) {
-    height: 32px;
-  }
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
-  &::placeholder {
-    color: getColor(primaty-gray);
-  }
-}
-
-.add {
+.logout {
   width: 300px;
   margin-top: 40px;
   @include main-font(400, 18px, 27px);
@@ -135,16 +68,15 @@ label {
   transition: all 400ms;
 }
 
-.selector {
-  width: 280px;
-  margin-top: 40px;
-  @include main-font(400, 18px, 27px);
-  height: 32px;
-  resize: none;
-  border-style: none;
-  border-bottom: 2px solid rgba(224, 224, 224, 1);
+.logout:hover,
+.cancel:hover {
+  transform: scale(1.04);
+}
+
+.header {
+  @include main-font(400, 24px, 36px);
   @include media-min(tablet) {
-    width: 394px;
+    @include main-font(400, 30px, 45px);
   }
 }
 
@@ -164,24 +96,6 @@ label {
     top: 20px;
     right: 20px;
   }
-}
-
-.wrapper {
-  position: relative;
-}
-
-.error {
-  position: absolute;
-  color: red;
-  font-family: 'Circe';
-  font-weight: bold;
-  font-style: italic;
-  font-size: 14px;
-}
-
-.add:hover,
-.cancel:hover {
-  transform: scale(1.04);
 }
 
 .close:hover {
