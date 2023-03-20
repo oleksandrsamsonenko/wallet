@@ -9,7 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 // import { useSelector } from 'react-redux';
 // import { useMemo } from 'react';
 // import { loadingStatus } from 'redux/AddTransaction/addTransaction-selectors';
-
+import { Notifications } from '../Notifications/Notifications';
 const modalRoot = document.querySelector('#modal-root');
 
 // const notify = () => {
@@ -66,7 +66,7 @@ export const TempPage = () => {
           preventEdit={false}
         />
       </TransitionOnClick>
-      {/* <ToastContainer /> */}
+      <Notifications />
     </div>,
     modalRoot
   );
