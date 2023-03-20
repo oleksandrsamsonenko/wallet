@@ -2,10 +2,19 @@
 
 .box {
   margin-top: 20px;
-
   @include media-min(desktop) {
     margin-top: 46px;
   }
+}
+.tableBody {
+  overflow: auto;
+  height: 400px;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.tableBody::-webkit-scrollbar {
+  width: 0;
+  height: 0;
 }
 
 .boxNotFound {
@@ -58,17 +67,17 @@
   }
 
   & th:nth-child(3) {
-    padding-right: 75px;
     padding-left: 23px;
-    text-align: right;
+    padding-right: 75px;
+    text-align: left;
   }
 
   & th:nth-child(4) {
-    padding-right: 65px;
+    padding-right: 55px;
   }
 
   & th:nth-child(5) {
-    padding-left: 33px;
+    padding-left: 50px;
   }
 
   & th:last-child {
@@ -90,10 +99,17 @@
   padding-bottom: 14px;
 
   &:nth-child(2) {
+    width: 86px;
     text-align: center;
   }
   &:nth-child(3) {
-    padding-left: 24px;
+    width: 160px;
+    padding-left: 17px;
+    padding-right: 17px;
+  }
+  &:nth-child(4) {
+    min-width: 145px;
+    padding-right: 10px;
   }
   &:nth-child(5) {
     text-align: right;
@@ -102,6 +118,7 @@
 
   &:first-child {
     padding-left: 20px;
+    padding-right: 10px;
   }
 
   &:last-child {
