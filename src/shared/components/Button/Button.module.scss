@@ -13,6 +13,8 @@
   background-color: #24cca7;
   color: white;
 
+  cursor: pointer;
+
   @include media-min(tablet) {
     width: 300px;
   }
