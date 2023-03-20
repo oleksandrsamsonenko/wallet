@@ -4,6 +4,7 @@ import styles from './statistic-list.module.scss';
 const StatisticList = ({ transactions }) => {
   const filteredIncome = transactions.filter(hist => hist.type === 'INCOME');
   const filteredExpenses = transactions.filter(hist => hist.type === 'EXPENSE');
+  // console.log(filteredIncome);
 
   const expenses = filteredExpenses.reduce((acc, item) => {
     return (acc += item.amount);
@@ -13,7 +14,7 @@ const StatisticList = ({ transactions }) => {
     return (acc += item.amount);
   }, 0);
 
-  const fields = transactions.map(({ name, amount, color, categoryId }) => {
+  const fields = filteredExpenses.map(({ name, amount, color, categoryId }) => {
     return (
       <StatisticItem
         key={categoryId}

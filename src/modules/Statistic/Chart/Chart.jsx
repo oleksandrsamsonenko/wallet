@@ -1,6 +1,8 @@
 import React, { useCallback, useState } from 'react';
 import { PieChart, Pie, Sector } from 'recharts';
 import { useMediaQuery } from 'react-responsive';
+import notfound from 'assets/background/notfound.png';
+
 //
 // const data = [
 //   { name: '$14000', value: 0 },
@@ -86,15 +88,6 @@ const renderActiveShape = props => {
 };
 
 const Chart = ({ transactions }) => {
-  const arr = transactions.map(({ name, amount, color }) => {
-    return {
-      name,
-      value: -amount,
-      fill: color,
-    };
-  });
-  const data = [{ name: '$14000', value: 0 }, ...arr];
-
   const [activeIndex, setActiveIndex] = useState(0);
   const onPieEnter = useCallback(
     (_, index) => {
@@ -108,7 +101,6 @@ const Chart = ({ transactions }) => {
     },
     [setActiveIndex]
   );
-
   const isDesktop = useMediaQuery({ minWidth: 1280 });
   const isTablet = useMediaQuery({ minWidth: 768 });
   const isMobile = useMediaQuery({ minWidth: 573 });
@@ -119,26 +111,57 @@ const Chart = ({ transactions }) => {
     isMobile
   );
 
+  if (transactions.length > 0) {
+    const filteredExpenses = transactions.filter(
+      hist => hist.type === 'EXPENSE'
+    );
+    const filteredIncome = transactions.filter(hist => hist.type === 'INCOME');
+
+    const isIncome = () => {
+      if (filteredIncome.length === 0) {
+        return '0';
+      }
+      return String(filteredIncome[0].amount);
+    };
+    const income = isIncome();
+    console.log(income);
+
+    const arr = filteredExpenses.map(({ name, amount, color }) => {
+      return {
+        name,
+        value: -amount,
+        fill: color,
+      };
+    });
+
+    const data = [{ name: `₴${income}`, value: 0 }, ...arr];
+
+    return (
+      <PieChart
+        width={container}
+        height={container}
+        object-view-box="-30 60 400 400"
+      >
+        <Pie
+          activeIndex={activeIndex}
+          activeShape={renderActiveShape}
+          data={data}
+          cx={position}
+          cy={position}
+          innerRadius={innerR}
+          outerRadius={outerR}
+          fill="#3833a1"
+          dataKey="value"
+          onMouseEnter={onPieEnter}
+          onMouseLeave={onPieLeave}
+        />
+      </PieChart>
+    );
+  }
   return (
-    <PieChart
-      width={container}
-      height={container}
-      object-view-box="-30 60 400 400"
-    >
-      <Pie
-        activeIndex={activeIndex}
-        activeShape={renderActiveShape}
-        data={data}
-        cx={position}
-        cy={position}
-        innerRadius={innerR}
-        outerRadius={outerR}
-        fill="#3833a1"
-        dataKey="value"
-        onMouseEnter={onPieEnter}
-        onMouseLeave={onPieLeave}
-      />
-    </PieChart>
+    <div style={{ width: container, height: container }}>
+      <img src={notfound} alt="transaction not found" />
+    </div>
   );
 };
 export default Chart;

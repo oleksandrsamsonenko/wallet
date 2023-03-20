@@ -1,10 +1,10 @@
 //Первая функция которая получает историю транзакций и модернизирует для дальнейшего использования
 const getTemporaryArr = (history, categories) => {
   //Фильтрует history чтоб убрать "INCOME"
-  const filteredExpenses = history.filter(hist => hist.type === 'EXPENSE');
+  // const filteredExpenses = history.filter(hist => hist.type === 'EXPENSE');
 
   //Добавляет в history необходимые поля, а именно color и name
-  const temporaryArr = filteredExpenses.map(expenses => {
+  const temporaryArr = history.map(expenses => {
     return {
       ...expenses,
       color: categories.reduce((acc, item) => {
