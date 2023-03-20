@@ -119,24 +119,24 @@ const TransactionList = () => {
                 }
               )}
             </tbody>
-            <TransitionOnClick
-              showIt={showIt}
-              type={'opacity'}
-              setShowIt={setShowIt}
-            >
-              <Modal
-                hide={hideModal}
-                textProp={'Edit'}
-                typeProp={state.type}
-                amountProp={Math.abs(state.amount)}
-                dateProp={state.transactionDate}
-                commentProp={state.comment}
-                categoryProp={state.categoryId}
-                preventEdit={true}
-                id={state.id}
-              />
-            </TransitionOnClick>
           </table>
+          <TransitionOnClick
+            showIt={showIt}
+            type={'opacity'}
+            setShowIt={setShowIt}
+          >
+            <Modal
+              hide={hideModal}
+              textProp={'Edit'}
+              typeProp={state.type}
+              amountProp={Math.abs(state.amount)}
+              dateProp={state.transactionDate}
+              commentProp={state.comment}
+              categoryProp={state.categoryId}
+              preventEdit={true}
+              id={state.id}
+            />
+          </TransitionOnClick>
         </div>
       </div>
     );
