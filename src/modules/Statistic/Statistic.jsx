@@ -35,10 +35,6 @@ const Statistic = () => {
     setYear(data);
   };
 
-  // const handleMonthReset = () => {
-  //   setMonth(0);
-  // };
-
   return (
     <Transition type="opacity" showIt={showIt} setShowIt={setShowIt}>
       <div className={styles.statistic_container}>

@@ -144,7 +144,7 @@ const Chart = ({ transactions }) => {
       };
     });
 
-    const data = [{ name: `₴${total}`, value: 0 }, ...arr];
+    const data = [{ name: `₴ ${total}`, value: 0 }, ...arr];
 
     return (
       <PieChart
