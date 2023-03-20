@@ -21,9 +21,12 @@ const getSize = (desktop, tablet, mobile) => {
   return size.mobile;
 };
 
-const DateForm = () => {
-  const handleChange = value => {
-    //сюда вешать логику!!!
+const DateForm = ({ onGetMonth, onGetYear }) => {
+  const handleChangeMonth = ({ value }) => {
+    onGetMonth(value);
+  };
+  const handleChangeYear = ({ label }) => {
+    onGetYear(label);
   };
 
   const DropdownIndicator = props => {
@@ -53,7 +56,7 @@ const DateForm = () => {
     <div className={styles.form}>
       <Select
         classNamePrefix="react-select"
-        onChange={handleChange}
+        onChange={handleChangeMonth}
         // defaultValue={month[0]}
         options={month}
         components={{ DropdownIndicator }}
@@ -123,7 +126,7 @@ const DateForm = () => {
       />
       <Select
         classNamePrefix="react-select"
-        onChange={handleChange}
+        onChange={handleChangeYear}
         // defaultValue={years[0]}
         options={years}
         components={{ DropdownIndicator }}
