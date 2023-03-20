@@ -1,7 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import { PieChart, Pie, Sector } from 'recharts';
 import { useMediaQuery } from 'react-responsive';
-import { useSelector } from 'react-redux';
 //
 // const data = [
 //   { name: '$14000', value: 0 },
