@@ -47,8 +47,15 @@ const Currency = () => {
     return;
   }
 
-  const usd = currency.find(({ ccy }) => ccy === 'USD');
-  const eur = currency.find(({ ccy }) => ccy === 'EUR');
+  const usd = currency.find(
+    ({ currencyCodeA, currencyCodeB }) =>
+      currencyCodeA === 840 && currencyCodeB === 980
+  );
+
+  const eur = currency.find(
+    ({ currencyCodeA, currencyCodeB }) =>
+      currencyCodeA === 978 && currencyCodeB === 980
+  );
 
   const bg = isTabletOrMobile
     ? `url("${backgrounTab}")`
@@ -74,13 +81,13 @@ const Currency = () => {
           <tbody>
             <tr className={styles.tr}>
               <td className={styles.td}>USD</td>
-              <td className={styles.td}>{Number(usd.buy).toFixed(2)}</td>
-              <td className={styles.td}>{Number(usd.sale).toFixed(2)}</td>
+              <td className={styles.td}>{Number(usd.rateBuy).toFixed(2)}</td>
+              <td className={styles.td}>{Number(usd.rateSell).toFixed(2)}</td>
             </tr>
             <tr className={styles.tr}>
               <td className={styles.td}>EUR</td>
-              <td className={styles.td}>{Number(eur.buy).toFixed(2)}</td>
-              <td className={styles.td}>{Number(eur.sale).toFixed(2)}</td>
+              <td className={styles.td}>{Number(eur.rateBuy).toFixed(2)}</td>
+              <td className={styles.td}>{Number(eur.rateSell).toFixed(2)}</td>
             </tr>
           </tbody>
         </table>

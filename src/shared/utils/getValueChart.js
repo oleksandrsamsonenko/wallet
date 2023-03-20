@@ -1,6 +1,10 @@
+import getDataFromLocalStorage from './localStorage';
+
+const lastBalance = getDataFromLocalStorage('lastBalance', 0);
+
 const getValueChart = (categories, history) => {
   const SUPERARR = [];
-  const arrForChart = [{ name: '$14000', value: 0 }];
+  const arrForChart = [{ name: lastBalance.toString(), value: 0 }];
 
   const filteredExpenses = history.filter(hist => hist.type === 'EXPENSE');
 
