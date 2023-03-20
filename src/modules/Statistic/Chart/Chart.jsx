@@ -1,6 +1,7 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import { PieChart, Pie, Sector } from 'recharts';
 import { useMediaQuery } from 'react-responsive';
+import getDataFromLocalStorage from 'shared/utils/localStorage';
 //
 // const data = [
 //   { name: '$14000', value: 0 },
@@ -86,6 +87,12 @@ const renderActiveShape = props => {
 };
 
 const Chart = ({ transactions }) => {
+  const [balance, setBalance] = useState(0);
+  useEffect(() => {
+    const lastBalance = getDataFromLocalStorage('lastBalance', 0);
+
+    setBalance(lastBalance);
+  }, [balance]);
   const arr = transactions.map(({ name, amount, color }) => {
     return {
       name,
@@ -93,7 +100,7 @@ const Chart = ({ transactions }) => {
       fill: color,
     };
   });
-  const data = [{ name: '$14000', value: 0 }, ...arr];
+  const data = [{ name: balance.toString(), value: 0 }, ...arr];
 
   const [activeIndex, setActiveIndex] = useState(0);
   const onPieEnter = useCallback(
