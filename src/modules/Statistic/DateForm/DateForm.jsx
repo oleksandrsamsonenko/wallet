@@ -21,15 +21,22 @@ const getSize = (desktop, tablet) => {
   return size.mobile;
 };
 
-const DateForm = ({ onGetMonth, onGetYear }) => {
-  const handleChangeMonth = ({ value }) => {
-    onGetMonth(value);
-  };
-  const handleChangeYear = ({ label }) => {
-    onGetYear(label);
+const DateForm = ({ onGetMonth, onGetYear, onResetMonth }) => {
+  const handleChangeMonth = data => {
+    if (data) {
+      onGetMonth(data.value);
+      return;
+    }
+    onGetMonth(0);
   };
 
-  // const handleReset = () => {};
+  const handleChangeYear = data => {
+    if (data) {
+      onGetYear(data.label);
+      return;
+    }
+    onGetYear(0);
+  };
 
   const DropdownIndicator = props => {
     return (
@@ -48,6 +55,26 @@ const DateForm = ({ onGetMonth, onGetYear }) => {
     );
   };
 
+  const ClearIndicator = (props, { clearValue }) => {
+    return (
+      <components.ClearIndicator {...props}>
+        <div className={styles.close_filter} onClick={clearValue}>
+          <svg
+            height="20"
+            width="20"
+            viewBox="0 0 20 20"
+            aria-hidden="true"
+            focusable="false"
+            class="css-tj5bde-Svg"
+            fill="currentColor"
+          >
+            <path d="M14.348 14.849c-0.469 0.469-1.229 0.469-1.697 0l-2.651-3.030-2.651 3.029c-0.469 0.469-1.229 0.469-1.697 0-0.469-0.469-0.469-1.229 0-1.697l2.758-3.15-2.759-3.152c-0.469-0.469-0.469-1.228 0-1.697s1.228-0.469 1.697 0l2.652 3.031 2.651-3.031c0.469-0.469 1.228-0.469 1.697 0s0.469 1.229 0 1.697l-2.758 3.152 2.758 3.15c0.469 0.469 0.469 1.229 0 1.698z"></path>
+          </svg>
+        </div>
+      </components.ClearIndicator>
+    );
+  };
+
   const isDesktop = useMediaQuery({ minWidth: 1280 });
   const isTablet = useMediaQuery({ minWidth: 768 });
   const isMobile = useMediaQuery({ minWidth: 573 });
@@ -59,9 +86,11 @@ const DateForm = ({ onGetMonth, onGetYear }) => {
       <Select
         classNamePrefix="react-select"
         onChange={handleChangeMonth}
+        isClearable={true}
         // defaultValue={month[0]}
+
         options={month}
-        components={{ DropdownIndicator }}
+        components={{ DropdownIndicator, ClearIndicator }}
         styles={{
           control: (baseStyles, state) => ({
             ...baseStyles,
@@ -131,7 +160,8 @@ const DateForm = ({ onGetMonth, onGetYear }) => {
         onChange={handleChangeYear}
         // defaultValue={years[0]}
         options={years}
-        components={{ DropdownIndicator }}
+        isClearable={true}
+        components={{ DropdownIndicator, ClearIndicator }}
         styles={{
           control: (baseStyles, state) => ({
             ...baseStyles,
@@ -196,7 +226,6 @@ const DateForm = ({ onGetMonth, onGetYear }) => {
           }),
         }}
       />
-      <button>Reset</button>
     </div>
   );
 };
