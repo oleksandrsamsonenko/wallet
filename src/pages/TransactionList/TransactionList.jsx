@@ -60,84 +60,73 @@ const TransactionList = () => {
               <th></th>
             </tr>
           </thead>
-        </table>
-        <div className={css.tableBody}>
-          <table>
-            <tbody className={css.tbody}>
-              {transactions?.map(
-                ({
-                  id,
-                  transactionDate,
-                  type,
-                  comment,
-                  amount,
-                  categoryId,
-                }) => {
-                  const date = new Date(transactionDate).toLocaleDateString();
-                  const transactionName = categories.find(
-                    category => category.id === categoryId
-                  );
-                  return (
-                    <tr key={id}>
-                      <td>{date}</td>
-                      {type === 'EXPENSE' ? <td>-</td> : <td>+</td>}
-                      <td>{transactionName?.name}</td>
-                      <td className={css.tdComment}>{comment}</td>
-                      {type === 'EXPENSE' ? (
-                        <td className={css.expence}>
-                          {Math.abs(amount).toFixed(2)}
-                        </td>
-                      ) : (
-                        <td className={css.income}>{amount.toFixed(2)}</td>
-                      )}
-                      <td>
-                        <button
-                          className={css.btnEdit}
-                          onClick={() =>
-                            showModal(
-                              categoryId,
-                              amount,
-                              type,
-                              transactionDate,
-                              comment,
-                              id
-                            )
-                          }
-                        >
-                          <img src={svg} alt="Edit" className={css.svg} />
-                        </button>
-                        <button
-                          className={css.btn}
-                          type="button"
-                          onClick={() => dispatch(deleteTransactions(id))}
-                        >
-                          Delete
-                        </button>
+          <tbody className={css.tbody}>
+            {transactions?.map(
+              ({ id, transactionDate, type, comment, amount, categoryId }) => {
+                const date = new Date(transactionDate).toLocaleDateString();
+                const transactionName = categories.find(
+                  category => category.id === categoryId
+                );
+                return (
+                  <tr key={id}>
+                    <td>{date}</td>
+                    {type === 'EXPENSE' ? <td>-</td> : <td>+</td>}
+                    <td>{transactionName?.name}</td>
+                    <td className={css.tdComment}>{comment}</td>
+                    {type === 'EXPENSE' ? (
+                      <td className={css.expence}>
+                        {Math.abs(amount).toFixed(2)}
                       </td>
-                    </tr>
-                  );
-                }
-              )}
-            </tbody>
-          </table>
-          <TransitionOnClick
-            showIt={showIt}
-            type={'opacity'}
-            setShowIt={setShowIt}
-          >
-            <Modal
-              hide={hideModal}
-              textProp={'Edit'}
-              typeProp={state.type}
-              amountProp={Math.abs(state.amount)}
-              dateProp={state.transactionDate}
-              commentProp={state.comment}
-              categoryProp={state.categoryId}
-              preventEdit={true}
-              id={state.id}
-            />
-          </TransitionOnClick>
-        </div>
+                    ) : (
+                      <td className={css.income}>{amount.toFixed(2)}</td>
+                    )}
+                    <td>
+                      <button
+                        className={css.btnEdit}
+                        onClick={() =>
+                          showModal(
+                            categoryId,
+                            amount,
+                            type,
+                            transactionDate,
+                            comment,
+                            id
+                          )
+                        }
+                      >
+                        <img src={svg} alt="Edit" className={css.svg} />
+                      </button>
+                      <button
+                        className={css.btn}
+                        type="button"
+                        onClick={() => dispatch(deleteTransactions(id))}
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                );
+              }
+            )}
+          </tbody>
+        </table>
+        <TransitionOnClick
+          showIt={showIt}
+          type={'opacity'}
+          setShowIt={setShowIt}
+        >
+          <Modal
+            hide={hideModal}
+            textProp={'Edit'}
+            typeProp={state.type}
+            amountProp={Math.abs(state.amount)}
+            dateProp={state.transactionDate}
+            commentProp={state.comment}
+            categoryProp={state.categoryId}
+            preventEdit={true}
+            id={state.id}
+          />
+        </TransitionOnClick>
       </div>
     );
   } else {

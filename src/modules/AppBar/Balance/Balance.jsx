@@ -8,6 +8,7 @@ const Balance = () => {
   const history = useSelector(selectorHistory);
   useEffect(() => {
     if (history.length === 0) {
+      setCurrentBalance(0);
       return;
     }
     const lastBalance = history.reduce((total, transaction) => {

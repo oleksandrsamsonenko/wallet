@@ -11,7 +11,7 @@ const size = {
   mobile: { width: 280 },
 };
 
-const getSize = (desktop, tablet, mobile) => {
+const getSize = (desktop, tablet) => {
   if (desktop) {
     return size.desctop;
   }
@@ -28,6 +28,8 @@ const DateForm = ({ onGetMonth, onGetYear }) => {
   const handleChangeYear = ({ label }) => {
     onGetYear(label);
   };
+
+  // const handleReset = () => {};
 
   const DropdownIndicator = props => {
     return (
@@ -194,6 +196,7 @@ const DateForm = ({ onGetMonth, onGetYear }) => {
           }),
         }}
       />
+      <button>Reset</button>
     </div>
   );
 };
