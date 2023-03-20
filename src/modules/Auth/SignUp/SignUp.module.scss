@@ -203,6 +203,8 @@
 
   color: #4a56e2;
 
+  cursor: pointer;
+
   @include media-min(tablet) {
     width: 300px;
   }
