@@ -75,6 +75,22 @@ export const Modal = ({
     };
   }, []);
 
+  useEffect(() => {
+    const exitBtn = document.querySelector('#exit');
+    exitBtn.disabled = true;
+    return () => {
+      exitBtn.disabled = false;
+    };
+  }, []);
+
+  useEffect(() => {
+    const addBtn = document.querySelector('#add');
+    addBtn.classList.add('hidden-button');
+    return () => {
+      addBtn.classList.remove('hidden-button');
+    };
+  }, []);
+
   const handleClose = event => {
     if (event.code === 'Escape' || event.target === event.currentTarget) {
       hide();
@@ -132,7 +148,6 @@ export const Modal = ({
         validationSchema={validationSchema}
         initialValues={initialValues}
         onSubmit={handleSubmit}
-        // validateOnBlur={false}
         validateOnChange={false}
       >
         <Form className={style.modal}>

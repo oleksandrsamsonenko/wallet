@@ -26,6 +26,11 @@ const addTransactionSlice = createSlice({
         state.chart = payload;
       },
     },
+    clearHistory: {
+      reducer: (state, { payload }) => {
+        state.history = payload;
+      },
+    },
   },
   extraReducers: builder => {
     builder
@@ -78,7 +83,6 @@ const addTransactionSlice = createSlice({
         state.loading = true;
         state.result = 'pending';
       })
-
       .addCase(deleteTransactions.fulfilled, (state, action) => {
         state.loading = false;
         state.error = null;
@@ -110,6 +114,6 @@ const addTransactionSlice = createSlice({
   },
 });
 
-export const { addChartData } = addTransactionSlice.actions;
+export const { addChartData, clearHistory } = addTransactionSlice.actions;
 
 export default addTransactionSlice.reducer;

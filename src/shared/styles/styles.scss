@@ -43,3 +43,11 @@ body {
 .modal-open {
   overflow: hidden;
 }
+
+.hidden-button {
+  display: none !important;
+
+  @include media-min(tablet) {
+    display: block !important;
+  }
+}

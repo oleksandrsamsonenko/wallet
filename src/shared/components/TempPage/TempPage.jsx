@@ -29,11 +29,11 @@ export const TempPage = () => {
         onClick={showModal}
         type="button"
         name="add"
+        id="add"
         style={{ display: `${isButtonHidden}` }}
       ></button>
       <TransitionOnClick showIt={showIt} type={'opacity'} setShowIt={setShowIt}>
         <Modal
-          OPEN={true}
           hide={hideModal}
           textProp={'Add'}
           typeProp={`EXPENSE`}
