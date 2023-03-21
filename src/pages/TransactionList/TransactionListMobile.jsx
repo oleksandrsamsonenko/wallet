@@ -22,6 +22,13 @@ const TransactionListMobile = () => {
   }, [dispatch]);
   const categories = useSelector(state => state.categories.categories);
   const transactions = useSelector(state => state.categories.history);
+  const dateSort = transactions
+    .slice()
+    .sort(
+      (a, b) =>
+        new Date(b.transactionDate).getTime() -
+        new Date(a.transactionDate).getTime()
+    );
 
   const showModal = (
     categoryId,
@@ -43,10 +50,10 @@ const TransactionListMobile = () => {
     setShowIt(true);
   };
 
-  if (transactions.length !== 0) {
+  if (dateSort.length !== 0) {
     return (
       <ul className={css.list}>
-        {transactions?.map(
+        {dateSort?.map(
           ({ id, transactionDate, type, comment, amount, categoryId }) => {
             const date = new Date(transactionDate).toLocaleDateString();
             const transactionName = categories.find(
