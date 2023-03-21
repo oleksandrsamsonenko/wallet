@@ -2,6 +2,7 @@ import React, { useCallback, useState } from 'react';
 import { PieChart, Pie, Sector } from 'recharts';
 import { useMediaQuery } from 'react-responsive';
 import notfound from 'assets/background/notfound.png';
+import noexpense from 'assets/background/noexpense.png';
 
 //
 // const data = [
@@ -111,12 +112,13 @@ const Chart = ({ transactions }) => {
     isMobile
   );
 
-  if (transactions.length > 0) {
-    const filteredExpenses = transactions.filter(
-      hist => hist.type === 'EXPENSE'
-    );
-    const filteredIncome = transactions.filter(hist => hist.type === 'INCOME');
+  const filteredExpenses = transactions.filter(hist => hist.type === 'EXPENSE');
+  console.log('👀 ~ filteredExpenses--->', filteredExpenses);
+  const filteredIncome = transactions.filter(hist => hist.type === 'INCOME');
+  console.log('👀 ~ filteredIncome--->', filteredIncome);
+  console.log('👀 ~ transactions--->', transactions);
 
+  if (filteredExpenses.length !== 0 && filteredIncome.length !== 0) {
     const isIncome = () => {
       if (filteredIncome.length === 0) {
         return 0;
@@ -168,10 +170,19 @@ const Chart = ({ transactions }) => {
       </PieChart>
     );
   }
+  if (filteredExpenses.length === 0 && filteredIncome.length !== 0) {
+    console.log('yes');
+    return (
+      <div style={{ width: container, height: container }}>
+        <img src={noexpense} alt="transaction not found" />
+      </div>
+    );
+  }
   return (
     <div style={{ width: container, height: container }}>
       <img src={notfound} alt="transaction not found" />
     </div>
   );
 };
+
 export default Chart;
