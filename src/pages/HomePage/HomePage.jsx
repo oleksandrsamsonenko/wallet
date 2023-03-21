@@ -9,7 +9,7 @@ import {
 } from 'redux/AddTransaction/addTransaction-operations';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-
+import { Notifications } from 'shared/components/Notifications/Notifications';
 function HomePage() {
   const dispatch = useDispatch();
 
@@ -28,6 +28,7 @@ function HomePage() {
           <TempPage />
         </div>
       </div>
+      <Notifications />
     </>
   );
 }

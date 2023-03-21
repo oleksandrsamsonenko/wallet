@@ -36,6 +36,8 @@ label {
   background-color: #fff;
 
   @include media-min(tablet) {
+    box-shadow: inset 3px 3px 8px 0px rgba(0, 0, 0, 0.3),
+      inset -3px -3px 8px 0px rgba(0, 0, 0, 0.3);
     min-height: 603px;
     height: 603px;
     @include absolute;

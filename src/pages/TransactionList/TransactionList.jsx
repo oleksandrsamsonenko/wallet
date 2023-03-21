@@ -1,13 +1,13 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-import css from '../TransactionList/TransactionList.module.scss';
-import svg from '../../assets/svg/edit-02.svg';
-import notfound from '../../assets/background/notfound.png';
 import {
   getAllTransaction,
   deleteTransactions,
 } from 'redux/AddTransaction/addTransaction-operations';
 import { Modal } from 'shared/components/Modal/Modal';
+import svg from '../../assets/svg/edit-02.svg';
+import notfound from '../../assets/background/notfound.png';
+import css from '../TransactionList/TransactionList.module.scss';
 
 const TransactionList = () => {
   const dispatch = useDispatch();
@@ -105,8 +105,6 @@ const TransactionList = () => {
             )}
           </tbody>
         </table>
-
-        {/* {showIt && ( */}
         <Modal
           textProp={'Edit'}
           typeProp={state.type}
@@ -119,7 +117,6 @@ const TransactionList = () => {
           showIt={showIt}
           setShowIt={setShowIt}
         />
-        {/* )} */}
       </div>
     );
   } else {

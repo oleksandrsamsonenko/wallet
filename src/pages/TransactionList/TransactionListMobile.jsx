@@ -1,15 +1,14 @@
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import {
   getAllTransaction,
   deleteTransactions,
 } from 'redux/AddTransaction/addTransaction-operations';
-import css from '../TransactionList/TransactionListMobile.module.scss';
+import { Modal } from 'shared/components/Modal/Modal';
 import svg from '../../assets/svg/edit-02.svg';
 import notfound from '../../assets/background/notfound.png';
-import { Modal } from 'shared/components/Modal/Modal';
-import { useState } from 'react';
-import React from 'react';
+import css from '../TransactionList/TransactionListMobile.module.scss';
 
 const TransactionListMobile = () => {
   const [state, setState] = useState({});
@@ -146,12 +145,6 @@ const TransactionListMobile = () => {
                     </tr>
                   </tbody>
                 </table>
-                {/* <TransitionOnClick
-                  showIt={showIt}
-                  type={'opacity'}
-                  setShowIt={setShowIt}
-                > */}
-                {/* {showIt && ( */}
                 <Modal
                   textProp={'Edit'}
                   typeProp={state.type}
@@ -164,8 +157,6 @@ const TransactionListMobile = () => {
                   showIt={showIt}
                   setShowIt={setShowIt}
                 />
-                {/* )} */}
-                {/* </TransitionOnClick> */}
               </li>
             );
           }

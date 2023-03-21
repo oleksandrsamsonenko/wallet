@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
-import { logout } from 'redux/Auth/auth-operations';
 import { useDispatch } from 'react-redux';
 import { createPortal } from 'react-dom';
+import { logout } from 'redux/Auth/auth-operations';
 import { TransitionOnClick } from '../Transition/Transition';
 import style from './LogOutModal.module.scss';
 

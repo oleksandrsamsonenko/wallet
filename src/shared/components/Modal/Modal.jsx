@@ -1,19 +1,25 @@
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
+import { createPortal } from 'react-dom';
 import { ToggleButton } from '../ToggleButton/ToggleButton';
 import { Calendar } from '../Calendar/Calendar';
 import { Transition } from '../Transition/Transition';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import style from './Modal.module.scss';
 import {
   addTransaction,
   editTransactions,
 } from 'redux/AddTransaction/addTransaction-operations';
-import { useSelector } from 'react-redux';
 import { categories } from 'redux/AddTransaction/addTransaction-selectors';
-import * as Yup from 'yup';
 import { TransitionOnClick } from '../Transition/Transition';
-import { createPortal } from 'react-dom';
+import style from './Modal.module.scss';
+
+const initialIncomeCategory = [
+  {
+    id: 'default',
+    type: `INCOME`,
+  },
+];
 
 export const Modal = ({
   textProp,
@@ -30,7 +36,7 @@ export const Modal = ({
   const [toggle, setToggle] = useState(false);
   const [type, setType] = useState('');
   const [date, setDate] = useState(new Date(dateProp));
-  const [incomeCat, setIncomeCat] = useState([{ id: 'lol', type: `INCOME` }]);
+  const [incomeCat, setIncomeCat] = useState(initialIncomeCategory);
 
   const incomeCategory = useSelector(categories);
   const list = useSelector(categories);
@@ -39,7 +45,6 @@ export const Modal = ({
   const exitBtn = document.querySelector('#exit');
   const addBtn = document.querySelector('#add');
   const dispatch = useDispatch();
-  console.log(incomeCat);
   const currentStatus = type === 'EXPENSE' ? true : false;
 
   useEffect(() => setToggle(currentStatus), [currentStatus]);
@@ -49,6 +54,10 @@ export const Modal = ({
     }
     setType(typeProp);
   }, [incomeCategory, typeProp]);
+
+  //// запрет скролла боди при маунте модального окна,
+  //// добавление слушателя для закрытия по Эскейп,
+  //// дизейбл повторного нажатия кнопки выхода на хэдере
 
   useEffect(() => {
     if (showIt) {
@@ -65,6 +74,8 @@ export const Modal = ({
     }
   }, [showIt, body, exitBtn, addBtn]);
 
+  //// Получение адекватных названий категорий из айди
+
   let incomeId = incomeCat.find(item => item.type === 'INCOME').id;
   const validCategories = list
     .filter(item => item.type === 'EXPENSE')
@@ -79,6 +90,8 @@ export const Modal = ({
         </option>
       );
     });
+
+  //// Схема валидации и вывода ошибок валидации
 
   const validationList =
     type === 'EXPENSE'
@@ -101,6 +114,17 @@ export const Modal = ({
       .required('Choose category'),
   });
 
+  const FormError = ({ name }) => {
+    return (
+      <ErrorMessage
+        name={name}
+        render={message => <p className={style.error}>{message}</p>}
+      />
+    );
+  };
+
+  //// Функции для работы с инпутами и селекторами
+
   const handleType = () => {
     type === 'EXPENSE' ? setType('INCOME') : setType('EXPENSE');
     setToggle(prevState => (prevState ? false : true));
@@ -121,20 +145,10 @@ export const Modal = ({
       ? dispatch(editTransactions({ result, id }))
       : dispatch(addTransaction(result));
     hideModal();
-    console.log(result);
   };
 
   const handleCalendar = date => {
     setDate(date);
-  };
-
-  const FormError = ({ name }) => {
-    return (
-      <ErrorMessage
-        name={name}
-        render={message => <p className={style.error}>{message}</p>}
-      />
-    );
   };
 
   const hideModal = () => {
@@ -150,9 +164,6 @@ export const Modal = ({
     }
   };
 
-  // if (list.length === 0) {
-  //   return;
-  // } else
   return createPortal(
     <TransitionOnClick showIt={showIt} type={'opacity'}>
       <div className={style.backdrop} onClick={handleClose}>
