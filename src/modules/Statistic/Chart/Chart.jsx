@@ -113,10 +113,7 @@ const Chart = ({ transactions }) => {
   );
 
   const filteredExpenses = transactions.filter(hist => hist.type === 'EXPENSE');
-  console.log('👀 ~ filteredExpenses--->', filteredExpenses);
   const filteredIncome = transactions.filter(hist => hist.type === 'INCOME');
-  console.log('👀 ~ filteredIncome--->', filteredIncome);
-  console.log('👀 ~ transactions--->', transactions);
 
   if (filteredExpenses.length !== 0 && filteredIncome.length !== 0) {
     const isIncome = () => {
@@ -171,7 +168,6 @@ const Chart = ({ transactions }) => {
     );
   }
   if (filteredExpenses.length === 0 && filteredIncome.length !== 0) {
-    console.log('yes');
     return (
       <div style={{ width: container, height: container }}>
         <img src={noexpense} alt="transaction not found" />
