@@ -65,9 +65,9 @@ label {
 }
 
 .header {
-  @include main-font(400, 24px, 36px);
+  @include second-font(400, 24px, 36px);
   @include media-min(tablet) {
-    @include main-font(400, 30px, 45px);
+    @include second-font(400, 30px, 45px);
   }
 }
 .direction {

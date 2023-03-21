@@ -100,7 +100,7 @@ const SignUp = () => {
                 <Field
                   id="email"
                   name="email"
-                  type="email"
+                  type="text"
                   placeholder="E-mail"
                   className={css.input}
                 ></Field>

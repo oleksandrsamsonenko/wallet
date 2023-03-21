@@ -35,7 +35,9 @@ export const Notifications = () => {
       notifyInfo(`Transaction successfully edited!`);
     }
     if (transactionStatus === `error`) {
-      notifyError(`Oops,something went wrong!`);
+      notifyError(
+        `Oops,something went wrong! Page reloading may solve the problem`
+      );
     }
   }, [transactionStatus]);
 
