@@ -12,9 +12,10 @@ import {
 import { useSelector } from 'react-redux';
 import { categories } from 'redux/AddTransaction/addTransaction-selectors';
 import * as Yup from 'yup';
+import { TransitionOnClick } from '../Transition/Transition';
+import { createPortal } from 'react-dom';
 
 export const Modal = ({
-  hide,
   textProp,
   typeProp,
   amountProp = '',
@@ -23,21 +24,53 @@ export const Modal = ({
   categoryProp = 'disabled',
   preventEdit,
   id,
+  showIt,
+  setShowIt,
 }) => {
-  const [showIt, setShowIt] = useState(false);
+  const [toggle, setToggle] = useState(false);
   const [type, setType] = useState(typeProp);
   const [date, setDate] = useState(new Date(dateProp));
   const incomeCategory = useSelector(categories);
   const list = useSelector(categories);
+  const modalRoot = document.querySelector('#modal-root');
+  const body = document.querySelector('body');
+  const exitBtn = document.querySelector('#exit');
+  const addBtn = document.querySelector('#add');
+  const dispatch = useDispatch();
 
   const currentStatus = type === 'EXPENSE' ? true : false;
 
-  useEffect(() => setShowIt(currentStatus), [currentStatus]);
+  useEffect(() => setToggle(currentStatus), [currentStatus]);
+
+  useEffect(() => {
+    if (showIt) {
+      document.addEventListener(`keydown`, handleClose);
+    }
+    return () => document.removeEventListener(`keydown`, handleClose);
+  });
+
+  useEffect(() => {
+    if (showIt) {
+      body.classList.add('modal-open');
+      exitBtn.setAttribute('disabled', true);
+      addBtn.classList.add('hidden-button');
+    }
+  }, [showIt, body, exitBtn, addBtn]);
 
   const incomeId = incomeCategory.find(item => item.type === 'INCOME').id;
   const validCategories = list
     .filter(item => item.type === 'EXPENSE')
     .map(item => item.id);
+
+  const categoriesList = list
+    .filter(item => item.type === 'EXPENSE')
+    .map(item => {
+      return (
+        <option value={item.id} key={item.id}>
+          {item.name}
+        </option>
+      );
+    });
 
   const validationList =
     type === 'EXPENSE'
@@ -60,46 +93,9 @@ export const Modal = ({
       .required('Choose category'),
   });
 
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    document.addEventListener(`keydown`, handleClose);
-    return () => document.removeEventListener(`keydown`, handleClose);
-  });
-
-  useEffect(() => {
-    const body = document.querySelector('body');
-    body.classList.add('modal-open');
-    return () => {
-      body.classList.remove('modal-open');
-    };
-  }, []);
-
-  useEffect(() => {
-    const exitBtn = document.querySelector('#exit');
-    exitBtn.disabled = true;
-    return () => {
-      exitBtn.disabled = false;
-    };
-  }, []);
-
-  useEffect(() => {
-    const addBtn = document.querySelector('#add');
-    addBtn.classList.add('hidden-button');
-    return () => {
-      addBtn.classList.remove('hidden-button');
-    };
-  }, []);
-
-  const handleClose = event => {
-    if (event.code === 'Escape' || event.target === event.currentTarget) {
-      hide();
-    }
-  };
-
   const handleType = () => {
     type === 'EXPENSE' ? setType('INCOME') : setType('EXPENSE');
-    setShowIt(prevState => (prevState ? false : true));
+    setToggle(prevState => (prevState ? false : true));
   };
 
   const handleSubmit = ({ amount, comment, categoryId }) => {
@@ -116,22 +112,12 @@ export const Modal = ({
     textProp === 'Edit'
       ? dispatch(editTransactions({ result, id }))
       : dispatch(addTransaction(result));
-    hide();
+    hideModal();
   };
 
   const handleCalendar = date => {
     setDate(date);
   };
-
-  const categoriesList = list
-    .filter(item => item.type === 'EXPENSE')
-    .map(item => {
-      return (
-        <option value={item.id} key={item.id}>
-          {item.name}
-        </option>
-      );
-    });
 
   const FormError = ({ name }) => {
     return (
@@ -142,80 +128,107 @@ export const Modal = ({
     );
   };
 
-  return (
-    <div className={style.backdrop} onClick={handleClose}>
-      <Formik
-        validationSchema={validationSchema}
-        initialValues={initialValues}
-        onSubmit={handleSubmit}
-        validateOnChange={false}
-      >
-        <Form className={style.modal}>
-          <div className={style.div}>
-            <button
-              className={style.close}
-              type="button"
-              onClick={hide}
-            ></button>
-            <h2 className={style.header}>{textProp} transaction</h2>
-            <ToggleButton
-              status={currentStatus}
-              name="type"
-              onChange={handleType}
-              disabled={preventEdit}
-            />
-            <div style={{ height: '73px' }}>
-              <Transition showIt={showIt} type="opacity" setShowIt={setShowIt}>
+  const hideModal = () => {
+    setShowIt(false);
+    body.classList.remove('modal-open');
+    exitBtn.removeAttribute('disabled');
+    addBtn.classList.remove('hidden-button');
+  };
+
+  const handleClose = event => {
+    if (event.code === 'Escape' || event.target === event.currentTarget) {
+      hideModal();
+    }
+  };
+
+  // if (list.length === 0) {
+  //   return;
+  // } else
+  return createPortal(
+    <TransitionOnClick showIt={showIt} type={'opacity'}>
+      <div className={style.backdrop} onClick={handleClose}>
+        <Formik
+          validationSchema={validationSchema}
+          initialValues={initialValues}
+          onSubmit={handleSubmit}
+          validateOnChange={false}
+        >
+          <Form className={style.modal}>
+            <div className={style.div}>
+              <button
+                className={style.close}
+                type="button"
+                onClick={hideModal}
+              ></button>
+              <h2 className={style.header}>{textProp} transaction</h2>
+              <ToggleButton
+                status={currentStatus}
+                name="type"
+                onChange={handleType}
+                disabled={preventEdit}
+              />
+              <div style={{ height: '73px' }}>
+                <Transition
+                  showIt={toggle}
+                  type="opacity"
+                  setShowIt={setToggle}
+                >
+                  <div className={style.wrapper}>
+                    <Field
+                      as="select"
+                      className={style.selector}
+                      disabled={preventEdit}
+                      name="categoryId"
+                    >
+                      <option name="disabled" value="disabled">
+                        Select category
+                      </option>
+                      {categoriesList}
+                    </Field>
+                    <FormError name="categoryId" className={style.error} />
+                  </div>
+                </Transition>
+              </div>
+              <div className={style.direction}>
                 <div className={style.wrapper}>
                   <Field
-                    as="select"
-                    className={style.selector}
-                    disabled={preventEdit}
-                    name="categoryId"
-                  >
-                    <option name="disabled" value="disabled">
-                      Select category
-                    </option>
-                    {categoriesList}
-                  </Field>
-                  <FormError name="categoryId" className={style.error} />
+                    className={style.amount}
+                    type="text"
+                    name="amount"
+                    placeholder="0.00"
+                  ></Field>
+                  <FormError name="amount" />
                 </div>
-              </Transition>
-            </div>
-            <div className={style.direction}>
-              <div className={style.wrapper}>
-                <Field
-                  className={style.amount}
-                  type="text"
-                  name="amount"
-                  placeholder="0.00"
-                ></Field>
-                <FormError name="amount" />
+                <Calendar
+                  preventEdit={preventEdit}
+                  date={date}
+                  onSubmit={handleCalendar}
+                />
               </div>
-              <Calendar
-                preventEdit={preventEdit}
-                date={date}
-                onSubmit={handleCalendar}
-              />
+              <Field
+                as="textarea"
+                className={style.comment}
+                type="text"
+                placeholder="comment"
+                name="comment"
+              ></Field>
+
+              <button className={style.add} type="submit">
+                {textProp.toUpperCase()}
+              </button>
+
+              <button
+                className={style.cancel}
+                type="button"
+                onClick={hideModal}
+              >
+                CANCEL
+              </button>
             </div>
-            <Field
-              as="textarea"
-              className={style.comment}
-              type="text"
-              placeholder="comment"
-              name="comment"
-            ></Field>
-
-            <button className={style.add} type="submit">
-              {textProp.toUpperCase()}
-            </button>
-
-            <button className={style.cancel} type="button" onClick={hide}>
-              CANCEL
-            </button>
-          </div>
-        </Form>
-      </Formik>
-    </div>
+          </Form>
+        </Formik>
+      </div>
+    </TransitionOnClick>,
+    modalRoot
   );
 };

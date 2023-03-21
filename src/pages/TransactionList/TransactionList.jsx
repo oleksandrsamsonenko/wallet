@@ -8,7 +8,6 @@ import {
   deleteTransactions,
 } from 'redux/AddTransaction/addTransaction-operations';
 import { Modal } from 'shared/components/Modal/Modal';
-import { TransitionOnClick } from 'shared/components/Transition/Transition';
 
 const TransactionList = () => {
   const dispatch = useDispatch();
@@ -40,10 +39,6 @@ const TransactionList = () => {
       id,
     });
     setShowIt(true);
-  };
-
-  const hideModal = () => {
-    setShowIt(false);
   };
 
   if (transactions.length !== 0) {
@@ -110,13 +105,9 @@ const TransactionList = () => {
             )}
           </tbody>
         </table>
-        <TransitionOnClick
-          showIt={showIt}
-          type={'opacity'}
-          setShowIt={setShowIt}
-        >
+
+        {showIt && (
           <Modal
-            hide={hideModal}
             textProp={'Edit'}
             typeProp={state.type}
             amountProp={Math.abs(state.amount)}
@@ -125,8 +116,10 @@ const TransactionList = () => {
             categoryProp={state.categoryId}
             preventEdit={true}
             id={state.id}
+            showIt={showIt}
+            setShowIt={setShowIt}
           />
-        </TransitionOnClick>
+        )}
       </div>
     );
   } else {

@@ -1,74 +1,79 @@
 import { useEffect } from 'react';
 import { logout } from 'redux/Auth/auth-operations';
 import { useDispatch } from 'react-redux';
+import { createPortal } from 'react-dom';
+import { TransitionOnClick } from '../Transition/Transition';
 import style from './LogOutModal.module.scss';
 
-export const LogOutModal = ({ hideModal }) => {
+export const LogOutModal = ({ showIt, setShowIt }) => {
   const dispatch = useDispatch();
-
-  // useMemo(() => {
-  //   if (!isLogin) {
-  //     console.log(`out`);
-  //     dispatch(clearHistory(null));
-  //   }
-  // }, [isLogin, dispatch]);
+  // const firstRender = useRef(true);
+  const body = document.querySelector('body');
+  const exitBtn = document.querySelector('#exit');
+  const addBtn = document.querySelector('#add');
+  const modalRoot = document.querySelector('#modal-root');
 
   useEffect(() => {
-    document.addEventListener(`keydown`, handleClose);
+    if (showIt) {
+      document.addEventListener(`keydown`, handleClose);
+    }
     return () => document.removeEventListener(`keydown`, handleClose);
   });
 
   useEffect(() => {
-    const exitBtn = document.querySelector('#exit');
-    exitBtn.disabled = true;
-    return () => {
-      exitBtn.disabled = false;
-    };
-  }, []);
+    // if (firstRender.current) {
+    //   firstRender.current = false;
+    //   return;
+    // }
+    if (showIt) {
+      body.classList.add('modal-open');
+      exitBtn.setAttribute('disabled', true);
+      addBtn.classList.add('hidden-button');
+    }
+    return () => {};
+  }, [showIt, body, exitBtn, addBtn]);
 
-  useEffect(() => {
-    const body = document.querySelector('body');
-    body.classList.add('modal-open');
-    return () => {
-      body.classList.remove('modal-open');
-    };
-  }, []);
+  const hideLogOutModal = () => {
+    setShowIt(false);
+    body.classList.remove('modal-open');
+    exitBtn.removeAttribute('disabled');
+    addBtn.classList.remove('hidden-button');
+  };
 
-  useEffect(() => {
-    const addBtn = document.querySelector('#add');
-    addBtn.classList.add('hidden-button');
-    return () => {
-      addBtn.classList.remove('hidden-button');
-    };
-  }, []);
+  const handleClose = event => {
+    if (event.code === 'Escape' || event.target === event.currentTarget) {
+      hideLogOutModal();
+    }
+  };
 
   const LogOut = () => {
     dispatch(logout());
   };
 
-  const handleClose = event => {
-    if (event.code === 'Escape' || event.target === event.currentTarget) {
-      hideModal();
-    }
-  };
+  return createPortal(
+    <TransitionOnClick showIt={showIt} type={'opacity'} setShowIt={setShowIt}>
+      <div className={style.backdrop} onClick={handleClose}>
+        <div className={style.modal}>
+          <button
+            className={style.close}
+            type="button"
+            onClick={hideLogOutModal}
+          ></button>
+          <h2 className={style.header}>Log out from Wallet?</h2>
+          <button className={style.logout} type="button" onClick={LogOut}>
+            LOG OUT
+          </button>
 
-  return (
-    <div className={style.backdrop} onClick={handleClose}>
-      <div className={style.modal}>
-        <button
-          className={style.close}
-          type="button"
-          onClick={handleClose}
-        ></button>
-        <h2 className={style.header}>Log out from Wallet?</h2>
-        <button className={style.logout} type="button" onClick={LogOut}>
-          LOG OUT
-        </button>
-
-        <button className={style.cancel} type="button" onClick={handleClose}>
-          CANCEL
-        </button>
+          <button
+            className={style.cancel}
+            type="button"
+            onClick={hideLogOutModal}
+          >
+            CANCEL
+          </button>
+        </div>
       </div>
-    </div>
+    </TransitionOnClick>,
+    modalRoot
   );
 };

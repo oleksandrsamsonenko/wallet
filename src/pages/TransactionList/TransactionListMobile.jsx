@@ -8,7 +8,6 @@ import css from '../TransactionList/TransactionListMobile.module.scss';
 import svg from '../../assets/svg/edit-02.svg';
 import notfound from '../../assets/background/notfound.png';
 import { Modal } from 'shared/components/Modal/Modal';
-import { TransitionOnClick } from 'shared/components/Transition/Transition';
 import { useState } from 'react';
 import React from 'react';
 
@@ -41,10 +40,6 @@ const TransactionListMobile = () => {
       id,
     });
     setShowIt(true);
-  };
-
-  const hideModal = () => {
-    setShowIt(false);
   };
 
   if (transactions.length !== 0) {
@@ -151,13 +146,13 @@ const TransactionListMobile = () => {
                     </tr>
                   </tbody>
                 </table>
-                <TransitionOnClick
+                {/* <TransitionOnClick
                   showIt={showIt}
                   type={'opacity'}
                   setShowIt={setShowIt}
-                >
+                > */}
+                {showIt && (
                   <Modal
-                    hide={hideModal}
                     textProp={'Edit'}
                     typeProp={state.type}
                     amountProp={Math.abs(state.amount)}
@@ -166,8 +161,11 @@ const TransactionListMobile = () => {
                     categoryProp={state.categoryId}
                     preventEdit={true}
                     id={state.id}
+                    showIt={showIt}
+                    setShowIt={setShowIt}
                   />
-                </TransitionOnClick>
+                )}
+                {/* </TransitionOnClick> */}
               </li>
             );
           }

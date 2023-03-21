@@ -15,7 +15,12 @@ label {
   background-color: rgba(128, 128, 128, 0.5);
   display: flex;
   overflow: scroll;
+
+  &::-webkit-scrollbar {
+    width: 0;
+  }
   @include media-min(tablet) {
+    position: fixed;
     top: 0;
   }
 }

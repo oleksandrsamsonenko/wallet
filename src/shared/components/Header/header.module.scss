@@ -4,11 +4,10 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  position: fixed;
   top: 0;
   width: 100%;
   min-height: 60px;
-  z-index: 500;
+  z-index: 10;
   background-color: white;
 
   padding-left: 20px;
@@ -18,7 +17,6 @@
     min-height: 80px;
     padding-left: 32px;
     padding-right: 32px;
-    z-index: 0;
   }
 }
 .logo {
