@@ -1,19 +1,19 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-import css from '../TransactionList/TransactionList.module.scss';
-import svg from '../../assets/svg/edit-02.svg';
-import notfound from '../../assets/background/notfound.png';
 import {
   getAllTransaction,
   deleteTransactions,
 } from 'redux/AddTransaction/addTransaction-operations';
 import { Modal } from 'shared/components/Modal/Modal';
-import { TransitionOnClick } from 'shared/components/Transition/Transition';
+import svg from '../../assets/svg/edit-02.svg';
+import notfound from '../../assets/background/notfound.png';
+import css from '../TransactionList/TransactionList.module.scss';
+
+const initialState = { transactionDate: new Date() };
 
 const TransactionList = () => {
   const dispatch = useDispatch();
-
-  const [state, setState] = useState({});
+  const [state, setState] = useState(initialState);
   const [showIt, setShowIt] = useState(false);
 
   useEffect(() => {
@@ -21,7 +21,7 @@ const TransactionList = () => {
   }, [dispatch]);
   const categories = useSelector(state => state.categories.categories);
   const transactions = useSelector(state => state.categories.history);
-
+  // console.log(state.type);
   const showModal = (
     categoryId,
     amount,
@@ -40,10 +40,6 @@ const TransactionList = () => {
       id,
     });
     setShowIt(true);
-  };
-
-  const hideModal = () => {
-    setShowIt(false);
   };
 
   if (transactions.length !== 0) {
@@ -110,23 +106,18 @@ const TransactionList = () => {
             )}
           </tbody>
         </table>
-        <TransitionOnClick
+        <Modal
+          textProp={'Edit'}
+          typeProp={state.type}
+          amountProp={Math.abs(state.amount)}
+          dateProp={state.transactionDate}
+          commentProp={state.comment}
+          categoryProp={state.categoryId}
+          preventEdit={true}
+          id={state.id}
           showIt={showIt}
-          type={'opacity'}
           setShowIt={setShowIt}
-        >
-          <Modal
-            hide={hideModal}
-            textProp={'Edit'}
-            typeProp={state.type}
-            amountProp={Math.abs(state.amount)}
-            dateProp={state.transactionDate}
-            commentProp={state.comment}
-            categoryProp={state.categoryId}
-            preventEdit={true}
-            id={state.id}
-          />
-        </TransitionOnClick>
+        />
       </div>
     );
   } else {

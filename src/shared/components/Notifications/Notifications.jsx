@@ -1,7 +1,7 @@
 import { ToastContainer, toast } from 'react-toastify';
 import { useSelector } from 'react-redux';
 import { useMemo } from 'react';
-import { Slide } from 'react-toastify';
+import { Zoom } from 'react-toastify';
 
 export const notifySuccess = message => {
   toast.success(message);
@@ -35,7 +35,9 @@ export const Notifications = () => {
       notifyInfo(`Transaction successfully edited!`);
     }
     if (transactionStatus === `error`) {
-      notifyError(`Oops,something went wrong!`);
+      notifyError(
+        `Oops,something went wrong! Page reloading may solve the problem`
+      );
     }
   }, [transactionStatus]);
 
@@ -51,7 +53,7 @@ export const Notifications = () => {
       draggable
       pauseOnHover
       theme="colored"
-      transition={Slide}
+      transition={Zoom}
     />
   );
 };

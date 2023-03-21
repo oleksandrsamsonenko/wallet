@@ -23,6 +23,7 @@
   }
 }
 
-.btn:hover {
+.btn:hover,
+.btn:focus {
   transform: scale(1.15);
 }

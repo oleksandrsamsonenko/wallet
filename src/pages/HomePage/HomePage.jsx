@@ -1,14 +1,15 @@
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { Outlet } from 'react-router';
-import AppBar from 'modules/AppBar/AppBar';
-import { TempPage } from 'shared/components/TempPage/TempPage';
-import Header from 'shared/components/Header/Header';
-import css from 'pages/HomePage/HomePage.module.scss';
 import {
   getTransactionCategories,
   getAllTransaction,
 } from 'redux/AddTransaction/addTransaction-operations';
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { TempPage } from 'shared/components/TempPage/TempPage';
+import { Notifications } from 'shared/components/Notifications/Notifications';
+import AppBar from 'modules/AppBar/AppBar';
+import Header from 'shared/components/Header/Header';
+import css from 'pages/HomePage/HomePage.module.scss';
 
 function HomePage() {
   const dispatch = useDispatch();
@@ -28,6 +29,7 @@ function HomePage() {
           <TempPage />
         </div>
       </div>
+      <Notifications />
     </>
   );
 }

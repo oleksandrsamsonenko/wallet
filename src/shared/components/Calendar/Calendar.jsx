@@ -9,7 +9,7 @@ export const Calendar = ({ date, onSubmit, preventEdit }) => {
       <ReactDatePicker
         disabled={preventEdit}
         className={style.calendar}
-        selected={date}
+        selected={new Date(date)}
         dateFormat="dd/MM/yyyy"
         maxDate={currentDate}
         onChange={chosenDate => {

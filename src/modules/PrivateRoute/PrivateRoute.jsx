@@ -4,7 +4,8 @@ import { useSelector } from 'react-redux';
 const PrivateRoute = () => {
   const { token, isLogin } = useSelector(getAuth);
   if (!isLogin && token) {
-    return <p>...Loading</p>;
+    return;
+    // <p>...Loading</p>;
   }
   if (!isLogin && !token) {
     return <Navigate to="/" />;

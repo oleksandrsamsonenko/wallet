@@ -1,19 +1,19 @@
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import {
   getAllTransaction,
   deleteTransactions,
 } from 'redux/AddTransaction/addTransaction-operations';
-import css from '../TransactionList/TransactionListMobile.module.scss';
+import { Modal } from 'shared/components/Modal/Modal';
 import svg from '../../assets/svg/edit-02.svg';
 import notfound from '../../assets/background/notfound.png';
-import { Modal } from 'shared/components/Modal/Modal';
-import { TransitionOnClick } from 'shared/components/Transition/Transition';
-import { useState } from 'react';
-import React from 'react';
+import css from '../TransactionList/TransactionListMobile.module.scss';
+
+const initialState = { transactionDate: new Date() };
 
 const TransactionListMobile = () => {
-  const [state, setState] = useState({});
+  const [state, setState] = useState(initialState);
   const [showIt, setShowIt] = useState(false);
   const dispatch = useDispatch();
 
@@ -41,10 +41,6 @@ const TransactionListMobile = () => {
       id,
     });
     setShowIt(true);
-  };
-
-  const hideModal = () => {
-    setShowIt(false);
   };
 
   if (transactions.length !== 0) {
@@ -151,23 +147,18 @@ const TransactionListMobile = () => {
                     </tr>
                   </tbody>
                 </table>
-                <TransitionOnClick
+                <Modal
+                  textProp={'Edit'}
+                  typeProp={state.type}
+                  amountProp={Math.abs(state.amount)}
+                  dateProp={state.transactionDate}
+                  commentProp={state.comment}
+                  categoryProp={state.categoryId}
+                  preventEdit={true}
+                  id={state.id}
                   showIt={showIt}
-                  type={'opacity'}
                   setShowIt={setShowIt}
-                >
-                  <Modal
-                    hide={hideModal}
-                    textProp={'Edit'}
-                    typeProp={state.type}
-                    amountProp={Math.abs(state.amount)}
-                    dateProp={state.transactionDate}
-                    commentProp={state.comment}
-                    categoryProp={state.categoryId}
-                    preventEdit={true}
-                    id={state.id}
-                  />
-                </TransitionOnClick>
+                />
               </li>
             );
           }

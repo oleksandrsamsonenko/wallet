@@ -2,14 +2,14 @@
 
 .wrapper {
   flex-grow: 2;
-
-  background-color: rgba(241, 242, 247, 1);
-
-  padding-bottom: 20px;
   padding-top: 60px;
+  background-color: rgba(241, 242, 247, 1);
+  // padding-bottom: 20px;
   @include media-min(tablet) {
+    padding-top: 0;
+    padding-bottom: 0;
+
     background: rgba(255, 255, 255, 0.4);
     backdrop-filter: blur(25px);
-    padding-top: 80px;
   }
 }
