@@ -11,17 +11,17 @@ const size = {
   mobile: { width: 280 },
 };
 
-const getSize = (desktop, tablet) => {
-  if (desktop) {
+const getSize = (isDesktop, isTablet) => {
+  if (isDesktop) {
     return size.desctop;
   }
-  if (tablet) {
+  if (isTablet) {
     return size.tablet;
   }
   return size.mobile;
 };
 
-const DateForm = ({ onGetMonth, onGetYear, onResetMonth }) => {
+const DateForm = ({ onGetMonth, onGetYear }) => {
   const handleChangeMonth = data => {
     if (data) {
       onGetMonth(data.value);
@@ -87,6 +87,8 @@ const DateForm = ({ onGetMonth, onGetYear, onResetMonth }) => {
         classNamePrefix="react-select"
         onChange={handleChangeMonth}
         isClearable={true}
+        //выключает открытие клавиатуры на мобильном
+        isSearchable={false}
         // defaultValue={month[0]}
 
         options={month}
@@ -158,6 +160,8 @@ const DateForm = ({ onGetMonth, onGetYear, onResetMonth }) => {
       <Select
         classNamePrefix="react-select"
         onChange={handleChangeYear}
+        //выключает открытие клавиатуры на мобильном
+        isSearchable={false}
         // defaultValue={years[0]}
         options={years}
         isClearable={true}
