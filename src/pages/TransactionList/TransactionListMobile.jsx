@@ -10,8 +10,10 @@ import svg from '../../assets/svg/edit-02.svg';
 import notfound from '../../assets/background/notfound.png';
 import css from '../TransactionList/TransactionListMobile.module.scss';
 
+const initialState = { transactionDate: new Date() };
+
 const TransactionListMobile = () => {
-  const [state, setState] = useState({});
+  const [state, setState] = useState(initialState);
   const [showIt, setShowIt] = useState(false);
   const dispatch = useDispatch();
 

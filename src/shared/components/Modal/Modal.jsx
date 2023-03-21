@@ -25,7 +25,7 @@ export const Modal = ({
   textProp,
   typeProp,
   amountProp = '',
-  dateProp = new Date(),
+  dateProp,
   commentProp = '',
   categoryProp = 'disabled',
   preventEdit,
@@ -35,7 +35,7 @@ export const Modal = ({
 }) => {
   const [toggle, setToggle] = useState(false);
   const [type, setType] = useState('');
-  const [date, setDate] = useState(new Date(dateProp));
+  const [date, setDate] = useState('');
   const [incomeCat, setIncomeCat] = useState(initialIncomeCategory);
 
   const incomeCategory = useSelector(categories);
@@ -48,6 +48,11 @@ export const Modal = ({
   const currentStatus = type === 'EXPENSE' ? true : false;
 
   useEffect(() => setToggle(currentStatus), [currentStatus]);
+
+  useEffect(() => {
+    setDate(dateProp);
+  }, [dateProp]);
+
   useEffect(() => {
     if (incomeCategory.length !== 0) {
       setIncomeCat(incomeCategory);
@@ -135,7 +140,7 @@ export const Modal = ({
       categoryId = incomeId;
     }
     const result = {
-      transactionDate: date.toISOString(),
+      transactionDate: new Date(date).toISOString(),
       type,
       categoryId: categoryId,
       comment: comment,

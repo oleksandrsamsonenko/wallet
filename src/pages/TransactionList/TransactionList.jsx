@@ -9,10 +9,12 @@ import svg from '../../assets/svg/edit-02.svg';
 import notfound from '../../assets/background/notfound.png';
 import css from '../TransactionList/TransactionList.module.scss';
 
+const initialState = { transactionDate: new Date() };
+
 const TransactionList = () => {
   const dispatch = useDispatch();
 
-  const [state, setState] = useState({});
+  const [state, setState] = useState(initialState);
   const [showIt, setShowIt] = useState(false);
 
   useEffect(() => {
