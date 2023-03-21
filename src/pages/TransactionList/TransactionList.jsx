@@ -13,7 +13,6 @@ const initialState = { transactionDate: new Date() };
 
 const TransactionList = () => {
   const dispatch = useDispatch();
-
   const [state, setState] = useState(initialState);
   const [showIt, setShowIt] = useState(false);
 
