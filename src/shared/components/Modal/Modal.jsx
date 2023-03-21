@@ -19,7 +19,7 @@ export const Modal = ({
   textProp,
   typeProp,
   amountProp = '',
-  dateProp,
+  dateProp = new Date(),
   commentProp = '',
   categoryProp = 'disabled',
   preventEdit,
@@ -28,8 +28,10 @@ export const Modal = ({
   setShowIt,
 }) => {
   const [toggle, setToggle] = useState(false);
-  const [type, setType] = useState(typeProp);
+  const [type, setType] = useState('');
   const [date, setDate] = useState(new Date(dateProp));
+  const [incomeCat, setIncomeCat] = useState([{ id: 'lol', type: `INCOME` }]);
+
   const incomeCategory = useSelector(categories);
   const list = useSelector(categories);
   const modalRoot = document.querySelector('#modal-root');
@@ -37,10 +39,16 @@ export const Modal = ({
   const exitBtn = document.querySelector('#exit');
   const addBtn = document.querySelector('#add');
   const dispatch = useDispatch();
-
+  console.log(incomeCat);
   const currentStatus = type === 'EXPENSE' ? true : false;
 
   useEffect(() => setToggle(currentStatus), [currentStatus]);
+  useEffect(() => {
+    if (incomeCategory.length !== 0) {
+      setIncomeCat(incomeCategory);
+    }
+    setType(typeProp);
+  }, [incomeCategory, typeProp]);
 
   useEffect(() => {
     if (showIt) {
@@ -57,7 +65,7 @@ export const Modal = ({
     }
   }, [showIt, body, exitBtn, addBtn]);
 
-  const incomeId = incomeCategory.find(item => item.type === 'INCOME').id;
+  let incomeId = incomeCat.find(item => item.type === 'INCOME').id;
   const validCategories = list
     .filter(item => item.type === 'EXPENSE')
     .map(item => item.id);
@@ -113,6 +121,7 @@ export const Modal = ({
       ? dispatch(editTransactions({ result, id }))
       : dispatch(addTransaction(result));
     hideModal();
+    console.log(result);
   };
 
   const handleCalendar = date => {

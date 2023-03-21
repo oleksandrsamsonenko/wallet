@@ -25,17 +25,17 @@ export const TempPage = () => {
         id="add"
         style={{ display: `${isButtonHidden}` }}
       ></button>
-      {showIt && (
-        <Modal
-          textProp={'Add'}
-          typeProp={`EXPENSE`}
-          dateProp={new Date()}
-          preventEdit={false}
-          showIt={showIt}
-          type={'opacity'}
-          setShowIt={setShowIt}
-        />
-      )}
+      {/* {showIt && ( */}
+      <Modal
+        textProp={'Add'}
+        typeProp={`EXPENSE`}
+        dateProp={new Date()}
+        preventEdit={false}
+        showIt={showIt}
+        type={'opacity'}
+        setShowIt={setShowIt}
+      />
+      {/* )} */}
       <Notifications />
     </div>
   );

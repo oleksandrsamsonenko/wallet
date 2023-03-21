@@ -106,20 +106,20 @@ const TransactionList = () => {
           </tbody>
         </table>
 
-        {showIt && (
-          <Modal
-            textProp={'Edit'}
-            typeProp={state.type}
-            amountProp={Math.abs(state.amount)}
-            dateProp={state.transactionDate}
-            commentProp={state.comment}
-            categoryProp={state.categoryId}
-            preventEdit={true}
-            id={state.id}
-            showIt={showIt}
-            setShowIt={setShowIt}
-          />
-        )}
+        {/* {showIt && ( */}
+        <Modal
+          textProp={'Edit'}
+          typeProp={state.type}
+          amountProp={Math.abs(state.amount)}
+          dateProp={state.transactionDate}
+          commentProp={state.comment}
+          categoryProp={state.categoryId}
+          preventEdit={true}
+          id={state.id}
+          showIt={showIt}
+          setShowIt={setShowIt}
+        />
+        {/* )} */}
       </div>
     );
   } else {
