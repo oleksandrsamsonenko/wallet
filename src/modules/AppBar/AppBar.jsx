@@ -9,7 +9,7 @@ import styles from './AppBar.module.scss';
 const AppBar = () => {
   const location = useLocation();
   const onCurrency = location.pathname === '/currency';
-
+  const onDiagram = location.pathname === '/diagram';
   const isTabletMin = useMediaQuery({ minWidth: 768 });
   const isTabletMax = useMediaQuery({ maxWidth: 767 });
 
@@ -18,7 +18,8 @@ const AppBar = () => {
       <div className={styles.wrapper}>
         {isTabletMin && <NavBarMenu />}
         {isTabletMax && <NavBarMobile />}
-        {!onCurrency && <Balance />}
+        {!onCurrency && !onDiagram && isTabletMax && <Balance />}
+        {isTabletMin && <Balance />}
       </div>
       {isTabletMin && <Currency />}
     </div>
