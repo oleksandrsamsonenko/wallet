@@ -23,7 +23,7 @@ const initialIncomeCategory = [
 
 export const Modal = ({
   textProp,
-  typeProp,
+  typeProp = 'EXPENSE',
   amountProp = '',
   dateProp,
   commentProp = '',
@@ -37,17 +37,18 @@ export const Modal = ({
   const [type, setType] = useState('');
   const [date, setDate] = useState('');
   const [incomeCat, setIncomeCat] = useState(initialIncomeCategory);
-
   const incomeCategory = useSelector(categories);
   const list = useSelector(categories);
+
   const modalRoot = document.querySelector('#modal-root');
   const body = document.querySelector('body');
   const exitBtn = document.querySelector('#exit');
   const addBtn = document.querySelector('#add');
   const dispatch = useDispatch();
-  const currentStatus = type === 'EXPENSE' ? true : false;
 
-  useEffect(() => setToggle(currentStatus), [currentStatus]);
+  const currentStatus = type === 'EXPENSE' ? true : false;
+  console.log(`modal rendered`);
+  useEffect(() => setToggle(currentStatus), [currentStatus, toggle]);
 
   useEffect(() => {
     setDate(dateProp);
@@ -161,6 +162,9 @@ export const Modal = ({
     body.classList.remove('modal-open');
     exitBtn.removeAttribute('disabled');
     addBtn.classList.remove('hidden-button');
+    if (textProp === 'Add') {
+      setType('EXPENSE');
+    }
   };
 
   const handleClose = event => {

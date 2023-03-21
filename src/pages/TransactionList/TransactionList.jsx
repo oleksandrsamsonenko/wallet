@@ -21,7 +21,7 @@ const TransactionList = () => {
   }, [dispatch]);
   const categories = useSelector(state => state.categories.categories);
   const transactions = useSelector(state => state.categories.history);
-
+  // console.log(state.type);
   const showModal = (
     categoryId,
     amount,

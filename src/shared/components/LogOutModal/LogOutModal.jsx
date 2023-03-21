@@ -4,6 +4,7 @@ import { createPortal } from 'react-dom';
 import { logout } from 'redux/Auth/auth-operations';
 import { TransitionOnClick } from '../Transition/Transition';
 import style from './LogOutModal.module.scss';
+// import { useRef } from 'react';
 
 export const LogOutModal = ({ showIt, setShowIt }) => {
   const dispatch = useDispatch();
@@ -32,6 +33,7 @@ export const LogOutModal = ({ showIt, setShowIt }) => {
     }
     return () => {};
   }, [showIt, body, exitBtn, addBtn]);
+  console.log(`logout modal rendered`);
 
   const hideLogOutModal = () => {
     setShowIt(false);

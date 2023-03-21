@@ -1,7 +1,7 @@
 @import './styles.scss';
 
 .Toastify__toast-theme--colored.Toastify__toast--success {
-  background-color: getColor(success-green);
+  background-color: getColor(success-green) !important;
   @include main-font(400, 18px, 24px);
 }
 
@@ -10,6 +10,6 @@
 }
 
 .Toastify__toast-theme--colored.Toastify__toast--error {
-  background-color: getColor(wrong-pink);
+  background-color: getColor(wrong-pink) !important;
   @include main-font(400, 18px, 24px);
 }
