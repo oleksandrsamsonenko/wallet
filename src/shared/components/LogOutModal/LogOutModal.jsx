@@ -33,7 +33,7 @@ export const LogOutModal = ({ showIt, setShowIt }) => {
     }
     return () => {};
   }, [showIt, body, exitBtn, addBtn]);
-  console.log(`logout modal rendered`);
+  // console.log(`logout modal rendered`);
 
   const hideLogOutModal = () => {
     setShowIt(false);

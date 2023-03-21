@@ -47,7 +47,7 @@ export const Modal = ({
   const dispatch = useDispatch();
 
   const currentStatus = type === 'EXPENSE' ? true : false;
-  console.log(`modal rendered`);
+  // console.log(`modal rendered`);
   useEffect(() => setToggle(currentStatus), [currentStatus, toggle]);
 
   useEffect(() => {
