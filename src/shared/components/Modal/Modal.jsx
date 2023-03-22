@@ -50,7 +50,7 @@ export const Modal = ({
   const currentStatus = type === 'EXPENSE' ? true : false;
   // console.log(`modal rendered`);
   useEffect(() => setToggle(currentStatus), [currentStatus, toggle]);
-  console.log(`DROPDOWN MODAL`, dropDown);
+  // console.log(`DROPDOWN MODAL`, dropDown);
   useEffect(() => {
     setDate(dateProp);
   }, [dateProp]);
@@ -147,7 +147,7 @@ export const Modal = ({
   };
 
   const handleSubmit = ({ amount, comment, categoryId }) => {
-    console.log(categoryId);
+    // console.log(categoryId);
     if (type === `INCOME`) {
       categoryId = incomeId;
     }
@@ -159,15 +159,15 @@ export const Modal = ({
       amount: type === 'EXPENSE' ? +`-${amount}` : +amount,
     };
 
-    console.log(
-      `valid`,
-      validationList.find(item => item === dropDown)
-    );
+    // console.log(
+    //   `valid`,
+    //   validationList.find(item => item === dropDown)
+    // );
 
     textProp === 'Edit'
       ? dispatch(editTransactions({ result, id }))
       : dispatch(addTransaction(result));
-    console.log(result);
+    // console.log(result);
     hideModal();
   };
 
@@ -190,7 +190,7 @@ export const Modal = ({
       hideModal();
     }
   };
-  console.log(categoryProp);
+  // console.log(categoryProp);
   return createPortal(
     <TransitionOnClick showIt={showIt} type={'opacity'}>
       <div className={style.backdrop} onClick={handleClose}>
