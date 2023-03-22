@@ -50,7 +50,7 @@ export const Modal = ({
   const currentStatus = type === 'EXPENSE' ? true : false;
   // console.log(`modal rendered`);
   useEffect(() => setToggle(currentStatus), [currentStatus, toggle]);
-  console.log(`DROPDOWN MODAL`, dropDown);
+  // console.log(`DROPDOWN MODAL`, dropDown);
   useEffect(() => {
     setDate(dateProp);
   }, [dateProp]);
@@ -190,7 +190,7 @@ export const Modal = ({
       hideModal();
     }
   };
-  console.log(categoryProp);
+  // console.log(categoryProp);
   return createPortal(
     <TransitionOnClick showIt={showIt} type={'opacity'}>
       <div className={style.backdrop} onClick={handleClose}>
