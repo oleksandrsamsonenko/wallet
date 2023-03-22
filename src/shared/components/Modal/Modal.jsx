@@ -46,6 +46,7 @@ export const Modal = ({
   const exitBtn = document.querySelector('#exit');
   const addBtn = document.querySelector('#add');
   const dispatch = useDispatch();
+  // eslint-disable-next-line
   const [dropDown, setDropDown] = useState('');
   const currentStatus = type === 'EXPENSE' ? true : false;
   // console.log(`modal rendered`);
