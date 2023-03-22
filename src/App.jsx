@@ -10,7 +10,7 @@ export const App = () => {
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <AuthLayOut>
-          <BrowserRouter basename="goit_react_project">
+          <BrowserRouter basename="wallet">
             <UserRoutes />
           </BrowserRouter>
         </AuthLayOut>
