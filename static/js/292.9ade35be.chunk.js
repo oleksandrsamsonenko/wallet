@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkreact_homework_template=self.webpackChunkreact_homework_template||[]).push([[292],{9292:function(e,t,r){r.r(t),r.d(t,{default:function(){return o}});var a=r(1087),s=r(7689),u="Auth_mobileWrapper__FIP6m",c="Auth_logo__krBPq",n=r(184),o=function(){return(0,n.jsxs)("div",{className:u,children:[(0,n.jsx)(a.rU,{to:"/",className:c}),(0,n.jsx)(s.j3,{})]})}}}]);
+//# sourceMappingURL=292.9ade35be.chunk.js.map
