@@ -25,6 +25,7 @@ export const TempPage = () => {
         style={{ display: `${isButtonHidden}` }}
       ></button>
       <Modal
+        // categoryProp={`what`}
         textProp={'Add'}
         typeProp={`EXPENSE`}
         dateProp={new Date()}

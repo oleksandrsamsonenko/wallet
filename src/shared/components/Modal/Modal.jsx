@@ -13,6 +13,7 @@ import {
 import { categories } from 'redux/AddTransaction/addTransaction-selectors';
 import { TransitionOnClick } from '../Transition/Transition';
 import style from './Modal.module.scss';
+import DropdownMenu from '../DropdownMenu/DropdownMenu';
 
 const initialIncomeCategory = [
   {
@@ -27,7 +28,7 @@ export const Modal = ({
   amountProp = '',
   dateProp,
   commentProp = '',
-  categoryProp = 'disabled',
+  categoryProp,
   preventEdit,
   id,
   showIt,
@@ -45,11 +46,11 @@ export const Modal = ({
   const exitBtn = document.querySelector('#exit');
   const addBtn = document.querySelector('#add');
   const dispatch = useDispatch();
-
+  const [dropDown, setDropDown] = useState('');
   const currentStatus = type === 'EXPENSE' ? true : false;
   // console.log(`modal rendered`);
   useEffect(() => setToggle(currentStatus), [currentStatus, toggle]);
-
+  console.log(`DROPDOWN MODAL`, dropDown);
   useEffect(() => {
     setDate(dateProp);
   }, [dateProp]);
@@ -87,14 +88,20 @@ export const Modal = ({
     .filter(item => item.type === 'EXPENSE')
     .map(item => item.id);
 
-  const categoriesList = list
+  // const categoriesList = list
+  //   .filter(item => item.type === 'EXPENSE')
+  //   .map(item => {
+  //     return (
+  //       <option value={item.id} key={item.id}>
+  //         {item.name}
+  //       </option>
+  //     );
+  //   });
+
+  const dropDownList = list
     .filter(item => item.type === 'EXPENSE')
     .map(item => {
-      return (
-        <option value={item.id} key={item.id}>
-          {item.name}
-        </option>
-      );
+      return { value: item.id, label: item.name };
     });
 
   //// Схема валидации и вывода ошибок валидации
@@ -115,9 +122,12 @@ export const Modal = ({
       .positive('Must be a positive number')
       .required('Amount is required')
       .typeError('Must be a number'),
-    categoryId: Yup.string()
-      .oneOf(validationList, 'Choose category')
-      .required('Choose category'),
+    categoryId:
+      type === 'EXPENSE'
+        ? Yup.string()
+            .oneOf(validationList, 'Choose category')
+            .required('Choose category')
+        : Yup.string(),
   });
 
   const FormError = ({ name }) => {
@@ -137,6 +147,7 @@ export const Modal = ({
   };
 
   const handleSubmit = ({ amount, comment, categoryId }) => {
+    console.log(categoryId);
     if (type === `INCOME`) {
       categoryId = incomeId;
     }
@@ -147,9 +158,16 @@ export const Modal = ({
       comment: comment,
       amount: type === 'EXPENSE' ? +`-${amount}` : +amount,
     };
+
+    console.log(
+      `valid`,
+      validationList.find(item => item === dropDown)
+    );
+
     textProp === 'Edit'
       ? dispatch(editTransactions({ result, id }))
       : dispatch(addTransaction(result));
+    console.log(result);
     hideModal();
   };
 
@@ -172,7 +190,7 @@ export const Modal = ({
       hideModal();
     }
   };
-
+  console.log(categoryProp);
   return createPortal(
     <TransitionOnClick showIt={showIt} type={'opacity'}>
       <div className={style.backdrop} onClick={handleClose}>
@@ -196,14 +214,26 @@ export const Modal = ({
                 onChange={handleType}
                 disabled={preventEdit}
               />
-              <div style={{ height: '73px' }}>
+              <div
+                style={{ height: '73px', width: '100%', paddingTop: '38px' }}
+              >
                 <Transition
                   showIt={toggle}
                   type="opacity"
                   setShowIt={setToggle}
                 >
-                  <div className={style.wrapper}>
+                  <div className={style.dropwrapper}>
                     <Field
+                      className={style.selector}
+                      name="categoryId"
+                      options={dropDownList}
+                      onChange={setDropDown}
+                      inc={categoryProp}
+                      editable={preventEdit}
+                      component={DropdownMenu}
+                      type={type}
+                    ></Field>
+                    {/* <Field
                       as="select"
                       className={style.selector}
                       disabled={preventEdit}
@@ -213,7 +243,8 @@ export const Modal = ({
                         Select category
                       </option>
                       {categoriesList}
-                    </Field>
+                    </Field> */}
+                    {/* {error && <p className={style.error}>Choose category</p>} */}
                     <FormError name="categoryId" className={style.error} />
                   </div>
                 </Transition>
