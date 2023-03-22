@@ -115,7 +115,7 @@ const Chart = ({ transactions }) => {
   const filteredExpenses = transactions.filter(hist => hist.type === 'EXPENSE');
   const filteredIncome = transactions.filter(hist => hist.type === 'INCOME');
 
-  if (filteredExpenses.length !== 0 && filteredIncome.length !== 0) {
+  if (filteredExpenses.length !== 0) {
     const isIncome = () => {
       if (filteredIncome.length === 0) {
         return 0;
@@ -174,11 +174,13 @@ const Chart = ({ transactions }) => {
       </div>
     );
   }
-  return (
-    <div style={{ width: container, height: container }}>
-      <img src={notfound} alt="transaction not found" />
-    </div>
-  );
+  if (filteredExpenses.length === 0 && filteredIncome.length === 0) {
+    return (
+      <div style={{ width: container, height: container }}>
+        <img src={notfound} alt="transaction not found" />
+      </div>
+    );
+  }
 };
 
 export default Chart;
